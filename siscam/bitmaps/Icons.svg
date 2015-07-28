@@ -1,0 +1,1354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="Icons.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash.png"
+   inkscape:export-xdpi="72"
+   inkscape:export-ydpi="72">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective158" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective157" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective160" />
+    <linearGradient
+       id="linearGradient3345">
+      <stop
+         style="stop-color:#1e2d69;stop-opacity:1;"
+         offset="0"
+         id="stop3347" />
+      <stop
+         style="stop-color:#78a7e0;stop-opacity:0.14765101"
+         offset="1"
+         id="stop3349" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective133" />
+    <radialGradient
+       id="radialGradient3330"
+       cx="218.9404"
+       cy="219.7715"
+       r="150.7063"
+       fx="218.9404"
+       fy="219.7715"
+       gradientUnits="userSpaceOnUse"
+       style="stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;">
+      <stop
+         offset="0"
+         style="stop-color:#020dff;stop-opacity:1;"
+         id="stop3332" />
+      <stop
+         offset="0.60132021"
+         style="stop-color:#e3ff0d;stop-opacity:1;"
+         id="stop3334" />
+      <stop
+         offset="1"
+         style="stop-color:#c40000;stop-opacity:1;"
+         id="stop3336" />
+    </radialGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective123" />
+    <radialGradient
+       id="radialGradient4782"
+       cx="218.9404"
+       cy="219.7715"
+       r="150.7063"
+       fx="218.9404"
+       fy="219.7715"
+       gradientUnits="userSpaceOnUse"
+       style="stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;">
+      <stop
+         offset="0"
+         style="stop-color:#83ff73;stop-opacity:1;"
+         id="stop4784" />
+      <stop
+         offset="0.28298619"
+         style="stop-color:#3eb92e;stop-opacity:1;"
+         id="stop4786" />
+      <stop
+         offset="1"
+         style="stop-color:#108b00;stop-opacity:1;"
+         id="stop4788" />
+    </radialGradient>
+    <radialGradient
+       style="stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+       gradientUnits="userSpaceOnUse"
+       fy="219.7715"
+       fx="218.9404"
+       r="150.7063"
+       cy="219.7715"
+       cx="218.9404"
+       id="radialGradient4772">
+      <stop
+         id="stop4774"
+         style="stop-color:#ff7373;stop-opacity:1;"
+         offset="0" />
+      <stop
+         id="stop4776"
+         style="stop-color:#b92e2e;stop-opacity:1;"
+         offset="0.28298619" />
+      <stop
+         id="stop4778"
+         style="stop-color:#8b0000;stop-opacity:1;"
+         offset="1" />
+    </radialGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective108" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3346">
+      <stop
+         style="stop-color:#5599ff;stop-opacity:1;"
+         offset="0"
+         id="stop3348" />
+      <stop
+         style="stop-color:#5599ff;stop-opacity:0;"
+         offset="1"
+         id="stop3350" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3336">
+      <stop
+         style="stop-color:#5599ff;stop-opacity:1;"
+         offset="0"
+         id="stop3338" />
+      <stop
+         style="stop-color:#5599ff;stop-opacity:0;"
+         offset="1"
+         id="stop3340" />
+    </linearGradient>
+    <radialGradient
+       id="radialGradient2495"
+       cx="218.9404"
+       cy="219.7715"
+       r="150.7063"
+       fx="218.9404"
+       fy="219.7715"
+       gradientUnits="userSpaceOnUse"
+       style="stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;">
+      <stop
+         offset="0"
+         style="stop-color:#73ffff;stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+         id="stop2497" />
+      <stop
+         offset="0.28298619"
+         style="stop-color:#2EA6B9;stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+         id="stop2499" />
+      <stop
+         offset="1"
+         style="stop-color:#006b8b;stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+         id="stop2501" />
+    </radialGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective78" />
+    <linearGradient
+       id="linearGradient3588">
+      <stop
+         style="stop-color:#ffff00;stop-opacity:1;"
+         offset="0"
+         id="stop3590" />
+      <stop
+         style="stop-color:#ffff00;stop-opacity:0.25;"
+         offset="1"
+         id="stop3592" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-50 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       id="perspective2450" />
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart">
+      <path
+         transform="scale(0.8) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path3150" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mstart">
+      <path
+         transform="scale(0.4) translate(10,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path3156" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Sstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Sstart">
+      <path
+         transform="scale(0.2) translate(6,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path3162" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mstart">
+      <path
+         transform="scale(0.6) translate(0,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         id="path3174" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Mend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(0.6) rotate(180) translate(0,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path3177" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Send"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send">
+      <path
+         transform="scale(0.3) rotate(180) translate(-2.3,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path3183" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Sstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Sstart">
+      <path
+         transform="scale(0.3) translate(-2.3,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round"
+         id="path3180" />
+    </marker>
+    <radialGradient
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.269126,0,30.08005)"
+       r="22.875"
+       fy="41.15625"
+       fx="24.3125"
+       cy="41.15625"
+       cx="24.3125"
+       id="radialGradient2377"
+       xlink:href="#linearGradient2371"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientTransform="matrix(1.067698,0,0,1.121532,-1.368937,-5.57446)"
+       gradientUnits="userSpaceOnUse"
+       y2="42.46875"
+       x2="28.5625"
+       y1="21.84375"
+       x1="20.125"
+       id="linearGradient2348"
+       xlink:href="#linearGradient2350"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientTransform="matrix(0.985432,0,0,1.148179,0.64107,-2.933883)"
+       gradientUnits="userSpaceOnUse"
+       y2="55.701546"
+       x2="33.074715"
+       y1="-0.99672896"
+       x1="13.783585"
+       id="linearGradient2283"
+       xlink:href="#linearGradient2277"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientTransform="matrix(0.976612,0,0,1.139789,0.564215,-3.271158)"
+       gradientUnits="userSpaceOnUse"
+       y2="-0.38931385"
+       x2="16.879831"
+       y1="71.869133"
+       x1="40.884724"
+       id="linearGradient2269"
+       xlink:href="#linearGradient2263"
+       inkscape:collect="always" />
+    <linearGradient
+       id="linearGradient2263">
+      <stop
+         id="stop2265"
+         offset="0"
+         style="stop-color:#1e2d69;stop-opacity:1;" />
+      <stop
+         id="stop2267"
+         offset="1"
+         style="stop-color:#78a7e0;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2277"
+       inkscape:collect="always">
+      <stop
+         id="stop2279"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+      <stop
+         id="stop2281"
+         offset="1"
+         style="stop-color:#ffffff;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2350">
+      <stop
+         style="stop-color:#858585;stop-opacity:1;"
+         offset="0"
+         id="stop2352" />
+      <stop
+         id="stop2356"
+         offset="0.5"
+         style="stop-color:#cbcbcb;stop-opacity:1;" />
+      <stop
+         style="stop-color:#6b6b6b;stop-opacity:1;"
+         offset="1"
+         id="stop2354" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2371"
+       inkscape:collect="always">
+      <stop
+         id="stop2373"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+      <stop
+         id="stop2375"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2350"
+       id="linearGradient2293"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.067698,0,0,1.121532,357.89121,271.42595)"
+       x1="20.125"
+       y1="21.84375"
+       x2="28.5625"
+       y2="42.46875" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2277"
+       id="linearGradient2296"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.985432,0,0,1.148179,359.90122,274.06653)"
+       x1="13.783585"
+       y1="-0.99672896"
+       x2="33.074715"
+       y2="55.701546" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2263"
+       id="linearGradient2305"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.976612,0,0,1.139789,359.82436,273.72925)"
+       x1="40.884724"
+       y1="71.869133"
+       x2="16.879831"
+       y2="-0.38931385" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2350"
+       id="linearGradient3286"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6190743,0,0,0.6502884,362.90393,281.43082)"
+       x1="20.125"
+       y1="21.84375"
+       x2="28.5625"
+       y2="42.46875" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2277"
+       id="linearGradient3289"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.5713747,0,0,0.6616701,364.06938,282.98832)"
+       x1="13.783585"
+       y1="-0.99672896"
+       x2="33.074715"
+       y2="55.701546" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2263"
+       id="linearGradient3298"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.5662606,0,0,0.6608742,364.02481,282.76633)"
+       x1="40.884724"
+       y1="71.869133"
+       x2="16.879831"
+       y2="-0.38931385" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3588"
+       id="radialGradient3594"
+       cx="411.66782"
+       cy="329.90207"
+       fx="411.66782"
+       fy="329.90207"
+       r="11.676249"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.7681522e-7,1.0705508,-0.9768491,2.4432443e-7,733.51446,-110.84923)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3588"
+       id="radialGradient3686"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.990089,6.8110061e-6,-2.3429128e-6,0.3257362,6.8478548,221.74419)"
+       cx="408.4451"
+       cy="328.30124"
+       fx="408.4451"
+       fy="328.30124"
+       r="11.676249" />
+    <filter
+       inkscape:collect="always"
+       id="filter3928">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.32648026"
+         id="feGaussianBlur3930" />
+    </filter>
+    <radialGradient
+       spreadMethod="pad"
+       gradientTransform="matrix(1.2011264,-3.7810892e-2,3.1453264e-2,0.9991657,-32.818072,5.4871967)"
+       gradientUnits="userSpaceOnUse"
+       r="194.20285"
+       fy="127.64836"
+       fx="143.4512"
+       cy="127.64836"
+       cx="143.4512"
+       id="radialGradient1594"
+       xlink:href="#radialGradient2495" />
+    <radialGradient
+       spreadMethod="pad"
+       gradientTransform="matrix(1.06784,0,0,0.936469,0.342219,0.344712)"
+       gradientUnits="objectBoundingBox"
+       r="0.789127"
+       fy="-7.68867e-05"
+       fx="-8.09344e-05"
+       cy="-7.68867e-05"
+       cx="-8.09344e-05"
+       id="radialGradient92"
+       xlink:href="#aigrd1" />
+    <linearGradient
+       spreadMethod="pad"
+       gradientTransform="matrix(0.996114,0,0,1.0039,0.496124,0.492186)"
+       gradientUnits="objectBoundingBox"
+       y2="0.365762"
+       x2="0.622574"
+       y1="-0.264591"
+       x1="-0.295723"
+       id="linearGradient91"
+       xlink:href="#aigrd1" />
+    <radialGradient
+       style="stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+       gradientUnits="userSpaceOnUse"
+       fy="219.7715"
+       fx="218.9404"
+       r="150.7063"
+       cy="219.7715"
+       cx="218.9404"
+       id="aigrd1">
+      <stop
+         id="stop53"
+         style="stop-color:#73ffff;stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+         offset="0" />
+      <stop
+         id="stop54"
+         style="stop-color:#2EA6B9;stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+         offset="0.2809" />
+      <stop
+         id="stop55"
+         style="stop-color:#006b8b;stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+         offset="1" />
+    </radialGradient>
+    <radialGradient
+       style="stroke:#000000;stroke-opacity:0.986014;stroke-width:0.981612;"
+       gradientUnits="userSpaceOnUse"
+       fy="219.7715"
+       fx="218.9404"
+       r="150.7063"
+       cy="219.7715"
+       cx="218.9404"
+       id="radialGradient93">
+      <stop
+         id="stop94"
+         style="stop-color:#25a6ca;stop-opacity:1;"
+         offset="0.000000" />
+      <stop
+         id="stop95"
+         style="stop-color:#2ea6b9;stop-opacity:0.843137;"
+         offset="1.000000" />
+    </radialGradient>
+    <inkscape:perspective
+       id="perspective2478"
+       inkscape:persp3d-origin="300 : 400 : 1"
+       inkscape:vp_z="700 : 600 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="-50 : 600 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3336"
+       id="linearGradient3344"
+       x1="321.25"
+       y1="323.61218"
+       x2="341.25"
+       y2="343.61218"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3346"
+       id="linearGradient3352"
+       x1="321.25"
+       y1="323.61218"
+       x2="341.25"
+       y2="343.61218"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient4772"
+       id="radialGradient4770"
+       cx="326.25"
+       cy="328.61215"
+       fx="326.25"
+       fy="328.61215"
+       r="10.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.4285699,-2.3193948e-6,3.8656617e-6,-2.3809503,792.31963,1111.0222)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient4782"
+       id="radialGradient4780"
+       cx="326.25"
+       cy="328.61218"
+       fx="326.25"
+       fy="328.61218"
+       r="10.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.4285666,2.7505125e-6,-4.5842114e-6,-2.3809566,792.32132,1111.0226)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient4772"
+       id="radialGradient2506"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.4285699,-2.3193948e-6,3.8656617e-6,-2.3809503,792.31963,1111.0222)"
+       cx="326.25"
+       cy="328.61215"
+       fx="326.25"
+       fy="328.61215"
+       r="10.5" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient3330"
+       id="linearGradient3328"
+       x1="260"
+       y1="297.36218"
+       x2="260"
+       y2="277.36218"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2263"
+       id="linearGradient3335"
+       x1="320"
+       y1="557.36218"
+       x2="320"
+       y2="422.36218"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(5,10)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient3330"
+       id="linearGradient3885"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(5.4625,0,0,8.3352744,-1205.625,-1906.2332)"
+       x1="260"
+       y1="297.36218"
+       x2="260"
+       y2="277.36218" />
+    <filter
+       inkscape:collect="always"
+       id="filter17728"
+       x="-0.090632217"
+       width="1.1812644"
+       y="-0.17408944"
+       height="1.3481789">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="4.1050852"
+         id="feGaussianBlur17730" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3415"
+       x="-0.54869941"
+       width="2.0973988"
+       y="-0.363205"
+       height="1.72641">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="25.720285"
+         id="feGaussianBlur3417" />
+    </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2263"
+       id="linearGradient2562"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-4.9999993,294.99998)"
+       x1="320"
+       y1="557.36218"
+       x2="320"
+       y2="422.36218" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2277"
+       id="radialGradient3386"
+       cx="143.89456"
+       cy="736.56665"
+       fx="143.89456"
+       fy="736.56665"
+       r="82.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-3.7541943e-7,1.090909,-0.7272726,-2.5027957e-7,691.91142,561.70573)" />
+    <filter
+       inkscape:collect="always"
+       id="filter3456">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.9122517"
+         id="feGaussianBlur3458" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2277"
+       id="radialGradient3462"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-3.7541943e-7,1.090909,-0.7272726,-2.5027957e-7,691.91142,561.70573)"
+       cx="143.89456"
+       cy="736.56665"
+       fx="143.89456"
+       fy="736.56665"
+       r="82.5" />
+    <filter
+       inkscape:collect="always"
+       id="filter3544">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.5264274"
+         id="feGaussianBlur3546" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3494"
+       x="-0.4"
+       width="1.8"
+       y="-0.12"
+       height="1.24">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.25"
+         id="feGaussianBlur3496" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3498"
+       x="-0.12"
+       width="1.24"
+       y="-0.39866686"
+       height="1.7973337">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.25"
+         id="feGaussianBlur3500" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="6.5323198"
+     inkscape:cx="469.25149"
+     inkscape:cy="729.12563"
+     inkscape:document-units="pt"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1680"
+     inkscape:window-height="995"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     showgrid="true"
+     objecttolerance="5"
+     gridtolerance="5"
+     guidetolerance="5"
+     inkscape:object-paths="true"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2308"
+       visible="true"
+       enabled="true"
+       units="pt"
+       spacingx="1pt"
+       spacingy="1pt" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:0.4;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3494)"
+       d="M 436.25,328.61218 L 438.75,328.61218 L 436.25,323.61218 L 433.75,328.61218 L 436.25,328.61218 L 436.25,334.86218 L 436.25,341.11218 L 436.25,341.11218 L 436.25,341.11218 L 433.75,341.11218 L 436.25,346.11218 L 438.75,341.11218 L 436.22492,341.13681"
+       id="path3390"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="E:\Gregor\python\vcam\bitmaps\autoscale.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="opacity:0.4;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter3498)"
+       d="M 442.5,334.86218 L 442.5,337.36218 L 447.5,334.86218 L 442.5,332.36218 L 442.5,334.86218 L 436.25,334.86218 L 429.97537,334.8371 L 429.97537,334.8371 L 429.97537,334.8371 L 429.97537,332.3371 L 425,334.86218 L 429.97537,337.3371 L 429.97537,334.8371"
+       id="path3392"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="E:\Gregor\python\vcam\bitmaps\autoscale.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <g
+       id="g2218"
+       inkscape:label="Ebene 1"
+       transform="translate(387.85714,217.85714)">
+      <rect
+         inkscape:export-ydpi="72"
+         inkscape:export-xdpi="72"
+         inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\Yscale.png"
+         y="62.362183"
+         x="35"
+         height="30"
+         width="30"
+         id="rect2178"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         inkscape:export-ydpi="72"
+         inkscape:export-xdpi="72"
+         inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\Xscale.png"
+         id="text3141"
+         y="86.108276"
+         x="100.05078"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:'Bitstream Vera Sans'"
+         xml:space="preserve"><tspan
+           style="font-size:24px;font-weight:bold;text-align:center;text-anchor:middle"
+           y="86.108276"
+           x="100.05078"
+           id="tspan3143"
+           sodipodi:role="line">X</tspan></text>
+      <path
+         inkscape:export-ydpi="72"
+         inkscape:export-xdpi="72"
+         inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\Yscale.png"
+         sodipodi:nodetypes="ccccccccccccc"
+         id="path3145"
+         d="M 60,71.112183 L 62.5,71.112183 L 60,66.112183 L 57.5,71.112183 L 60,71.112183 L 60,77.362183 L 60,83.612183 L 60,83.612183 L 60,83.612183 L 57.5,83.612183 L 60,88.612183 L 62.5,83.612183 L 59.974918,83.636812"
+         style="opacity:0.62595412;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="72"
+         inkscape:export-xdpi="72"
+         inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\Xscale.png"
+         y="62.362183"
+         x="85"
+         height="30"
+         width="30"
+         id="rect10251"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         inkscape:export-ydpi="72"
+         inkscape:export-xdpi="72"
+         inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\Yscale.png"
+         id="text10253"
+         y="85.54969"
+         x="49.832031"
+         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:'Bitstream Vera Sans'"
+         xml:space="preserve"><tspan
+           style="font-size:24px;font-weight:bold;text-align:center;text-anchor:middle"
+           y="85.54969"
+           x="49.832031"
+           id="tspan10255"
+           sodipodi:role="line">Y</tspan></text>
+      <path
+         inkscape:export-ydpi="72"
+         inkscape:export-xdpi="72"
+         inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\Xscale.png"
+         sodipodi:nodetypes="ccccccccccccc"
+         id="path10257"
+         d="M 106.27463,86.137263 L 106.27463,88.637263 L 111.27463,86.137263 L 106.27463,83.637263 L 106.27463,86.137263 L 100.02463,86.137263 L 93.75,86.112183 L 93.75,86.112183 L 93.75,86.112183 L 93.75,83.612183 L 88.774631,86.137263 L 93.75,88.612183 L 93.75,86.112183"
+         style="opacity:0.6259537;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3300"
+       inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\save.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72">
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         id="rect2259"
+         d="M 366.34036,286.73157 L 388.88979,286.73157 C 389.23148,286.73157 389.50655,287.00665 389.50655,287.34834 L 389.50655,309.24542 C 389.50655,309.5871 389.23148,309.86218 388.88979,309.86218 L 367.5,309.86218 C 367.5,309.86218 365.72359,308.08577 365.72359,308.08577 L 365.72359,287.34834 C 365.72359,287.00665 365.99867,286.73157 366.34036,286.73157 z"
+         style="fill:url(#linearGradient3298);fill-opacity:1;stroke:#25375f;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="286.9823"
+         x="368.91605"
+         height="13.335895"
+         width="17.394646"
+         id="rect2328"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         style="fill:#d31c00;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect2330"
+         width="17.394646"
+         height="2.3192861"
+         x="368.91605"
+         y="286.9823"
+         rx="0.12620771"
+         ry="0.12620769" />
+      <rect
+         ry="0.12620769"
+         rx="0.12620771"
+         y="288.14194"
+         x="367.17657"
+         height="1.1596431"
+         width="1.1596431"
+         id="rect2332"
+         style="opacity:0.73863639;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path2334"
+         d="M 370.07571,291.91078 L 385.15107,291.91078"
+         style="opacity:0.13068183;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="opacity:0.13068183;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 370.07571,294.80989 L 385.15107,294.80989"
+         id="path2336" />
+      <path
+         id="path2338"
+         d="M 370.07571,297.709 L 385.15107,297.709"
+         style="opacity:0.13068183;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         id="rect2273"
+         d="M 366.37582,287.28824 L 388.85462,287.28824 C 388.89516,287.28824 388.9278,287.32068 388.9278,287.36098 L 388.9278,309.05682 C 388.9278,309.09711 388.89516,309.12955 388.85462,309.12955 L 367.71484,309.12955 C 367.71484,309.12955 366.30264,307.75146 366.30264,307.75146 L 366.30264,287.36098 C 366.30264,287.32068 366.33528,287.28824 366.37582,287.28824 z"
+         style="opacity:0.59659095;fill:none;fill-opacity:1;stroke:url(#linearGradient3289);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccc"
+         id="rect2340"
+         d="M 371.88125,301.22398 L 383.33262,301.22398 C 383.84749,301.22398 384.26198,301.65937 384.26198,302.2002 L 384.26198,309.85474 C 384.26198,309.85474 370.95189,309.85474 370.95189,309.85474 L 370.95189,302.2002 C 370.95189,301.65937 371.36639,301.22398 371.88125,301.22398 z"
+         style="fill:url(#linearGradient3286);fill-opacity:1;stroke:#525252;stroke-width:0.875;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         ry="0.75120759"
+         rx="0.75120699"
+         y="302.32242"
+         x="373.24399"
+         height="5.8364658"
+         width="2.9163587"
+         id="rect2359"
+         style="fill:#4967a2;fill-opacity:1;stroke:#525252;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.62500000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2452"
+       width="30"
+       height="30"
+       x="362.5"
+       y="283.61218"
+       inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\save.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3312"
+       width="30"
+       height="30"
+       x="360"
+       y="318.61218"
+       inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\star.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:url(#radialGradient3594);fill-opacity:1;stroke:#f9fb00;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3314"
+       sodipodi:sides="8"
+       sodipodi:cx="411.25"
+       sodipodi:cy="329.86218"
+       sodipodi:r1="8.75"
+       sodipodi:r2="12.610525"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="1.9634954"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.16"
+       inkscape:randomized="0"
+       d="M 411.25,338.61218 C 410.34912,338.61218 407.25646,341.85754 406.42416,341.51279 C 405.59186,341.16804 405.69983,336.68638 405.06282,336.04937 C 404.4258,335.41235 399.94414,335.52032 399.59939,334.68802 C 399.25464,333.85572 402.5,330.76306 402.5,329.86218 C 402.5,328.96131 399.25464,325.86864 399.59939,325.03634 C 399.94414,324.20404 404.4258,324.31201 405.06282,323.675 C 405.69983,323.03798 405.59186,318.55633 406.42416,318.21158 C 407.25646,317.86683 410.34912,321.11218 411.25,321.11218 C 412.15088,321.11218 415.24354,317.86683 416.07584,318.21158 C 416.90814,318.55633 416.80017,323.03798 417.43718,323.675 C 418.0742,324.31201 422.55586,324.20404 422.90061,325.03634 C 423.24536,325.86864 420,328.96131 420,329.86218 C 420,330.76306 423.24536,333.85572 422.90061,334.68802 C 422.55586,335.52032 418.0742,335.41235 417.43718,336.04937 C 416.80017,336.68638 416.90814,341.16804 416.07584,341.51279 C 415.24354,341.85754 412.15088,338.61218 411.25,338.61218 z"
+       transform="translate(-36.25,3.75)"
+       inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\star.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3682"
+       width="20"
+       height="20"
+       x="393.75"
+       y="318.61218"
+       inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\star-small.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:url(#radialGradient3686);fill-opacity:1;stroke:#f3e500;stroke-width:1.02089846000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3928)"
+       id="path3684"
+       sodipodi:sides="8"
+       sodipodi:cx="411.25"
+       sodipodi:cy="329.86218"
+       sodipodi:r1="4.9790108"
+       sodipodi:r2="6.7521853"
+       sodipodi:arg1="-1.5719847"
+       sodipodi:arg2="-1.1802063"
+       inkscape:flatsided="false"
+       inkscape:rounded="0.16"
+       inkscape:randomized="0"
+       d="M 411.24408,324.88318 C 411.70333,324.88221 413.39629,323.4433 413.82079,323.61854 C 414.24651,323.79429 414.44015,326.01233 414.76651,326.33731 C 415.09193,326.66136 417.30649,326.841 417.48274,327.26508 C 417.6595,327.69038 416.22804,329.3957 416.22901,329.85627 C 416.22998,330.31551 417.66888,332.00847 417.49364,332.43297 C 417.3179,332.85869 415.09986,333.05233 414.77487,333.37869 C 414.45082,333.70411 414.27118,335.91867 413.8471,336.09492 C 413.4218,336.27168 411.71648,334.84022 411.25592,334.84119 C 410.79667,334.84216 409.10371,336.28107 408.67921,336.10582 C 408.25349,335.93008 408.05985,333.71204 407.73349,333.38706 C 407.40807,333.063 405.19351,332.88337 405.01726,332.45928 C 404.8405,332.03398 406.27196,330.32867 406.27099,329.8681 C 406.27002,329.40885 404.83112,327.7159 405.00636,327.2914 C 405.1821,326.86568 407.40014,326.67203 407.72513,326.34568 C 408.04918,326.02025 408.22882,323.80569 408.6529,323.62944 C 409.0782,323.45268 410.78352,324.88415 411.24408,324.88318 z"
+       transform="matrix(0.9731402,0,0,0.9859603,3.5518506,3.2902696)"
+       inkscape:export-filename="c:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\star-small.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient3344);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path2503"
+       sodipodi:cx="331.25"
+       sodipodi:cy="333.61218"
+       sodipodi:rx="10"
+       sodipodi:ry="10"
+       d="M 341.25,333.61218 A 10,10 0 1 1 321.25,333.61218 A 10,10 0 1 1 341.25,333.61218 z"
+       transform="translate(6.25,-1.2817383e-2)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\zoomout.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:#478fff;fill-opacity:1;fill-rule:evenodd;stroke:#224ba0;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 331,331.11218 C 329.61929,331.18122 328.55596,332.35647 328.625,333.73718 C 328.69404,335.11789 329.86929,336.18122 331.25,336.11218 L 343.75,336.11218 C 344.65159,336.12493 345.4902,335.65124 345.94472,334.8725 C 346.39924,334.09375 346.39924,333.13061 345.94472,332.35186 C 345.4902,331.57312 344.65159,331.09943 343.75,331.11218 L 331.25,331.11218 C 331.16672,331.10801 331.08328,331.10801 331,331.11218 L 331,331.11218 z"
+       id="path3319"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\zoomout.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#linearGradient3352);fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3334"
+       sodipodi:cx="331.25"
+       sodipodi:cy="333.61218"
+       sodipodi:rx="10"
+       sodipodi:ry="10"
+       d="M 341.25,333.61218 A 10,10 0 1 1 321.25,333.61218 A 10,10 0 1 1 341.25,333.61218 z"
+       transform="translate(-37.5,0)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\zoomin.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:0.09446256;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3354"
+       width="30"
+       height="30"
+       x="278.75"
+       y="318.61218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\zoomin.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:#478fff;fill-opacity:1;fill-rule:evenodd;stroke:#224ba0;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 293.75,324.86218 C 293.08144,324.8704 292.43263,325.13068 291.96875,325.61218 C 291.50485,326.09369 291.26455,326.75628 291.28125,327.42468 L 291.28125,331.11218 L 287.5,331.11218 C 287.41672,331.10801 287.33328,331.10801 287.25,331.11218 C 285.86929,331.18122 284.80596,332.35647 284.875,333.73718 C 284.94404,335.11789 286.11929,336.18122 287.5,336.11218 L 291.28125,336.11218 L 291.28125,339.92468 C 291.2685,340.82627 291.75251,341.65766 292.53125,342.11218 C 293.30999,342.56672 294.2525,342.5667 295.03125,342.11218 C 295.81,341.65768 296.294,340.82627 296.28125,339.92468 L 296.28125,336.11218 L 300,336.11218 C 300.90159,336.12493 301.73298,335.64092 302.1875,334.86218 C 302.64201,334.08343 302.64202,333.10968 302.1875,332.33093 C 301.73297,331.55218 300.90159,331.09943 300,331.11218 L 296.28125,331.11218 L 296.28125,327.42468 C 296.29822,326.74544 296.03998,326.06432 295.5625,325.58093 C 295.085,325.09755 294.4294,324.85354 293.75,324.86218 z"
+       id="path3329"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\zoomin.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:0.09446256;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3356"
+       width="30"
+       height="30"
+       x="322.5"
+       y="318.61218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\zoomout.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2486"
+       width="30"
+       height="30"
+       x="290"
+       y="272.36218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\stop.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient4770);fill-opacity:1;stroke:#a10000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path2488"
+       sodipodi:cx="331.25"
+       sodipodi:cy="333.61218"
+       sodipodi:rx="10"
+       sodipodi:ry="10"
+       d="M 341.25,333.61218 A 10,10 0 1 1 321.25,333.61218 A 10,10 0 1 1 341.25,333.61218 z"
+       transform="translate(-26.25,-46.25)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\stop.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2492"
+       width="30"
+       height="30"
+       x="325"
+       y="272.36218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\go.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient4780);fill-opacity:1;stroke:#008000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path2494"
+       sodipodi:cx="331.25"
+       sodipodi:cy="333.61218"
+       sodipodi:rx="10"
+       sodipodi:ry="10"
+       d="M 341.25,333.61218 A 10,10 0 1 1 321.25,333.61218 A 10,10 0 1 1 341.25,333.61218 z"
+       transform="translate(8.7499952,-46.249985)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\go.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2501"
+       width="30"
+       height="30"
+       x="245"
+       y="272.36218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\cam48.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient2506);fill-opacity:1;stroke:#a10000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path2504"
+       sodipodi:cx="331.25"
+       sodipodi:cy="333.61218"
+       sodipodi:rx="10"
+       sodipodi:ry="10"
+       d="M 341.25,333.61218 A 10,10 0 1 1 321.25,333.61218 A 10,10 0 1 1 341.25,333.61218 z"
+       transform="translate(-6.5493143,-25.86861)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\stop.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="fill:url(#linearGradient3328);fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="M 250,297.36218 C 255,297.36218 255,277.36218 260,277.36218 C 265,277.36218 265,297.36218 270,297.36218"
+       id="path2508"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\cam48.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <rect
+       style="opacity:1;fill:url(#linearGradient3335);fill-opacity:1;stroke:none;stroke-width:1.25000011999999990;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2511"
+       width="375"
+       height="250"
+       x="130"
+       y="367.36218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash_big.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.25000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter3415)"
+       d="M 155.75,567.36218 C 183.0625,567.36218 183.0625,400.65669 210.375,400.65669 C 237.6875,400.65669 237.6875,567.36218 265,567.36218"
+       id="path2513"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash_big.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3337"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter17728);font-family:Bitstream Vera Sans"
+       transform="translate(12.961767,52.247075)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash_big.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"><flowRegion
+         id="flowRegion3339"><rect
+           id="rect3341"
+           width="150.50369"
+           height="100.65231"
+           x="293.88574"
+           y="393.84918" /></flowRegion><flowPara
+         id="flowPara3343"
+         style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Croobie;-inkscape-font-specification:Croobie">CAM</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3551"
+       style="font-size:12px;font-style:normal;font-weight:normal;opacity:0.71140939;fill:#f00000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       transform="translate(9.2564446,47.247075)"
+       inkscape:transform-center-x="46.053179"
+       inkscape:transform-center-y="-55.842681"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash_big.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"><flowRegion
+         id="flowRegion3553"><rect
+           id="rect3555"
+           width="150.50369"
+           height="100.65231"
+           x="293.88574"
+           y="393.84918"
+           style="fill:#f00000;fill-opacity:1;stroke:none;stroke-opacity:1" /></flowRegion><flowPara
+         id="flowPara3557"
+         style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#f00000;fill-opacity:1;stroke:none;stroke-opacity:1;font-family:Croobie;-inkscape-font-specification:Croobie">CAM</flowPara></flowRoot>    <path
+       style="opacity:0.91610736;fill:url(#linearGradient3885);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:3.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 160,572.36218 C 187.3125,572.36218 187.3125,405.65669 214.625,405.65669 C 241.9375,405.65669 241.9375,572.36218 269.25,572.36218"
+       id="path3883"
+       sodipodi:nodetypes="css"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash_big.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="250.19362"
+       y="603.30426"
+       id="text4099"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\splash_big.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"><tspan
+         sodipodi:role="line"
+         id="tspan4101"
+         x="250.19362"
+         y="603.30426"
+         style="font-size:10px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Italic"> (C) Gregor Thalhammer 2008</tspan></text>
+    <rect
+       style="opacity:1;fill:url(#linearGradient2562);fill-opacity:1;stroke:none;stroke-width:1.25000012;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2536"
+       width="375"
+       height="250"
+       x="120"
+       y="652.36218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire_splash.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2540"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter17728);font-family:Bitstream Vera Sans"
+       transform="translate(-186.4242,330.46627)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire_splash.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"><flowRegion
+         id="flowRegion2542"><rect
+           id="rect2544"
+           width="473.7872"
+           height="261.26596"
+           x="293.88574"
+           y="393.84918" /></flowRegion><flowPara
+         id="flowPara2546"
+         style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Croobie;-inkscape-font-specification:Croobie">ACQUIRE</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="325"
+       y="892.36218"
+       id="text2558"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire_splash.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"><tspan
+         sodipodi:role="line"
+         id="tspan2560"
+         x="325"
+         y="892.36218"
+         style="font-size:10px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:DejaVu Sans Mono;-inkscape-font-specification:DejaVu Sans Mono Italic"> (C) Gregor Thalhammer 2008</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2548"
+       style="font-size:12px;font-style:normal;font-weight:normal;opacity:0.71140939;fill:#f00000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       transform="translate(-161.80884,326.08013)"
+       inkscape:transform-center-x="46.053179"
+       inkscape:transform-center-y="-55.842681"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire_splash.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144"><flowRegion
+         id="flowRegion2550"><rect
+           id="rect2552"
+           width="418.32852"
+           height="206.26595"
+           x="293.88574"
+           y="393.84918"
+           style="fill:#f00000;fill-opacity:1;stroke:none;stroke-opacity:1" /></flowRegion><flowPara
+         id="flowPara2554"
+         style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#f00000;fill-opacity:1;stroke:none;stroke-opacity:1;font-family:Croobie;-inkscape-font-specification:Croobie">ACQUIRE</flowPara></flowRoot>    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient3386);fill-opacity:1;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3456)"
+       id="path3378"
+       sodipodi:cx="180"
+       sodipodi:cy="762.36218"
+       sodipodi:rx="80"
+       sodipodi:ry="80"
+       d="M 260,762.36218 A 80,80 0 1 1 100,762.36218 A 80,80 0 1 1 260,762.36218 z"
+       transform="translate(33.773375,3.6807675)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire_splash.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:#9b9dd5;fill-opacity:1;stroke:none;stroke-width:10.41277599;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path3468"
+       sodipodi:cx="180"
+       sodipodi:cy="762.36218"
+       sodipodi:rx="80"
+       sodipodi:ry="80"
+       d="M 260,762.36218 A 80,80 0 1 1 100,762.36218 A 80,80 0 1 1 260,762.36218 z"
+       transform="matrix(0.1246241,9.6158158e-3,-9.6158158e-3,0.1246241,194.8984,195.62263)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire48.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:1;fill:url(#radialGradient3462);fill-opacity:1;stroke:#000000;stroke-width:8.42142391;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3544)"
+       id="path3460"
+       sodipodi:cx="180"
+       sodipodi:cy="762.36218"
+       sodipodi:rx="80"
+       sodipodi:ry="80"
+       d="M 260,762.36218 A 80,80 0 1 1 100,762.36218 A 80,80 0 1 1 260,762.36218 z"
+       transform="matrix(0.1183929,9.1350252e-3,-9.1350251e-3,0.1183929,195.65348,200.4596)"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire48.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect3548"
+       width="30"
+       height="30"
+       x="195"
+       y="277.36218"
+       inkscape:export-filename="C:\Dokumente und Einstellungen\Gregor\Eigene Dateien\python\siscam\img\acquire48.png"
+       inkscape:export-xdpi="144"
+       inkscape:export-ydpi="144" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2554"
+       width="30"
+       height="30"
+       x="422.5"
+       y="318.61218"
+       inkscape:export-filename="E:\Gregor\python\vcam\bitmaps\autoscale.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 437.5,327.36218 L 440,327.36218 L 437.5,322.36218 L 435,327.36218 L 437.5,327.36218 L 437.5,333.61218 L 437.5,339.86218 L 437.5,339.86218 L 437.5,339.86218 L 435,339.86218 L 437.5,344.86218 L 440,339.86218 L 437.47492,339.88681"
+       id="path2560"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="E:\Gregor\python\vcam\bitmaps\autoscale.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+    <path
+       style="opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:2.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;marker-start:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 443.75,333.61218 L 443.75,336.11218 L 448.75,333.61218 L 443.75,331.11218 L 443.75,333.61218 L 437.5,333.61218 L 431.22537,333.5871 L 431.22537,333.5871 L 431.22537,333.5871 L 431.22537,331.0871 L 426.25,333.61218 L 431.22537,336.0871 L 431.22537,333.5871"
+       id="path2568"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:export-filename="E:\Gregor\python\vcam\bitmaps\autoscale.png"
+       inkscape:export-xdpi="72"
+       inkscape:export-ydpi="72" />
+  </g>
+</svg>

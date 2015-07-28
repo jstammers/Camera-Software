@@ -1,0 +1,194 @@
+<!--
+************************
+* Generated from XSLT! *
+************************
+    -->
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta content="Allied Vision Technologies GmbH" name="author"><title>Vimba SDK Examples Overview</title>
+    <hta:application
+      id="oVimbaSDKExamplesOverview"
+        applicationname="AVT Vimba SDK Examples Overview"
+        border="thick"
+        borderstyle="normal"
+        caption="yes"
+        icon="Images/AVT.ICO"
+        maximizebutton="yes"
+        minimizebutton="yes"
+        showintaskbar="yes"
+        singleinstance="no"
+        sysmenu="yes"
+        version="1.0"
+        windowstate="normal"/>
+    <style type="text/css">
+      h1 {
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 250%;
+      }
+      h2 {
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 200%;
+        text-align: center;
+        padding: 10px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(210, 16, 52);
+      }
+      h3 {
+        font-family: Arial;
+        font-weight: bolder;
+        font-size: 150%;
+      }
+      h4 {
+        font-family: Arial;
+        font-weight: bolder;
+        font-size: 125%;
+        margin-bottom: 0%;
+      }
+      body {
+        font-family: Arial;
+      }
+      
+      .imageDescription {
+        font-family: Arial;
+        font-style: italic;
+        font-size: 75%;
+      }
+      
+      .backToTopRef {
+        font-style: italic;
+        font-size: 75%;
+      }
+      
+      .tocHeader {
+        text-align: center;
+        color: rgb(255, 255, 255);
+        background-color: rgb(210, 16, 52);
+      }
+    </style>
+      <script language="VBScript">
+        <!--
+        Sub RunShellCommand(path)
+          On error resume next
+          Set shell = CreateObject("WScript.Shell")    
+          Set fso = CreateObject("Scripting.FileSystemObject")
+  
+          ext = fso.GetExtensionName(path)
+          cmd = Chr(34) & fso.GetAbsolutePathName (path) & Chr(34)
+          shell.Run (cmd)
+          
+          If (Err <> 0) Then
+            msg = "Error while starting " & Chr(39) & fso.GetFileName(path) & Chr(39) & Chr(13)
+              
+            If (ext = "exe") Then
+              msg = msg & "Please ensure that the file exists!"
+            Else
+              msg = msg & "Is there an application registered with extension " & Chr(39) & ext & Chr(39) & "?"
+            End If
+            MsgBox msg, vbOKOnly+vbExclamation, "Error"
+          End If
+          
+          On error goto 0
+        End Sub
+        -->
+      </script>
+        
+      <script language=javascript type='text/javascript'> 
+        function folderExists(folderPath)
+        {
+          var fso  = new ActiveXObject("Scripting.FileSystemObject");
+          return fso.FolderExists(folderPath);
+        }
+        
+        function replaceDiv(elementId, newHtml) 
+        { 
+          var divs = document.getElementsByTagName('div'); 
+          for(i=0;i<divs.length;i++)
+          {
+            if(divs[i].id == elementId)
+            {
+                divs[i].innerHTML = newHtml;
+            } 
+          } 
+        }
+  
+        function hideUninstalledExamples(pass) 
+        { 
+          var cExamplesInstalled = folderExists ("VimbaC_Examples"); 
+          var cppExamplesInstalled = folderExists ("VimbaCPP_Examples"); 
+          var netExamplesInstalled = folderExists ("VimbaNET_Examples");
+          
+          if (! cExamplesInstalled)
+          {
+            replaceDiv ("C_Examples_toc", "<i>not installed</i>");
+            replaceDiv ("C_Examples", "");
+          }    
+          
+          if (! cppExamplesInstalled)
+          {
+            replaceDiv ("CPP_Examples_toc", "<i>not installed</i>");
+            replaceDiv ("CPP_Examples", "");
+          }    
+          
+          if (! netExamplesInstalled)
+          {
+            replaceDiv ("NET_Examples_toc", "<i>not installed</i>");
+            replaceDiv ("NET_Examples", "");
+          }    
+        }
+      </script> 
+  
+    </head>
+  </head><body onload="hideUninstalledExamples()"><a name="Top"></a><table style="text-align: left; width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><a href="http://www.alliedvisiontec.com/"><img style="border: 0px solid; width: 300px; height: 65px;" alt="Allied Vision Technologies GmbH" src="Images/AVT_Vimba_Logo_CMYK.PNG"></a></td><td style="text-align: right;"><a href="http://www.alliedvisiontec.com"><img style="border: 0px solid; width: 238px; height: 70px;" alt="Allied Vision Technologies GmbH" src="Images/AVT-Logo.png"></a></td></tr></tbody></table><br><br><br><br><h1>Description for samples</h1>
+    Please note that all Vimba SDK samples are designed as simple as possible to 
+    explain a distinct functionality. To reduce the complexity, error checking 
+    is not always done. Updates to GUI elements are not performed in all 
+    circumstances. No optimizations are applied for speed, display quality or 
+    comfort of use.<br>
+    Furthermore some examples - especially the helpers - might not run 
+    with all AVT cameras, because they rely on features that only a subset of 
+    AVT cameras provide.
+
+    
+    
+    <h3>Contents:</h3><table border="5px" cellspacing="10px" cellpadding="10px"><thead><tr class="tocHeader"><th onclick="location.href='#C_Examples'">C</th><th onclick="location.href='#CPP_Examples'">C++</th><th onclick="location.href='#NET_Examples'">.NET</th></tr></thead><tbody><tr valign="top" margin-left="1em" margin-right="1em"><td><div id="C_Examples_toc">
+              Examples
+              <ul style="margin-top:0px"><li><a href="#C_ListCameras">ListCameras</a></li><li><a href="#C_ListAncillaryDataFeatures">ListAncillaryDataFeatures</a></li><li><a href="#C_ListFeatures">ListFeatures</a></li><li><a href="#C_SynchronousGrab">SynchronousGrab</a></li><li><a href="#C_AsynchronousGrab">AsynchronousGrab</a></li></ul>
+			  Helpers
+              <ul style="margin-top:0px"><li><a href="#C_ForceIP">ForceIP</a></li></ul></div></td><td><div id="CPP_Examples_toc">
+              Examples
+              <ul style="margin-top:0px"><li><a href="#CPP_ListCameras">ListCameras</a></li><li><a href="#CPP_ListFeatures">ListFeatures</a></li><li><a href="#CPP_SynchronousGrab">SynchronousGrab</a></li><li><a href="#CPP_AsynchronousGrab">AsynchronousGrab</a></li><li><a href="#CPP_CameraFactory">CameraFactory</a></li><li><a href="#CPP_VimbaViewer">VimbaViewer</a></li></ul>
+              Helpers
+              <ul style="margin-top:0px"><li><a href="#CPP_BandwidthHelper">BandwidthHelper</a></li><li><a href="#CPP_LoadSaveSettings">LoadSaveSettings</a></li><li><a href="#CPP_UserSet">UserSet</a></li><li><a href="#CPP_LookUpTable">LookUpTable</a></li><li><a href="#CPP_ShadingData">ShadingData</a></li></ul></div></td><td><div id="NET_Examples_toc">
+              Examples
+              <ul style="margin-top:0px"><li><a href="#NET_ListCameras">ListCameras</a></li><li><a href="#NET_ListFeatures">ListFeatures</a></li><li><a href="#NET_SynchronousGrab">SynchronousGrab</a></li><li><a href="#NET_AsynchronousGrab">AsynchronousGrab</a></li><li><a href="#NET_CameraFactory">CameraFactory</a></li></ul>
+              Helpers
+              <ul style="margin-top:0px"><li><a href="#NET_BandwidthHelper">BandwidthHelper</a></li><li><a href="#NET_LoadSaveSettings">LoadSaveSettings</a></li><li><a href="#NET_UserSet">UserSet</a></li><li><a href="#NET_LookUpTable">LookUpTable</a></li><li><a href="#NET_ShadingData">ShadingData</a></li></ul></div></td></tr></tbody></table><br><br><br><div id="C_Examples"><h2><a name="C_Examples"></a>C</h2><ul><li><h3><a name="C_ListCameras"></a>ListCameras</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="C_ListCameras Example" src="VimbaC_Examples/ListCameras/Screenshot.png" onclick="RunShellCommand('VimbaC_Examples/Bin/Win32/ListCameras.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list cameras currently connected to the system.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaC_Examples/ListCameras/Build/VS2010/ListCameras.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="C_ListAncillaryDataFeatures"></a>ListAncillaryDataFeatures</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="C_ListAncillaryDataFeatures Example" src="VimbaC_Examples/ListAncillaryDataFeatures/Screenshot.png" onclick="RunShellCommand('VimbaC_Examples/Bin/Win32/ListAncillaryDataFeatures.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list features of the ancillary data of a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaC_Examples/ListAncillaryDataFeatures/Build/VS2010/ListAncillaryDataFeatures.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="C_ListFeatures"></a>ListFeatures</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="C_ListFeatures Example" src="VimbaC_Examples/ListFeatures/Screenshot.png" onclick="RunShellCommand('VimbaC_Examples/Bin/Win32/ListFeatures.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list features of a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaC_Examples/ListFeatures/Build/VS2010/ListFeatures.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="C_SynchronousGrab"></a>SynchronousGrab</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="C_SynchronousGrab Example" src="VimbaC_Examples/SynchronousGrab/Screenshot.png" onclick="RunShellCommand('VimbaC_Examples/Bin/Win32/SynchronousGrab.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application showing how to grab an image synchronously from a given camera and write it to a file.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaC_Examples/SynchronousGrab/Build/VS2010/SynchronousGrab.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="C_AsynchronousGrab"></a>AsynchronousGrab</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="C_AsynchronousGrab Example" src="VimbaC_Examples/AsynchronousGrab/Screenshot.png" onclick="RunShellCommand('VimbaC_Examples/Bin/Win32/AsynchronousGrab.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Application showing how to use callbacks to receive images asynchronously from a given camera<br><br><a href="#invalid" onclick="RunShellCommand('VimbaC_Examples/AsynchronousGrab/Build/VS2010/AsynchronousGrab.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="C_ForceIP"></a>ForceIP</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="C_ForceIP Example" src="VimbaC_Examples/ForceIP/Screenshot.png" onclick="RunShellCommand('VimbaC_Examples/Bin/Win32/ForceIP.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to assign an IP address to a camera that is identified by its MAC address.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaC_Examples/ForceIP/Build/VS2010/ForceIP.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br></ul></div><div id="CPP_Examples"><h2><a name="CPP_Examples"></a>C++</h2><ul><li><h3><a name="CPP_ListCameras"></a>ListCameras</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_ListCameras Example" src="VimbaCPP_Examples/ListCameras/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/ListCameras.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list cameras currently connected to the system.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/ListCameras/Build/VS2010/ListCameras.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_ListFeatures"></a>ListFeatures</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_ListFeatures Example" src="VimbaCPP_Examples/ListFeatures/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/ListFeatures.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list cameras currently connected to the system.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/ListFeatures/Build/VS2010/ListFeatures.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_SynchronousGrab"></a>SynchronousGrab</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_SynchronousGrab Example" src="VimbaCPP_Examples/SynchronousGrab/MFC/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/SynchronousGrabMFC.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Application showing how to grab an image synchronously from a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/SynchronousGrab/MFC/Build/VS2010/SynchronousGrabMFC.sln')">Microsoft Visual Studio 2010 Solution (MFC version)</a><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/SynchronousGrab/Qt/Build/VS2010/SynchronousGrabQt.sln')">Microsoft Visual Studio 2010 Solution (Qt version)</a><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/SynchronousGrab/Console/Build/VS2010/SynchronousGrabConsole.sln')">Microsoft Visual Studio 2010 Solution (Console version)</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_AsynchronousGrab"></a>AsynchronousGrab</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_AsynchronousGrab Example" src="VimbaCPP_Examples/AsynchronousGrab/MFC/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/AsynchronousGrabMFC.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Application showing how to use callbacks (observers) to receive images asynchronously from a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/AsynchronousGrab/MFC/Build/VS2010/AsynchronousGrabMFC.sln')">Microsoft Visual Studio 2010 Solution (MFC version)</a><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/AsynchronousGrab/Qt/Build/VS2010/AsynchronousGrabQt.sln')">Microsoft Visual Studio 2010 Solution (Qt version)</a><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/AsynchronousGrab/Console/Build/VS2010/AsynchronousGrabConsole.sln')">Microsoft Visual Studio 2010 Solution (Console version)</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_CameraFactory"></a>CameraFactory</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_CameraFactory Example" src="VimbaCPP_Examples/CameraFactory/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/CameraFactory.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to create customised camera objects using a user defined CameraFactory.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/CameraFactory/Build/VS2010/CameraFactory.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_VimbaViewer"></a>VimbaViewer</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_VimbaViewer Example" src="VimbaCPP_Examples/VimbaViewer/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/VimbaViewer.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>
+        This example is a camera viewer application demonstrating the following API features:
+        <ul>
+            <li>dynamic display of cameras currently connected to the system</li>
+            <li>full camera feature control</li>
+            <li>starting and stopping image acquisition</li>
+            <li>continuous image display</li>
+            <li>frame counter and frate rate calculation</li>
+        </ul>
+        Due to its complexity this example is more suited for advanced users.
+        <br>
+        Based on Qt framework.
+        
+    <br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/VimbaViewer/Build/VS2010/VimbaViewer.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_BandwidthHelper"></a>BandwidthHelper</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_BandwidthHelper Example" src="VimbaCPP_Examples/BandwidthHelper/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/BandwidthHelper.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the bandwidth usage of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/BandwidthHelper/Build/VS2010/BandwidthHelper.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_LoadSaveSettings"></a>LoadSaveSettings</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_LoadSaveSettings Example" src="VimbaCPP_Examples/LoadSaveSettings/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/LoadSaveSettings.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>
+        This example consists of a reusable class for<br>
+        <ul>
+            <li>storing the current settings of a given camera into an XML string and</li>
+            <li>restoring the camera settings from an XML string</li>
+        </ul>
+        and a console application demonstrating how to use the class.
+        
+    <br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/LoadSaveSettings/Build/VS2010/LoadSaveSettings.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_UserSet"></a>UserSet</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_UserSet Example" src="VimbaCPP_Examples/UserSet/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/UserSet.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the user set feature of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/UserSet/Build/VS2010/UserSet.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_LookUpTable"></a>LookUpTable</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_LookUpTable Example" src="VimbaCPP_Examples/LookUpTable/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/LookUpTable.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the look up table feature of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/LookUpTable/Build/VS2010/LookUpTable.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="CPP_ShadingData"></a>ShadingData</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="CPP_ShadingData Example" src="VimbaCPP_Examples/ShadingData/Screenshot.png" onclick="RunShellCommand('VimbaCPP_Examples/Bin/Win32/ShadingData.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the shading data feature of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaCPP_Examples/ShadingData/Build/VS2010/ShadingData.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br></ul></div><div id="NET_Examples"><h2><a name="Net"></a>.NET</h2><ul><li><h3><a name="NET_ListCameras"></a>ListCameras</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_ListCameras Example" src="VimbaNET_Examples/ListCameras/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/ListCameras.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list cameras currently connected to the system.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/ListCameras/Build/VS2010/ListCameras.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_ListFeatures"></a>ListFeatures</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_ListFeatures Example" src="VimbaNET_Examples/ListFeatures/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/ListFeatures.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to list features of a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/ListFeatures/Build/VS2010/ListFeatures.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_SynchronousGrab"></a>SynchronousGrab</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_SynchronousGrab Example" src="VimbaNET_Examples/SynchronousGrab/Forms/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/SynchronousGrabForms.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Application showing how to grab an image synchronously from a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/SynchronousGrab/Forms/Build/VS2010/SynchronousGrabForms.sln')">Microsoft Visual Studio 2010 Solution (Windows Forms version)</a><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/SynchronousGrab/Console/Build/VS2010/SynchronousGrabConsole.sln')">Microsoft Visual Studio 2010 Solution (Console version)</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_AsynchronousGrab"></a>AsynchronousGrab</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_AsynchronousGrab Example" src="VimbaNET_Examples/AsynchronousGrab/Forms/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/AsynchronousGrabForms.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Application showing how to use .NET events to receive images asynchronously from a given camera.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/AsynchronousGrab/Forms/Build/VS2010/AsynchronousGrabForms.sln')">Microsoft Visual Studio 2010 Solution (Windows Forms version)</a><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/AsynchronousGrab/Console/Build/VS2010/AsynchronousGrabConsole.sln')">Microsoft Visual Studio 2010 Solution (Console version)</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_CameraFactory"></a>CameraFactory</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_CameraFactory Example" src="VimbaNET_Examples/CameraFactory/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/CameraFactory.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>Console application to create customised camera objects using a user defined CameraFactory.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/CameraFactory/Build/VS2010/CameraFactory.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_BandwidthHelper"></a>BandwidthHelper</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_BandwidthHelper Example" src="VimbaNET_Examples/BandwidthHelper/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/BandwidthHelper.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the bandwidth usage of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/BandwidthHelper/Build/VS2010/BandwidthHelper.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_LoadSaveSettings"></a>LoadSaveSettings</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_LoadSaveSettings Example" src="VimbaNET_Examples/LoadSaveSettings/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/LoadSaveSettings.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>
+    This example consists of a reusable class for<br>
+      <ul>
+          <li>storing the current settings of a given camera into an XML string and</li>
+          <li>restoring the camera settings from an XML string</li>
+      </ul>
+    and a console application demonstrating how to use the class.
+  <br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/LoadSaveSettings/Build/VS2010/LoadSaveSettings.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_UserSet"></a>UserSet</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_UserSet Example" src="VimbaNET_Examples/UserSet/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/UserSet.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the user set feature of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/UserSet/Build/VS2010/UserSet.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_LookUpTable"></a>LookUpTable</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_LookUpTable Example" src="VimbaNET_Examples/LookUpTable/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/LookUpTable.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the look up table feature of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/LookUpTable/Build/VS2010/LookUpTable.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br><li><h3><a name="NET_ShadingData"></a>ShadingData</h3></li><table><tr><td><img style="border: 0px solid;" width="640" alt="NET_ShadingData Example" src="VimbaNET_Examples/ShadingData/Screenshot.png" onclick="RunShellCommand('VimbaNET_Examples/Bin/Win32/ShadingData.exe')"><br></td></tr><tr><td align="center"><p class="imageDescription">(click on image to run the example)</p></td></tr></table><br>This example consists of a reusable class for controlling the shading data feature of a given camera and a console application demonstrating how to use the class.<br><br><a href="#invalid" onclick="RunShellCommand('VimbaNET_Examples/ShadingData/Build/VS2010/ShadingData.sln')">Microsoft Visual Studio 2010 Solution</a><br><br><a class="backToTopRef" href="#Top">back to top</a><br><br><br><br></ul></div></body></html>

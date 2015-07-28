@@ -1,0 +1,131 @@
+CURRENT OPEN CODE-FILES:
+-acquisition-dirty
+-acquire-modified
+
+Functions/variables to be interfaced with pymba:
+
+- useTheta ---> useAVT
+- camtheta -----> camAVT
+- Class AcquireThreadTheta
+- Class	ConsumerThreadTheta (triple/single)
+
+Inside ImgAcquireApp:
+- timing, imaging mode
+- queues
+- buttons
+- set_shared_markers_theta
+- OnSaveImageTheta
+- OnSingleImageAcquiredTheta
+- OnTripleImageAcquiredTheta
+- OnAcquireThetaButton
+- start_acquisition_theta
+- stop_acquisition_theta
+- OnSetTiming (inside)
+- OnSettingsSave / -Load
+- OnMenuImagingModeTheta
+- stop_threads
+
+
+
+
+
+
+Events: singleacquire, tripleacquire, 
+
+
+DESIDERATA: 
+- control exposure time , time between pictures
+- react to triggers from Goodtime
+- control sensibility etc.
+
+
+
+
+
+
+------- IDEAS -------
+
+class AcquireThreadTheta(AcquireThread):
+
+    def run(self):
+        self.running = True
+	vimba.startup()  ####### evtl. an anderer Stelle ? z.B. wenn AcquireThread aufgerufen wird ???
+        with closing(self.cam.open()):   ###### cam = vimba.getCamera(Id)
+
+            if self.app.timing_theta.external:
+                self.cam.set_timing(0, 0)
+            else:
+                self.cam.set_timing(integration=self.app.timing_theta.exposure,
+                                    repetition=self.app.timing_theta.repetition)
+
+            self.cam.start_live_acquisition()
+
+            while self.running:
+                try:
+                    self.cam.wait(1)
+                except CamTimeoutError:
+                    pass
+                except SIS.SislibError:
+                    print "Error acquiring image from Theta"
+                else:
+                    img = self.cam.roidata
+                    self.nr += 1
+                    self.queue.put((self.nr, img.astype(np.float32))) 
+
+            #put empty image to queue
+            self.queue.put((- 1, None))
+	vimba.shutdown()  ####### evtl. an anderer Stelle ? z.B. wenn AcquireThread aufgerufen wird ???
+        print "AVTImageProducerThread exiting"
+
+
+
+------------- Designing GUI ----------
+- Knoepfe mit AVT hinzufuegen (    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------- SET TIMING -----------
+
+.set_timing():
+
+--> self.cam.set_timing(integration=self.app.timing_sony.exposure, repetition = 0 [default])
+--> app.timing_sony = CamTiming - objekt
+--> CamTiming-klasse : def __init__(self, exposure, repetition=None, live=True)
+
+
+--> The available values for the TriggerSelector depend on the ExposureMode. If ExposureMode is set to
+TriggerWidth (IIDC Trigger Mode 1), only ExposureActive can be selected in the TriggerSelector, while in
+Timed mode, ExposureTime may be controlled and ExposureStart and AcquisitionStart triggers are
+available.  (AVT1394TLManual S. 44/45)
+
+
+Relevant functions:
+Drei Argumente: Integration, repetition, external
+
+if internal:
+	Exptime = camtiming.integration
+	FrameRate = camtiming.repetition invers
+	ExpMode = 'Timed'
+if semiexternal = true: ???????
+	ExpMode = 'Timed' ??????
+if external:
+	ExpMode = 'TriggerWidth'
+	
+
+
+---------- OTHER WORRIES ---------
+check for TriggerSource = InputLines

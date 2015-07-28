@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\VimbaCPP\Source\BasicLockable.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\MutexGuard.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Clock.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\FileLogger.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Mutex.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Camera.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\DefaultCameraFactory.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\FeatureContainer.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Interface.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\BoolFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\StringFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\CommandFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\EnumFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\FloatFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\IntFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\RawFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\AncillaryData.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\FrameHandler.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Frame.cpp">
+      <Filter>Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Condition.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Semaphore.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\ConditionHelper.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\VimbaSystem.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\BaseFeature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\Feature.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VimbaCPP\Source\EnumEntry.cpp">
+      <Filter>Features</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\VimbaCPP\Include\ICameraFactory.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\IInterfaceListObserver.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\ICameraListObserver.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\IFeatureObserver.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\IFrameObserver.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Camera.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Interface.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\IRegisterDevice.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\BoolFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\CommandFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\EnumFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\FloatFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\IntFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\RawFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\StringFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\AncillaryData.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\FrameHandler.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\FrameImpl.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Frame.h">
+      <Filter>Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\FeatureContainer.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\BasicLockable.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\FileLogger.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\Helper.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\LoggerDefines.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Mutex.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\MutexGuard.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\SharedPointer.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\SharedPointer_impl.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\SharedPointerDefines.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\VimbaCPP.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\VimbaCPPCommon.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\UserLoggerDefines.h">
+      <Filter>User</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\UserSharedPointerDefines.h">
+      <Filter>User</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\Version.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\Clock.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\DefaultCameraFactory.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\Condition.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\Semaphore.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\ConditionHelper.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\VimbaSystem.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Camera.hpp">
+      <Filter>Modules\Inline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\FeatureContainer.hpp">
+      <Filter>Modules\Inline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Interface.hpp">
+      <Filter>Modules\Inline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\VimbaSystem.hpp">
+      <Filter>Modules\Inline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Feature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\Feature.hpp">
+      <Filter>Features\Inline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\EnumEntry.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Include\EnumEntry.hpp">
+      <Filter>Features\Inline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VimbaCPP\Source\BaseFeature.h">
+      <Filter>Features</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{ed494ee5-96b2-4ab4-aa1b-f63682a9a0e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{e2071db1-6d4d-4a93-b659-66e680052d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{9f2fe234-67e6-4211-b80e-3ab7addf5e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{b92e74ae-bd4f-4224-a10b-d38283ecf0c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features">
+      <UniqueIdentifier>{83ee7a70-6d00-4715-926d-d13dbace9a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="User">
+      <UniqueIdentifier>{650436a6-2c12-4a68-aee6-f0a703a2ef7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Frame">
+      <UniqueIdentifier>{c58e4fe4-abb2-4990-8cda-8aebdf001882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Inline">
+      <UniqueIdentifier>{13b2e53f-c410-484d-9c0d-26c895c18cd6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Features\Inline">
+      <UniqueIdentifier>{52fcb05c-15ea-4d4f-ad13-cf221983b35e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\VimbaCPP\Source\VimbaCPP.rc2">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\VimbaCPP\Source\VimbaCPP.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

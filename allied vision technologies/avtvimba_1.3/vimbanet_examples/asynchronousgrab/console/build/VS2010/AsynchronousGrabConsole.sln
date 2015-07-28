@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsynchronousGrabConsole", "AsynchronousGrabConsole.csproj", "{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Debug|Win32.Build.0 = Debug|Win32
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Debug|x64.ActiveCfg = Debug|x64
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Debug|x64.Build.0 = Debug|x64
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Release|Win32.ActiveCfg = Release|Win32
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Release|Win32.Build.0 = Release|Win32
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Release|x64.ActiveCfg = Release|x64
+		{B2335096-19F7-4E1C-9D00-8B7DC5025AD4}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

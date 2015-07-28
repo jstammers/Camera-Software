@@ -1,0 +1,10 @@
+//
+// VimbaCPP.RC3 - resources Microsoft Visual C++ does not edit directly
+//
+
+#ifndef VIMBACPP_RC3
+#define VIMBACPP_RC3
+
+#define VIMBACPP_VERSION_BUILD 13796
+
+#endif //VIMBACPP_RC3

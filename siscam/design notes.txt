@@ -1,0 +1,273 @@
+Content-Type: text/enriched
+Text-Width: 70
+
+Implementierung Beobachter Muster für Daten / Tabelle / Plot:
+
+<bold>FitResultDataTable ("Subjekt"):</bold>	  
+MeldeAn(Beobachter)
+MeldeAb(Beobachter)
+Benachrichtige()
+
+
+
+<bold>DataPlotPanel ("Beobachter"):
+
+</bold>Aktualisiere()
+
+
+
+Ein neuer Fehler tritt auf beim Abspeichern von Dateien.
+
+C:\Python25\lib\site-packages\matplotlib-0.91.2-py2.5-win32.egg\matplotlib\backe
+nds\backend_agg.pyc in print_png(self, filename, *args, **kwargs)
+    395     def print_png(self, filename, *args, **kwargs):
+    396         self.draw()
+--> 397         self.get_renderer()._renderer.write_png(filename, self.figure.dp
+i.get())
+    398
+    399
+
+
+write_png implementiert in _image.cpp
+
+
+    
+workaround:
+
+in toolbar/save:
+
+try:
+    self.canvas.print_figure(
+      >>>>str(os.path.join(dirname, filename)), format=format)
+          
+
+
+
+
+
+
+performance:
+
+with svn matplotlib slow rendering!
+
+in matplotlibrc: verbose: debug-annoying
+
+
+buffering ist schlecht! RendererAgg.* wird oft  aufgerufen, auch bei
+nur Mausbewegung. Auch keine optimierung blit!
+
+
+Frage: was ist nötig?
+
+
+
+
+
+
+
+------>
+
+matplotlib 0.91.2 on WinXP, wxagg backend, matplotlib embedded into a
+wxPython application.
+
+
+in backend_wx: _onPaint(self, evt):
+
+remove line:
+
+self.draw(repaint = False)
+
+
+this leads rerenders the content of the matplotlib window every time a
+repaint is requested (this happens, e.g., when another window is moved
+in front of the matplotlib window). Rerendering the content gets quite
+slow if e.g. images are included in the figure. This leads to a sort
+of tedious response.  With this line removed e.g. dragging windows
+gives a much more smooth impression. I could not observe problems
+except sometimes some parts of the figure are not properly repainted
+if I quickly move another window across the matplotlib figure. Some
+repaint events are lost? Improper optimization of repainting only some
+parts of the window
+
+
+
+
+
+
+
+I continued to work on this issue. Thanks for Chris Barker for
+pointing me into the right direction. I also had a look at other gui
+backends, and, among other, backend_qtagg.py seems to contain a proper
+implementation of double buffered drawing that avoids unnecessary
+rerendering of the bitmap. Following this example, I applied following
+changes to backend_wx.py and backend_wxagg.py
+
+
+backend_wx.py:
+
+
+in __init__(...) added line:
+
+
+self._need_rerender = True
+
+
+changed _onPaint(...) to following (note: removed evt.Skip() at end!)
+
+
+    def _onPaint(self, evt):
+        """
+        Called when wxPaintEvt is generated
+        """
+
+        DEBUG_MSG("_onPaint()", 1, self)
+        if not self._isRealized:
+            self.realize()
+
+        #only recreate bitmap if needed
+        if self._need_rerender:
+            self.draw(repaint=False)
+            self._need_rerender = False
+
+        #repaint only damaged parts of window
+        dc = wx.PaintDC(self)
+        source = wx.MemoryDC(self.bitmap)
+        box = self.UpdateRegion.Box
+        dc.Blit(box.X, box.Y, box.Width, box.Height,
+                source,
+                box.X, box.Y)
+        source.SelectObject(wx.NullBitmap) #needed?
+
+
+By these change in onPaint a rerendering of the bitmap is done only if
+needed (in fact, this is needed only once after the figure is shown
+for the first time). I moved code from gui_repaint() into
+_onPaint. Calls to gui_repaint() in other methods (e.g., draw) might now be
+replaced by
+
+
+self.Refresh()
+
+self.Update() #this is optional, leeds to an immediate repaint
+
+
+in backend_wxagg.py I changed the draw and blit methods in this sense:
+
+
+    def draw(self, repaint=True):
+        """
+        Render the figure using agg.
+        """
+        DEBUG_MSG("draw()", 1, self)
+        
+        FigureCanvasAgg.draw(self)
+
+        self.bitmap = _convert_agg_to_wx_bitmap(self.get_renderer(), None)
+        if repaint:
+            self.Refresh(eraseBackground = False)
+            self.Update()
+
+    def blit(self, bbox=None):
+        self.bitmap = _convert_agg_to_wx_bitmap(self.get_renderer(), None)
+        
+        if bbox is None:
+            self.Refresh(eraseBackground = False)
+        else:
+            l, b, w, h = bbox.get_bounds()
+            x = int(l)
+            y = int(self.bitmap.GetHeight() - (b+h))
+            w = int(w)
+            h = int(h)
+            self.RefreshRect(wx.Rect(x, y, w, h),
+                             eraseBackground = False)
+        self.Update() #needed?
+
+
+
+I tested these changes with WinXP, python2.5, matplotlib 0.91.2,
+wxWidgets2.8.7 with several scripts from the matplotlib/examples and I
+could not observe a misbehaviour.
+
+
+I had to add some calls to figure.canvas.draw in my mpl-embedded-in-wx
+application, e.g., after changing a colormap range, to give a
+immediate change on screen. Before due to the frequent rerendering I
+didn't notice that these statements were missing.
+
+
+As Chris Barker noticed, Figure.draw() does not lead to a repainting
+of the window on screen. This seems to be intended. Instead one should
+use pylab.draw() or Figure.canvas.draw().
+
+
+I thought about a more substantial rewrite of the Wx/WxAgg backend,
+similar to the QtAgg backend, but (for the moment) I wanted to try
+only simple changes. Anyhow, the Wx backend seems to be in some
+aspects outdated (uses old style wx methods, e.g. ToolBar.AddTool) and
+is even not fully functional (image support missing). What are the
+plans for the future? What about the politics of supporting older
+versions of wxWidgets?
+
+
+
+
+
+
+---------------------------
+
+legend bug: errorbar + legend: gives error, siehe sandbox/legendbug.py
+
+
+   
+
+
+
+numpy bug???
+
+
+a = array([])
+
+
+x = array([])
+
+x.shape = (0,1)
+
+
+y = array([])
+
+y.shape = (1,0)
+
+
+x[a] fails
+
+
+y[a] doesn't fail
+
+
+--------------
+
+
+in colors.py/__call__:
+
+rgba = lut[xa] scheint langsam zu sein!
+
+
+ersetzt durch lut.take(xa, axis = 0)
+
+
+
+
+-------------------------------------
+
+FitResultDataTableGrid: Unterscheidung leerer Eintrag ist noch
+buggy. Jetzt 0.0 als leer. Problem: immer leer, auch wenn user will.
+
+
+
+
+
+TODO: optical density compensation:
+need to press enter in entries to get accepted
+save imaging pars
+optical densitiy applied only at reload
+

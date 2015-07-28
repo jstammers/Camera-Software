@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{656c7c5a-8899-4a34-b666-ef98998f9486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{3b1807f3-b771-4c5d-9ea2-bd62c0cacb0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{e3b5f491-64ed-4f37-b1c6-d13a4c908abd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{ffedac41-5f05-48f8-8f4e-4c01a400cd2e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\ApiController.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Bitmap.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\program.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\ApiController.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Bitmap.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Common\StreamSystemInfo.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Common\ErrorCodeToMessage.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
