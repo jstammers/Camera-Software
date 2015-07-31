@@ -74,7 +74,7 @@ if useAVT:
         useAVT = True
         # Guppy = AVTcam.AVTcam() ### might be better this way. right now implemented in if __name__ = __main__ block.
         VimbAcq = AVTcam.VimbAcq()
-		
+        
     except ImportError:
         useAVT = False
         print "AVT not available"
@@ -242,7 +242,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                 try:
                     img = self.cam.SingleImage()
                     self.nr += 1
-                    print 'Acq Thread: pre q'
+                    print 'Acq Thread: pre q '
                     # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
                     self.queue.put((self.nr, img.astype(np.float32))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
                     print 'Acq Thread: post q'
@@ -332,6 +332,7 @@ class ConsumerThread(threading.Thread):
         nr = - 1
         while nr < 0:
             nr, img = self.queue.get(block=True, timeout=timeout)
+            print "get image no:" + str(nr)
         return nr, img
 
     def message(self, msg):
@@ -339,6 +340,7 @@ class ConsumerThread(threading.Thread):
 
     def save_abs_img(self, filename, img):
         rawimg = (1000 * (img + 1)).astype(np.uint16)
+
         # readsis.write_raw_image(filename, rawimg)
         # print 'DEBUG MODE! bitdepth before saving abs = ',rawimg.dtype.itemsize
         PngWriter(filename, rawimg)
@@ -393,6 +395,7 @@ class ConsumerThreadAVTSingleImage(ConsumerThread):
                 print "consumer: got image", nr
                 if nr > 0:
                     wx.PostEvent(self.app, AVTSingleImageAcquiredEvent(imgnr=nr, img=img))
+
                     #if nr%100 == 0:
                     # print 'DEBUG MODE! bitdepth before saving = ',img.dtype.itemsize
                     self.save_abs_img(settings.testfile, img) ###### NOTE: png image is much darker than display --> multiply by 1000 before saving to PNG.
@@ -660,9 +663,9 @@ class ImgAcquireApp(wx.App):
         self.timing_bluefox = CamTiming(exposure=20, repetition=None, live=True)
         self.timing_sony = CamTiming(exposure=1, repetition=None, live=True)
         
-        #self.timing_exposure_theta = 100 #µs
+        #self.timing_exposure_theta = 100 #Âµs
         #self.timing_repetition_theta = 600 #ms
-        #self.timing_exposure_bluefox = 20000 #µs
+        #self.timing_exposure_bluefox = 20000 #Âµs
         #self.timing_repetition_bluefox = 20 #ms
         
         self.acquiring_theta = False
@@ -1849,7 +1852,7 @@ class TimingDialog(wx.Dialog):
         #entry exposure time
         #TODO: enable float entry
         box = wx.BoxSizer(wx.HORIZONTAL)
-        label = wx.StaticText(self, - 1, "Exposure time (µs)")
+        label = wx.StaticText(self, - 1, "Exposure time (Âµs)")
         box.Add(label, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
         entry = wx.SpinCtrl(self, - 1, "", (50, - 1))
         #entry = wx.SpinButton(self, -1, style = wx.SP_VERTICAL)

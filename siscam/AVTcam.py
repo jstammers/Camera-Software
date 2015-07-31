@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 """Needs methods: 
 .snap() --> captures image on trigger, puts image to queue ; 
 .open() 
@@ -8,6 +8,8 @@ from pymba import *
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import sys#
+
 # from contextlib import closing ## pretty sure we don't need this, because already imported in acquire.
 
 class VimbAcq(Vimba):  # this class only defines open / close methods to use ' with closing ' 
@@ -95,7 +97,8 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		# plt.show() ### instead of printing later. Works this way.
 		print 'type plt.show, if not plotted' ### instead of the plt.show() line above. Crashes however
 	
-	def SingleImage(self):  # image blurred, when plotted with matplotlib, probably some numpy-array-print problem.
+	def SingleImage(self):  # image blurred, when plotted with matplotlib, probably some
+                         # numpy-array-print problem.
 		self.camera0.AcquisitionMode = 'SingleFrame'
 		print 'changed Acq mode to singleframe'
 		frame0 = self.camera0.getFrame()
@@ -103,23 +106,45 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		time.sleep(1)
+		time.sleep(1) 
 		self.camera0.runFeatureCommand('AcquisitionStop')
 		frame0.waitFrameCapture()
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
 							shape=(frame0.height,
-									frame0.width))	#####BEST VERSION 19012015							
+									frame0.width))	#####BEST VERSION 19012015
 									# 1))
 		# imgData = np.array(frame0.getBufferByteData(),
 							# dtype=np.uint8)
 		# imgData = frame0.getBufferByteData()
 		# imgData = np.zeros((frame0.height,frame0.width))
+		self.camera0.flushCaptureQueue()
 		self.camera0.endCapture()
 		self.camera0.revokeAllFrames()
 		print 'AVTcam: SingleImage done, returning data'
 		return imgData
-		
+
+	def ContinuousStream(self):
+		#This needs to be able to continuously return images to be put in the queue by the AVT live AcquireThread
+		self.camera0.AcquisitionMode='ContinuousStream'
+		print 'changed Acq mode to continuousstream'
+		frame0 = self.camera0.getFrame()
+		frame0.announceFrame()
+		self.camera0.startCapture()
+		framecount = 0
+		droppedFrames = []
+
+		while 1:
+			try:
+				frame0.queueFrameCapture()
+				success = True
+			except:
+				droppedFrames.append(framecount)
+				success = False
+			camera0.runFeatureCommand('AcquisitionStart')
+			camera0.runFeatureCommand('AcquisitionStop')
+			frame0.waitFrameCapture(1000)
+
 # Crashes when user tries to print off matrix values. (only if function value is passed to a variable.) 
 
 # def set_timing(self,exposure):
