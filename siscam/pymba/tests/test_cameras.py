@@ -1,67 +1,72 @@
 #!/usr/bin/python
 
-from pymba import *
+from pymba import * 
 import time
 
 
 def test_cameras():
     # start Vimba
-    with Vimba() as vimba:
-        # get system object
-        system = vimba.getSystem()
+    vimba = Vimba()
+    vimba.startup()
 
-        # list available cameras (after enabling discovery for GigE cameras)
-        if system.GeVTLIsPresent:
-            system.runFeatureCommand("GeVDiscoveryAllOnce")
-            time.sleep(0.2)
-        cameraIds = vimba.getCameraIds()
-        for cameraId in cameraIds:
-            print 'Camera ID:', cameraId
+    # get system object
+    system = vimba.getSystem()
 
-        # get and open a camera
-        camera0 = vimba.getCamera(cameraIds[0])
-        camera0.openCamera()
+    # list available cameras (after enabling discovery for GigE cameras)
+    if system.GeVTLIsPresent:
+        system.runFeatureCommand("GeVDiscoveryAllOnce")
+        time.sleep(0.2)
+    cameraIds = vimba.getCameraIds()
+    for cameraId in cameraIds:
+        print 'Camera ID:', cameraId
 
-        # list camera features
-        cameraFeatureNames = camera0.getFeatureNames()
-        for name in cameraFeatureNames:
-            print 'Camera feature:', name
+    # get and open a camera
+    camera0 = vimba.getCamera(cameraIds[0])
+    camera0.openCamera()
 
-        # get the value of a feature
-        print camera0.AcquisitionMode
+    # list camera features
+    cameraFeatureNames = camera0.getFeatureNames()
+    for name in cameraFeatureNames:
+        print 'Camera feature:', name
 
-        # set the value of a feature
-        camera0.AcquisitionMode = 'SingleFrame'
+    # get the value of a feature
+    print camera0.AcquisitionMode
 
-        # create new frames for the camera
-        frame0 = camera0.getFrame()  # creates a frame
-        frame1 = camera0.getFrame()  # creates a second frame
+    # set the value of a feature
+    camera0.AcquisitionMode = 'SingleFrame'
 
-        # announce frame
-        frame0.announceFrame()
+    # create new frames for the camera
+    frame0 = camera0.getFrame()  # creates a frame
+    frame1 = camera0.getFrame()  # creates a second frame
 
-        # capture a camera image
-        camera0.startCapture()
-        frame0.queueFrameCapture()
-        camera0.runFeatureCommand('AcquisitionStart')
-        camera0.runFeatureCommand('AcquisitionStop')
-        frame0.waitFrameCapture()
+    # announce frame
+    frame0.announceFrame()
 
-        # get image data...
-        imgData = frame0.getBufferByteData()
+    # capture a camera image
+    camera0.startCapture()
+    frame0.queueFrameCapture()
+    camera0.runFeatureCommand('AcquisitionStart')
+    camera0.runFeatureCommand('AcquisitionStop')
+    frame0.waitFrameCapture()
 
-        # ...or use NumPy for fast image display (for use with OpenCV, etc)
-        import numpy as np
+    # get image data...
+    imgData = frame0.getBufferByteData()
 
-        moreUsefulImgData = np.ndarray(buffer=frame0.getBufferByteData(),
-                                       dtype=np.uint8,
-                                       shape=(frame0.height,
-                                              frame0.width,
-                                              1))
+    # ...or use NumPy for fast image display (for use with OpenCV, etc)
+    import numpy as np
 
-        # clean up after capture
-        camera0.endCapture()
-        camera0.revokeAllFrames()
+    moreUsefulImgData = np.ndarray(buffer=frame0.getBufferByteData(),
+                                   dtype=np.uint8,
+                                   shape=(frame0.height,
+                                          frame0.width,
+                                          1))
 
-        # close camera
-        camera0.closeCamera()
+    # clean up after capture
+    camera0.endCapture()
+    camera0.revokeAllFrames()
+
+    # close camera
+    camera0.closeCamera()
+
+    # shutdown Vimba
+    vimba.shutdown()
