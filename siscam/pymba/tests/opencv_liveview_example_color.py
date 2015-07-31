@@ -16,11 +16,12 @@ OpenCV is expecting color images to be in BGR8Packed by default.  It can work
 
 from pymba import *
 import numpy as np
-import cv2
+
 import time
 import sys
 
-cv2.namedWindow("test")
+
+
 
 vimba = Vimba()
 vimba.startup()
@@ -48,7 +49,7 @@ except:
     pass
 
 #set pixel format
-c0.PixelFormat = "BGR8Packed"  # OPENCV DEFAULT
+  # OPENCV DEFAULT
 time.sleep(0.2)
 
 frame = c0.getFrame()
@@ -74,14 +75,8 @@ while 1:
         img = np.ndarray(buffer=frame_data,
                          dtype=np.uint8,
                          shape=(frame.height, frame.width, frame.pixel_bytes))
-        cv2.imshow("test", img)
+
     framecount += 1
-    k = cv2.waitKey(1)
-    if k == 0x1b:
-        cv2.destroyAllWindows()
-        print("Frames displayed: %i" % framecount)
-        print("Frames dropped: %s" % droppedframes)
-        break
 
 
 c0.endCapture()
