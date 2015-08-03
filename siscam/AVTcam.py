@@ -79,7 +79,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		time.sleep(1)
+		time.sleep(1.1/10.0)
 		self.camera0.runFeatureCommand('AcquisitionStop')
 		frame0.waitFrameCapture()
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
@@ -91,10 +91,10 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		# imgData = frame0.getBufferByteData()
 		self.camera0.endCapture()
 		self.camera0.revokeAllFrames()
-		self.close()
+		#self.close()
 		print 'cam closed, vimba still open!'
 		plt.imshow(imgData)
-		# plt.show() ### instead of printing later. Works this way.
+		plt.show() ### instead of printing later. Works this way.
 		print 'type plt.show, if not plotted' ### instead of the plt.show() line above. Crashes however
 	
 	def SingleImage(self):  # image blurred, when plotted with matplotlib, probably some
@@ -106,7 +106,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		time.sleep(1) 
+		time.sleep(1.1/10.0) 
 		self.camera0.runFeatureCommand('AcquisitionStop')
 		frame0.waitFrameCapture()
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
@@ -114,15 +114,19 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 							shape=(frame0.height,
 									frame0.width))	#####BEST VERSION 19012015
 									# 1))
-		# imgData = np.array(frame0.getBufferByteData(),
-							# dtype=np.uint8)
-		# imgData = frame0.getBufferByteData()
-		# imgData = np.zeros((frame0.height,frame0.width))
+		
 		self.camera0.flushCaptureQueue()
 		self.camera0.endCapture()
 		self.camera0.revokeAllFrames()
 		print 'AVTcam: SingleImage done, returning data'
-		return imgData
+		#self.camera0.close()
+		newImage = np.ndarray(shape = (frame0.height,frame0.width))
+		for i in range(frame0.height):
+				for j in range(frame0.width):
+						newImage[i][j]=imgData[i][j]
+		print 'Added something else'
+		return newImage
+        
 
 	def ContinuousStream(self):
 		#This needs to be able to continuously return images to be put in the queue by the AVT live AcquireThread
@@ -147,8 +151,9 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 
 # Crashes when user tries to print off matrix values. (only if function value is passed to a variable.) 
 
-# def set_timing(self,exposure):
+def set_timing(self,exposure):
+    ###
 	# self.camera0.ExposureTime = exposure
 
-# def set_trigger_mode(self,mode):
+def set_trigger_mode(self,mode):
 	# self.camera0.TriggerMode = mode

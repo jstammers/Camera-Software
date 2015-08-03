@@ -71,18 +71,18 @@ reload(settings)
 reload(ImagePanel)
 from camera import CamTimeoutError
 
+import sys
 #take over settings
 from settings import useTheta, useBluefox, useSony, useAVT
 usePseudoTheta = settings.usePseudoCam
-
+imgFile = open(os.getcwd()+'imgValues.txt','w+')
 if useAVT:
     try:
         import AVTcam
         reload(AVTcam)
         useAVT = True
         # Guppy = AVTcam.AVTcam() ### might be better this way. right now implemented in if __name__ = __main__ block.
-        VimbAcq = AVTcam.VimbAcq()
-		
+        VimbAcq = AVTcam.VimbAcq()	
     except ImportError:
         useAVT = False
         print "AVT not available"
@@ -254,10 +254,10 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                     self.nr += 1
                     print 'Acq Thread: pre q'
                     # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
-                    self.queue.put((self.nr, img.astype(np.float32))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
+                    self.queue.put((self.nr, img.astype(np.uint8))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
                     print 'Acq Thread: post q'
                     # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
-                    time.sleep(1)
+                    
                 except:
                     print "Acq Thread: UNKNOWN ERROR"
                     break
@@ -443,16 +443,19 @@ class ConsumerThreadAVTSingleImage(ConsumerThread):
         print 'consumer thread started. live'
         while self.running:
             try:
-                nr, img = self.queue.get(timeout=10)
-
+                
+                nr, img = self.queue.get()
+                print 'got image'
             except Queue.Empty:
                 print "timout in Image consumer, resetting"
                 pass
 
             else:
                 print "consumer: got image", nr
+               
                 if nr > 0:
                     wx.PostEvent(self.app, AVTSingleImageAcquiredEvent(imgnr=nr, img=img))
+                    
                     #if nr%100 == 0:
                     # print 'DEBUG MODE! bitdepth before saving = ',img.dtype.itemsize
                     self.save_abs_img(settings.testfile, img) ###### NOTE: png image is much darker than display --> multiply by 1000 before saving to PNG??? not sure.... for now it works like this.
@@ -673,7 +676,7 @@ class ImgAcquireApp(wx.App):
         self.ID_AboutMenu = wx.NewId()
 
         #Queues for image acquisition
-        self.imagequeue_AVT = Queue.Queue(3)  ####AVT ; ATTENTION Argument of .queue() not clear
+        self.imagequeue_AVT = Queue.Queue(10)  ####AVT ; ATTENTION Argument of .queue() not clear
         self.imagequeue_theta = Queue.Queue(3)
         self.imagequeue_bluefox = Queue.Queue(2)
         self.imagequeue_sony = Queue.Queue(2)
