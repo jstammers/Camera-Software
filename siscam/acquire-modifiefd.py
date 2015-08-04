@@ -1033,7 +1033,7 @@ class ImgAcquireApp(wx.App):
                                       label='save image',
                                       bitmap=self.bitmap_save,
                                       shortHelp='save image')
-            self.Bind(wx.EVT_TOOL, self.OnSaveImageTheta, id=self.ID_SaveImageAVT)#### ATTENTION still bound to theta functions
+            self.Bind(wx.EVT_TOOL, self.OnSaveImageAVT, id=self.ID_SaveImageAVT)#### ATTENTION still bound to theta functions
 
 ###### ----------- End new section --------        
 
@@ -1296,13 +1296,19 @@ class ImgAcquireApp(wx.App):
                         
             self.manager.AddPane(self.imageAVT,
                                  wx.aui.AuiPaneInfo().
-                                 Name('Image AVT').
+                                 Name('Absorption/Live Image').
                                  Caption('Image AVT').
                                  Left().Position(0).Layer(1).
                                  MaximizeButton(1).
                                  BestSize(wx.Size(600, 300))
                                  )
-            #organize panels into lists
+            #if self.imaging_mode_AVT == 'absorption':
+            self.imageAVT_foreground = ImagePanel.CamAbsImagePanel(self.frame)
+            self.imageAVT_background = ImagePanel.CamAbsImagePanel(self.frame)
+
+            self.manager.AddPane(self.imageAVT_foreground,wx.aui.AuiPaneInfo().Name('Foreground').Caption('Foreground Image').Right().Position(0).Layer(1).MaximizeButton(1).BestSize(wx.Size(400,400)))
+            self.manager.AddPane(self.imageAVT_background,wx.aui.AuiPaneInfo().Name('Background').Caption('Background Image').Right().Position(1).Layer(1).MaximizeButton(1).BestSize(wx.Size(400,400)))
+                #organize panels into lists
             self.image_panels_AVT = [self.imageAVT]
 			
         else:
@@ -1473,8 +1479,18 @@ class ImgAcquireApp(wx.App):
         imgA = self.imageSony1.imgview.get_camimage()
         readsis.write_raw_image(settings.imagefile, np.vstack((imgA, imgA)))
         wx.PostEvent(self, StatusMessageEvent(data='s'))
-    
-
+    def OnSaveImageAVT(self, event):
+        # Need to add viewers for each image used in aborption. For now, this just saves the image displayed in the viewer
+        print "save image"
+        img = self.imageAVT.imgview.get_camimage()
+        if self.imaging_mode_AVT == 'absorption':
+                img_fore = self.imageAVT_foreground.imgview.get_camimage()
+                img_back = self.imageAVT_background.imgview.get_camimage()
+                readsis.write_raw_image(settings.absorbfile, img)
+                readsis.write_raw_image(settings.forefile, img_fore)
+                readsis.write_raw_image(settings.backfile, img_back)
+        else:
+                readsis.write_raw_image(settings.imagefile, img)
     def OnIdle(self, event):
         self.busy = 0
 
@@ -1575,7 +1591,9 @@ class ImgAcquireApp(wx.App):
             # self.imageSony1.show_image(img1)
             # self.imageSony2.show_image(img2)
             # self.imageSony3.show_image(img3)
-            self.imageAVT.show_image(imgA)        
+            self.imageAVT.show_image(imgA)
+            self.imageAVT_foreground.show_image(img1)
+            self.imageAVT_background.show_image(img2)        
         
 ##### ----------- End New Section ---------------- Added on 19022015
         

@@ -1,4 +1,4 @@
-import os, os.path
+﻿import os, os.path
 
 #path to acquired image
 imagefilepath = os.path.join(os.getcwd(), 'img')
@@ -7,6 +7,9 @@ imagefilepath = os.path.join(os.getcwd(), 'img')
 #imagefile = os.path.join(imagefilepath, 'test.sis')
 imagefile = os.path.join(imagefilepath, 'test.png')
 testfile = os.path.join(imagefilepath, 'test.png')
+absorbfile = os.path.join(imagefilepath,'absorb.png')
+forefile = os.path.join(imagefilepath,'foreground.png')
+backfile = os.path.join(imagefilepath,'background.png')
 
 #imagefile = r"W:/ocf/fit.sis" #direct access to acquired image on camera computer
 
