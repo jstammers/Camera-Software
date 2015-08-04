@@ -61,11 +61,25 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def close(self):
 		self.camera0.closeCamera()
 		print 'Guppy closed'
-	
-	def set_timing(self, integration = 40, repetition = 60):
+
+	def set_TriggerMode(self):
+		self.camera0.TriggerMode = 'On'
+		self.camera0.TriggerActivation = 'RisingEdge'
+		print 'AVTCam: Switched to trigger mode'
+
+	def set_AutoMode(self):
+		self.camera0.TriggerMode = 'Off'
+		print 'AVTCam: Switched to auto mode'	
+
+	def set_timing(self, integration = 40, repetition = 60, trigger = False):
 		exposure_time_us = int(round(integration*1000)) ### TODO: Make sure that integer
 		repetition_time_us = int(round(repetition)) ### TODO: Make sure that integer
 		self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
+		if trigger:
+			self.set_TriggerMode()
+		else:
+			self.set_AutoMode()
+
 
 	
 	def SingleImagePlot(self):  # make and plot image.

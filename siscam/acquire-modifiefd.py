@@ -141,10 +141,11 @@ AVTTriggerGivenEvent = threading.Event() ####AVT
 (StatusMessageEvent, EVT_STATUS_MESSAGE) = wx.lib.newevent.NewEvent()
 
 class CamTiming(object):
-    def __init__(self, exposure, repetition=None, live=True):
+    def __init__(self, exposure, repetition=None, trigger=False, live=True):
         self._exposure = exposure
         self._repetition = repetition
         self._live = live
+        self._trigger = trigger
 
     def get_exposure(self):
         if self._live:
@@ -164,6 +165,18 @@ class CamTiming(object):
             return 0
     def set_repetition(self, value):
         self._repetition = value
+
+
+
+    def get_trigger(self):
+        if self._live:
+            return self._trigger
+        else:
+            return 0
+
+    def set_trigger(self,value):
+        self._trigger = value
+    trigger = property(get_trigger,set_trigger)
 
     repetition = property(get_repetition, set_repetition)
 
@@ -251,26 +264,28 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                 self.cam.set_timing(0, 0)
             else:
                 self.cam.set_timing(integration=self.app.timing_AVT.exposure,
-                                    repetition=self.app.timing_AVT.repetition)
+                                    repetition=self.app.timing_AVT.repetition,trigger=self.app.timing_AVT.trigger)
+            time0 =time.time()
             while self.running:
                 try:
                     img = self.cam.SingleImage()
+                    imTime = time.time()-time0
                     self.nr += 1
 
                     # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
-                    self.queue.put((self.nr, img.astype(np.uint16))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
+                    self.queue.put((self.nr, img.astype(np.uint16),imTime)) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
 
                     # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
                     
                 except:
                     print "Acq Thread: UNKNOWN ERROR"
                     break
-            self.queue.put((-1, None))
+            self.queue.put((-1, None,0))
         print '------------ AcquireThreadAVT finished --------- '
         self.running = False
 ######## ---------------------- End new section ------------------
 ######AVT ----------- New AVT-section -------- added 23022015
-class AcquireThreadAVTTriggerd(AcquireThread): #To be used with app=ImgAcqApp (self), cam=Guppy, queue...
+class AcquireThreadAVTTriggered(AcquireThread): #To be used with app=ImgAcqApp (self), cam=Guppy, queue...
 ## Cam is opened within OnArmButton. 
     def __init__(self, app, cam, queue, evt):
         AcquireThread.__init__(self, app, cam, queue)
@@ -288,13 +303,13 @@ class AcquireThreadAVTTriggerd(AcquireThread): #To be used with app=ImgAcqApp (s
                 self.evt.wait(4)
                 frame0.waitFrameCapture() ## FOLGT DIREKT AUF EVENT
                 img = np.ndarray(buffer=frame0.getBufferByteData(),
-                        dtype=np.uint8,
+                        dtype=np.uint16,
                         shape=(frame0.height,
                                 frame0.width))
                 self.nr += 1
                 print 'Acq Thread: pre q'
                 # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
-                self.queue.put((self.nr, img.astype(np.float32))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
+                self.queue.put((self.nr, img.astype(np.uint16))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
                 print 'Acq Thread: post q'
                 # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
                 time.sleep(1)
@@ -449,7 +464,7 @@ class ConsumerThreadAVTSingleImage(ConsumerThread):
         while self.running:
             try:
                 
-                nr, img = self.queue.get()
+                nr, img, imtime = self.queue.get()
                 print 'got image'
             except Queue.Empty:
                 print "timout in Image consumer, resetting"
@@ -558,11 +573,12 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
         print 'Consumer Thread started (Absorption)'
         while self.running:
             try:
-                nr1, img1 = self.queue.get(timeout=5)
-				
-                nr2, img2 = self.queue.get(timeout=5)
-				
-                nr3, img3 = self.queue.get(timeout=5)
+                
+                nr1, img1, time1 = self.queue.get(timeout=5)
+
+                nr2, img2, time2 = self.queue.get(timeout=5)
+
+                nr3, img3, time3 = self.queue.get(timeout=5)
 
             except Queue.Empty:
                 print "timout in Image consumer, resetting"
@@ -570,7 +586,7 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
 
             else:
                 print "consumer: got image", nr1, nr2, nr3
-                
+                print "image times: ", time1, time2, time3
 				#calculate absorption image
                 img = - (np.log(img1 - img3) - np.log(img2 - img3))
 
@@ -723,7 +739,7 @@ class ImgAcquireApp(wx.App):
         #self.external_timing_bluefox = True
         #self.external_timing_sony = False
 
-        self.timing_AVT = CamTiming(exposure=40, repetition=605, live=False) ####AVT units: both times in ms, bot exposure later displated converted to us 
+        self.timing_AVT = CamTiming(exposure=40, repetition=605, live=False, trigger = False) ####AVT units: both times in ms, bot exposure later displated converted to us 
         self.timing_theta = CamTiming(exposure=0.1, repetition=600, live=True)
         self.timing_bluefox = CamTiming(exposure=20, repetition=None, live=True)
         self.timing_sony = CamTiming(exposure=1, repetition=None, live=True)
@@ -1770,11 +1786,12 @@ class ImgAcquireApp(wx.App):
             
         if event.Id == self.ID_TimingAVTSettings:
             dialog = self.create_timing_dialog(exposure=self.timing_AVT.exposure,
-                                               repetition=self.timing_AVT.repetition)
+                                               repetition=self.timing_AVT.repetition,trigger = self.timing_AVT.trigger)
             res = dialog.ShowModal()
             if res == wx.ID_OK:
-                exp, rep = dialog.GetResults()
-                self.timing_AVT.exposure, self.timing_AVT.repetition = exp, rep
+                exp, rep, trig = dialog.GetResults()
+                self.timing_AVT.exposure, self.timing_AVT.repetition, self.timing_AVT.trigger = exp, rep, trig
+               
             dialog.Destroy()
 
         if event.Id == self.ID_TimingThetaSettings:
@@ -1933,11 +1950,11 @@ class ImgAcquireApp(wx.App):
 
         wx.AboutBox(info)
 
-    def create_timing_dialog(self, exposure, repetition=None):
+    def create_timing_dialog(self, exposure, repetition=None,trigger=False):
         dialog = TimingDialog(self.frame, - 1,
                               "Set Timing",
                               exposure=exposure,
-                              repetition=repetition,
+                              repetition=repetition,trigger=trigger
                               )
         dialog.CenterOnScreen()
         return dialog
@@ -1982,7 +1999,7 @@ class TimingDialog(wx.Dialog):
                  style=wx.DEFAULT_DIALOG_STYLE,
                  exposure=100,
                  repetition=600,
-                 repetition_min=600):
+                 repetition_min=600, trigger = False):
         
         self.repetition_shown = (repetition is not None)
         
@@ -2020,6 +2037,15 @@ class TimingDialog(wx.Dialog):
             sizer.Add(box, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
             self.repetition_time_entry = entry
 
+        box = wx.BoxSizer(wx.HORIZONTAL)
+        label = wx.StaticText(self,-1,"Trigger Mode")
+        box.Add(label,0,wx.ALIGN_CENTRE | wx.ALL,5)
+        entry = wx.CheckBox(self,-1,"")
+        entry.SetValue(trigger)
+        box.Add(entry,1,wx.ALIGN_CENTRE | wx.ALL,5)
+        sizer.Add(box,0,wx.GROW | wx.ALIGN_CENTRE_VERTICAL | wx.ALL,5)
+        self.trigger_mode_entry = entry
+
         line = wx.StaticLine(self, - 1, size=(20, - 1), style=wx.LI_HORIZONTAL)
         sizer.Add(line, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL | wx.RIGHT | wx.TOP, 5)
 
@@ -2039,9 +2065,9 @@ class TimingDialog(wx.Dialog):
     def GetResults(self):
         if self.repetition_shown:
             return (self.exposure_time_entry.Value / 1000.0,
-                    self.repetition_time_entry.Value)
+                    self.repetition_time_entry.Value, self.trigger_mode_entry.Value)
         else:
-            return (self.exposure_time_entry.Value / 1000.0)
+            return (self.exposure_time_entry.Value / 1000.0, self.trigger_mode_entry.Value)
 
 def find_background(img, r = 10.0):
 
