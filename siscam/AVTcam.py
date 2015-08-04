@@ -109,51 +109,50 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		time.sleep(1.1/10.0) 
 		self.camera0.runFeatureCommand('AcquisitionStop')
 		frame0.waitFrameCapture()
+		print frame0.getBufferByteData()
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
 							shape=(frame0.height,
 									frame0.width))	#####BEST VERSION 19012015
 									# 1))
 		
+		print imgData.dtype				
 		self.camera0.flushCaptureQueue()
 		self.camera0.endCapture()
 		self.camera0.revokeAllFrames()
 		print 'AVTcam: SingleImage done, returning data'
-		#self.camera0.close()
+
 		newImage = np.ndarray(shape = (frame0.height,frame0.width))
-		for i in range(frame0.height):
-				for j in range(frame0.width):
-						newImage[i][j]=imgData[i][j]
+		#for i in range(frame0.height):
+		#		for j in range(frame0.width):
+		#				newImage[i][j]=imgData[i][j]
+		newImage = np.copy(imgData)
 		print 'Added something else'
 		return newImage
         
-
-	def ContinuousStream(self):
-		#This needs to be able to continuously return images to be put in the queue by the AVT live AcquireThread
-		self.camera0.AcquisitionMode='ContinuousStream'
+	def StartContinuousStream(self):
+		# This prepares the camera for a continuous stream and starts the acquisition
+		self.camera0.AcquisitionMode = 'Continuous'
 		print 'changed Acq mode to continuousstream'
 		frame0 = self.camera0.getFrame()
 		frame0.announceFrame()
 		self.camera0.startCapture()
-		framecount = 0
-		droppedFrames = []
+		self.camera0.runFeatureCommand('AcquisitionStart')
 
-		while 1:
-			try:
-				frame0.queueFrameCapture()
-				success = True
-			except:
-				droppedFrames.append(framecount)
-				success = False
-			camera0.runFeatureCommand('AcquisitionStart')
-			camera0.runFeatureCommand('AcquisitionStop')
-			frame0.waitFrameCapture(1000)
-
+	def StopContinuousStream(self):
+		self.camera0.runFeatureCommand('AcquisitionStop')
+		self.camera0.endCapture()
+		self.revokeAllFrames()
+	def ContinuousStream(self):
+		#This needs to be able to continuously return images to be put in the queue by the AVT live AcquireThread
+		frame0 = self.camera0.getFrame()
+		frame_data = frame0.getBufferByteData()
+		frame0.waitFrameCapture(1000)
+		if success:
+			img = np.ndarray(buffer = frame_data,dtype=np.unit8,shape=(frame0.height,frame0.width))
+			newImage = np.ndarray(shape = (frame0.height,frame0.width))
+			newImage = np.copy(img)
+			return newImage
 # Crashes when user tries to print off matrix values. (only if function value is passed to a variable.) 
 
-def set_timing(self,exposure):
-    ###
-	# self.camera0.ExposureTime = exposure
 
-def set_trigger_mode(self,mode):
-	# self.camera0.TriggerMode = mode

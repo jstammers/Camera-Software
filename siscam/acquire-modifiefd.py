@@ -247,15 +247,16 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
         self.running = True
         with closing(self.cam.open()):
             ## TODO set_timing stuff
-            
+            self.cam.StartContinuousStream()          
             while self.running:
                 try:
-                    img = self.cam.SingleImage()
+                    #img = self.cam.SingleImage()
+                    img = self.cam.ContinuousStream()
                     self.nr += 1
-                    print 'Acq Thread: pre q'
+
                     # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
                     self.queue.put((self.nr, img.astype(np.uint8))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
-                    print 'Acq Thread: post q'
+
                     # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
                     
                 except:
@@ -264,6 +265,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
             self.queue.put((-1, None))
         print '------------ AcquireThreadAVT finished --------- '
         self.running = False
+        #self.cam.StopContinuousStream()
 ######## ---------------------- End new section ------------------
 ######AVT ----------- New AVT-section -------- added 23022015
 class AcquireThreadAVTTriggerd(AcquireThread): #To be used with app=ImgAcqApp (self), cam=Guppy, queue...
