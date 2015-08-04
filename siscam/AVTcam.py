@@ -8,7 +8,7 @@ from pymba import *
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import sys#
+import sys
 
 # from contextlib import closing ## pretty sure we don't need this, because already imported in acquire.
 
@@ -63,13 +63,10 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		print 'Guppy closed'
 	
 	def set_timing(self, integration = 40, repetition = 60):
-		expTime = integration*1000 ### TODO: Make sure that integer
-		frameRate = 1000/60 ### TODO: Make sure that integer
-		if self.camera0.ExposureMode is not 'Timed': ##### TODO: Re-check properly for modes (Timing vs trigger!)
-			print 'AVTcam: Cam in triggered mode. No use setting timings.'
-		else:
-			self.camera0.ExposureTime = expTime ##### TODO: Double check definitions
-			self.camera0.AcquisitionFrameRate = frameRate
+		exposure_time_us = int(round(integration*1000)) ### TODO: Make sure that integer
+		repetition_time_us = int(round(repetition)) ### TODO: Make sure that integer
+		self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
+
 	
 	def SingleImagePlot(self):  # make and plot image.
 		self.camera0.AcquisitionMode = 'SingleFrame'
@@ -100,7 +97,6 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def SingleImage(self):  # image blurred, when plotted with matplotlib, probably some
                          # numpy-array-print problem.
 		self.camera0.AcquisitionMode = 'SingleFrame'
-		print 'changed Acq mode to singleframe'
 		frame0 = self.camera0.getFrame()
 		frame0.announceFrame()
 		self.camera0.startCapture()
@@ -109,25 +105,21 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		time.sleep(1.1/10.0) 
 		self.camera0.runFeatureCommand('AcquisitionStop')
 		frame0.waitFrameCapture()
-		print frame0.getBufferByteData()
+
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
 							shape=(frame0.height,
 									frame0.width))	#####BEST VERSION 19012015
 									# 1))
 		
-		print imgData.dtype				
+
+			
 		self.camera0.flushCaptureQueue()
 		self.camera0.endCapture()
 		self.camera0.revokeAllFrames()
 		print 'AVTcam: SingleImage done, returning data'
-
 		newImage = np.ndarray(shape = (frame0.height,frame0.width))
-		#for i in range(frame0.height):
-		#		for j in range(frame0.width):
-		#				newImage[i][j]=imgData[i][j]
 		newImage = np.copy(imgData)
-		print 'Added something else'
 		return newImage
         
 	def StartContinuousStream(self):

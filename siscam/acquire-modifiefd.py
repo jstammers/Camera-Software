@@ -247,15 +247,18 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
         self.running = True
         with closing(self.cam.open()):
             ## TODO set_timing stuff
-            self.cam.StartContinuousStream()          
+            if self.app.timing_AVT.external:
+                self.cam.set_timing(0, 0)
+            else:
+                self.cam.set_timing(integration=self.app.timing_AVT.exposure,
+                                    repetition=self.app.timing_AVT.repetition)
             while self.running:
                 try:
-                    #img = self.cam.SingleImage()
-                    img = self.cam.ContinuousStream()
+                    img = self.cam.SingleImage()
                     self.nr += 1
 
                     # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
-                    self.queue.put((self.nr, img.astype(np.uint8))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
+                    self.queue.put((self.nr, img.astype(np.uint16))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
 
                     # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
                     
@@ -265,7 +268,6 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
             self.queue.put((-1, None))
         print '------------ AcquireThreadAVT finished --------- '
         self.running = False
-        #self.cam.StopContinuousStream()
 ######## ---------------------- End new section ------------------
 ######AVT ----------- New AVT-section -------- added 23022015
 class AcquireThreadAVTTriggerd(AcquireThread): #To be used with app=ImgAcqApp (self), cam=Guppy, queue...
@@ -401,6 +403,7 @@ class ConsumerThread(threading.Thread):
 
     def save_abs_img(self, filename, img):
         rawimg = (1000 * (img + 1)).astype(np.uint16)
+
         # readsis.write_raw_image(filename, rawimg)
         # print 'DEBUG MODE! bitdepth before saving abs = ',rawimg.dtype.itemsize
         PngWriter(filename, rawimg)
