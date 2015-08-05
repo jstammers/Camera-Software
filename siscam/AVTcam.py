@@ -62,21 +62,27 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.closeCamera()
 		print 'Guppy closed'
 
-	def set_TriggerMode(self):
-		self.camera0.TriggerMode = 'On'
-		self.camera0.TriggerActivation = 'RisingEdge'
-		print 'AVTCam: Switched to trigger mode'
+	def set_TriggerMode(self,gated=True):
+		if not gated:
+			self.camera0.TriggerMode = 'On'
+			self.camera0.TriggerActivation = 'RisingEdge'
+			self.camera0.ExposureMode = 'Timed'
+			print 'AVTCam: Switched to timed trigger mode'
+		else:
+			self.camera0.ExposureMode = 'TriggerWidth'
+			print 'AVTCam: Switched to gated trigger mode'
 
 	def set_AutoMode(self):
 		self.camera0.TriggerMode = 'Off'
 		print 'AVTCam: Switched to auto mode'	
 
-	def set_timing(self, integration = 40, repetition = 60, trigger = False):
+	def set_timing(self, integration = 40, repetition = 60, trigger = False,gated=True):
 		exposure_time_us = int(round(integration*1000)) ### TODO: Make sure that integer
 		repetition_time_us = int(round(repetition)) ### TODO: Make sure that integer
-		self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
+		if not gated:
+			self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
 		if trigger:
-			self.set_TriggerMode()
+			self.set_TriggerMode(gated)
 		else:
 			self.set_AutoMode()
 

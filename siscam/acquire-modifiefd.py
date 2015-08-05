@@ -260,9 +260,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
         self.running = True
         with closing(self.cam.open()):
             ## TODO set_timing stuff
-            if self.app.timing_AVT.external:
-                self.cam.set_timing(0, 0)
-            else:
+            if not self.app.timing_AVT.external:
                 self.cam.set_timing(integration=self.app.timing_AVT.exposure,
                                     repetition=self.app.timing_AVT.repetition,trigger=self.app.timing_AVT.trigger)
             time0 =time.time()
@@ -579,7 +577,7 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
                 nr2, img2, time2 = self.queue.get(timeout=5)
 
                 nr3, img3, time3 = self.queue.get(timeout=5)
-
+       
             except Queue.Empty:
                 print "timout in Image consumer, resetting"
                 pass
@@ -697,7 +695,7 @@ class ImgAcquireApp(wx.App):
         self.ID_AboutMenu = wx.NewId()
 
         #Queues for image acquisition
-        self.imagequeue_AVT = Queue.Queue(10)  ####AVT ; ATTENTION Argument of .queue() not clear
+        self.imagequeue_AVT = Queue.Queue(3)  ####AVT ; ATTENTION Argument of .queue() not clear
         self.imagequeue_theta = Queue.Queue(3)
         self.imagequeue_bluefox = Queue.Queue(2)
         self.imagequeue_sony = Queue.Queue(2)
@@ -1060,12 +1058,12 @@ class ImgAcquireApp(wx.App):
         self.Bind(wx.EVT_TOOL, self.OnArmButton, id=self.ID_ArmButton)
         
         
-        self.ID_FireButton = wx.NewId()
-        self.toolbar.AddCheckLabelTool(self.ID_FireButton,
-                                       label="FIRE",
+        self.ID_OpenButton = wx.NewId()
+        self.toolbar.AddCheckLabelTool(self.ID_OpenButton,
+                                       label="Open Guppy",
                                        bitmap=self.bitmap_go,
-                                       shortHelp="Calls TriggerSoftware")
-        self.Bind(wx.EVT_TOOL, self.OnFireButton, id=self.ID_FireButton)
+                                       shortHelp="Opens Guppy")
+        self.Bind(wx.EVT_TOOL, self.OnOpenButton, id=self.ID_OpenButton)
         
         self.ID_CloseButton = wx.NewId()
         self.toolbar.AddCheckLabelTool(self.ID_CloseButton,
@@ -1297,14 +1295,14 @@ class ImgAcquireApp(wx.App):
             self.manager.AddPane(self.imageAVT,
                                  wx.aui.AuiPaneInfo().
                                  Name('Absorption/Live Image').
-                                 Caption('Image AVT').
+                                 Caption('Absorption/Live Image').
                                  Left().Position(0).Layer(1).
                                  MaximizeButton(1).
                                  BestSize(wx.Size(600, 300))
                                  )
             #if self.imaging_mode_AVT == 'absorption':
-            self.imageAVT_foreground = ImagePanel.CamAbsImagePanel(self.frame)
-            self.imageAVT_background = ImagePanel.CamAbsImagePanel(self.frame)
+            self.imageAVT_foreground = ImagePanel.CamImagePanel(self.frame)
+            self.imageAVT_background = ImagePanel.CamImagePanel(self.frame)
 
             self.manager.AddPane(self.imageAVT_foreground,wx.aui.AuiPaneInfo().Name('Foreground').Caption('Foreground Image').Right().Position(0).Layer(1).MaximizeButton(1).BestSize(wx.Size(400,400)))
             self.manager.AddPane(self.imageAVT_background,wx.aui.AuiPaneInfo().Name('Background').Caption('Background Image').Right().Position(1).Layer(1).MaximizeButton(1).BestSize(wx.Size(400,400)))
@@ -1433,6 +1431,9 @@ class ImgAcquireApp(wx.App):
         print 'Acquire Fire Button: All shutting down. T +1' 
         self.imgproducer_AVT.stop()
         self.imgconsumer_AVT.stop()
+    def OnOpenButton(self,event):
+        Guppy.open()
+        print 'Acquire: Guppy opened.'
     def OnCloseButton(self,event):
         
         self.imgproducer_AVT.stop()
@@ -1486,11 +1487,11 @@ class ImgAcquireApp(wx.App):
         if self.imaging_mode_AVT == 'absorption':
                 img_fore = self.imageAVT_foreground.imgview.get_camimage()
                 img_back = self.imageAVT_background.imgview.get_camimage()
-                readsis.write_raw_image(settings.absorbfile, img)
-                readsis.write_raw_image(settings.forefile, img_fore)
-                readsis.write_raw_image(settings.backfile, img_back)
+                PngWriter(settings.absorbfile, img, bitdepth = 8)
+                PngWriter(settings.forefile, img_fore, bitdepth = 8)
+                PngWriter(settings.backfile, img_back, bitdepth = 8)
         else:
-                readsis.write_raw_image(settings.imagefile, img)
+                PngWriter(settings.imagefile, img,  bitdepth = 8)
     def OnIdle(self, event):
         self.busy = 0
 
@@ -1682,6 +1683,7 @@ class ImgAcquireApp(wx.App):
         self.imgproducer_AVT.start()
 	
     def stop_acquisition_AVT(self):
+        
         self.imgproducer_AVT.stop()
         self.imgconsumer_AVT.stop()
 
