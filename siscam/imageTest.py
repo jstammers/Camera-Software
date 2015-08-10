@@ -34,4 +34,4 @@ while 1:
 		print "Acquired 10 images"
 		break
 cam0.closeCamera()
-vimba.shutdown()
+		

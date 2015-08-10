@@ -262,18 +262,15 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
             ## TODO set_timing stuff
             if not self.app.timing_AVT.external:
                 self.cam.set_timing(integration=self.app.timing_AVT.exposure,
-                                    repetition=self.app.timing_AVT.repetition,trigger=self.app.timing_AVT.trigger)
+                                    repetition=self.app.timing_AVT.repetition,trigger=False)
             time0 =time.time()
             while self.running:
                 try:
+                    #if self.imaging_modeAVT == 'live':
                     img = self.cam.SingleImage()
                     imTime = time.time()-time0
                     self.nr += 1
-
-                    # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
-                    self.queue.put((self.nr, img.astype(np.uint16),imTime)) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
-
-                    # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
+                    self.queue.put((self.nr, img.astype(np.uint16),imTime))
                     
                 except:
                     print "Acq Thread: UNKNOWN ERROR"
@@ -572,14 +569,15 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
         while self.running:
             try:
                 
-                nr1, img1, time1 = self.queue.get(timeout=5)
+                nr1, img1, time1 = self.queue.get(timeout=None)
 
-                nr2, img2, time2 = self.queue.get(timeout=5)
+                nr2, img2, time2 = self.queue.get(timeout=None)
 
-                nr3, img3, time3 = self.queue.get(timeout=5)
+                nr3, img3, time3 = self.queue.get(timeout=None)
        
             except Queue.Empty:
-                print "timout in Image consumer, resetting"
+                print "Still waiting to acquire images"
+                #This doesn't actually reset it. If empty, we should wait for the next image
                 pass
 
             else:
@@ -695,7 +693,7 @@ class ImgAcquireApp(wx.App):
         self.ID_AboutMenu = wx.NewId()
 
         #Queues for image acquisition
-        self.imagequeue_AVT = Queue.Queue(3)  ####AVT ; ATTENTION Argument of .queue() not clear
+        self.imagequeue_AVT = Queue.Queue(4)  ####AVT ; ATTENTION Argument of .queue() not clear
         self.imagequeue_theta = Queue.Queue(3)
         self.imagequeue_bluefox = Queue.Queue(2)
         self.imagequeue_sony = Queue.Queue(2)
@@ -1303,10 +1301,12 @@ class ImgAcquireApp(wx.App):
             #if self.imaging_mode_AVT == 'absorption':
             self.imageAVT_foreground = ImagePanel.CamImagePanel(self.frame)
             self.imageAVT_background = ImagePanel.CamImagePanel(self.frame)
+            self.imageAVT_dark = ImagePanel.CamImagePanel(self.frame)
 
             self.manager.AddPane(self.imageAVT_foreground,wx.aui.AuiPaneInfo().Name('Foreground').Caption('Foreground Image').Right().Position(0).Layer(1).MaximizeButton(1).BestSize(wx.Size(400,400)))
             self.manager.AddPane(self.imageAVT_background,wx.aui.AuiPaneInfo().Name('Background').Caption('Background Image').Right().Position(1).Layer(1).MaximizeButton(1).BestSize(wx.Size(400,400)))
                 #organize panels into lists
+            self.manager.AddPane(self.imageAVT_dark,wx.aui.AuiPaneInfo().Name('Dark').Caption('Dark Image').Right().Position(2).Layer(1).BestSize(wx.Size(400,400)))
             self.image_panels_AVT = [self.imageAVT]
 			
         else:
@@ -1594,7 +1594,8 @@ class ImgAcquireApp(wx.App):
             # self.imageSony3.show_image(img3)
             self.imageAVT.show_image(imgA)
             self.imageAVT_foreground.show_image(img1)
-            self.imageAVT_background.show_image(img2)        
+            self.imageAVT_background.show_image(img2) 
+            self.imageAVT_dark.show_image(img3)       
         
 ##### ----------- End New Section ---------------- Added on 19022015
         

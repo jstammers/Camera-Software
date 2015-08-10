@@ -50,11 +50,11 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def open(self): # see comments on vim.open() for cam.open() ; Prepare camera already here for triggered Acquisition			
 		self.camera0.openCamera()
 		print 'AVTcam: Guppy open'
-		# self.camera0.ExposureMode = 'TriggerWidth' ######### ATTENTION uncomment these lines for final version.
+		self.camera0.ExposureMode = 'TriggerWidth' ######### ATTENTION uncomment these lines for final version.
 		print 'AVTcam: ExposureMode set on ', self.camera0.ExposureMode
 		# self.camera0.TriggerSelector = 'ExposureActive'
 		print 'AVTcam: TriggerSelector set on ', self.camera0.TriggerSelector
-		# self.camera0.AcquisitionMode = 'SingleFrame'
+		self.camera0.AcquisitionMode = 'SingleFrame'
 		print 'AVTcam: AcquisitionMode set on', self.camera0.AcquisitionMode
 		return self
 		
@@ -69,10 +69,12 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 			self.camera0.ExposureMode = 'Timed'
 			print 'AVTCam: Switched to timed trigger mode'
 		else:
+			self.camera0.TriggerMode = 'On'
 			self.camera0.ExposureMode = 'TriggerWidth'
 			print 'AVTCam: Switched to gated trigger mode'
 
 	def set_AutoMode(self):
+		self.camera0.ExposureMode = 'Timed'
 		self.camera0.TriggerMode = 'Off'
 		print 'AVTCam: Switched to auto mode'	
 
@@ -122,9 +124,9 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		time.sleep(1.1/10.0) 
-		self.camera0.runFeatureCommand('AcquisitionStop')
-		frame0.waitFrameCapture()
+		frame0.waitFrameCapture(1000000000)
+		frame0.queueFrameCapture()
+		frame0.waitFrameCapture(1000000000)
 
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
@@ -135,36 +137,48 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 
 			
 		self.camera0.flushCaptureQueue()
-		self.camera0.endCapture()
+
 		self.camera0.revokeAllFrames()
+		self.camera0.runFeatureCommand('AcquisitionStop')
+		self.camera0.endCapture()
 		print 'AVTcam: SingleImage done, returning data'
 		newImage = np.ndarray(shape = (frame0.height,frame0.width))
 		newImage = np.copy(imgData)
 		return newImage
         
-	def StartContinuousStream(self):
-		# This prepares the camera for a continuous stream and starts the acquisition
-		self.camera0.AcquisitionMode = 'Continuous'
-		print 'changed Acq mode to continuousstream'
-		frame0 = self.camera0.getFrame()
-		frame0.announceFrame()
+	def MultipleImages(self,number):
+		self.camera0.AcquistionMode = 'MultiFrame'
+		frameList = []
+		imageList = []
+		newList = []
+		for i in range(number):
+			frame = self.camera0.getFrame()
+			frame.announceFrame()
+			frameList.append(frame)
 		self.camera0.startCapture()
+		frame.queueFrameCapture()
 		self.camera0.runFeatureCommand('AcquisitionStart')
-
-	def StopContinuousStream(self):
+		frame.waitFrameCapture(10000)
+		for frame in frameList:
+			print "queuing"
+			frame.queueFrameCapture()
+			frame.waitFrameCapture(10000)
+			print "Waiting for capture"
+			imgData = np.ndarray(buffer = frame.getBufferByteData(),
+                                 dtype = np.uint8,shape=(frame.height,frame.width))
+			imageList.append(imgData)
+			self.camera0.flushCaptureQueue()
+			self.camera0.revokeAllFrames()
 		self.camera0.runFeatureCommand('AcquisitionStop')
 		self.camera0.endCapture()
-		self.revokeAllFrames()
-	def ContinuousStream(self):
-		#This needs to be able to continuously return images to be put in the queue by the AVT live AcquireThread
-		frame0 = self.camera0.getFrame()
-		frame_data = frame0.getBufferByteData()
-		frame0.waitFrameCapture(1000)
-		if success:
-			img = np.ndarray(buffer = frame_data,dtype=np.unit8,shape=(frame0.height,frame0.width))
-			newImage = np.ndarray(shape = (frame0.height,frame0.width))
-			newImage = np.copy(img)
-			return newImage
-# Crashes when user tries to print off matrix values. (only if function value is passed to a variable.) 
+		
+		print 'AVTCam: Captured ' + str(number) + ' images'
+		for image in imageList:
+			newImage = np.ndarray(shape = (frameList[0].height,frameList[0].width))
+			newImage = np.copy(image)
+			newList.append(newImage)
+		return newList
+
+
 
 
