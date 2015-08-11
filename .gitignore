@@ -4,3 +4,6 @@ AVTVimba_v1.3_Windows/*
 ReleaseNotes_Vimba_v1.3_Windows/*
 pymba-master_backup/*
 siscam_backup/*
+siscam/*.pyc
+siscam/*.txt
+siscam/*.png
