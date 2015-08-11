@@ -16,11 +16,12 @@ OpenCV is expecting color images to be in BGR8Packed by default.  It can work
 
 from pymba import *
 import numpy as np
-import cv2
+
 import time
 import sys
 
-cv2.namedWindow("test")
+
+
 
 with Vimba() as vimba:
     system = vimba.getSystem()
@@ -36,12 +37,41 @@ with Vimba() as vimba:
     c0 = vimba.getCamera(camera_ids[0])
     c0.openCamera()
 
+<<<<<<< HEAD
+=======
+c0 = vimba.getCamera(camera_ids[0])
+c0.openCamera()
+
+try:
+    #gigE camera
+    print("Packet size:", c0.GevSCPSPacketSize)
+    c0.StreamBytesPerSecond = 100000000
+    print("BPS:", c0.StreamBytesPerSecond)
+except:
+    #not a gigE camera
+    pass
+
+#set pixel format
+  # OPENCV DEFAULT
+time.sleep(0.2)
+
+frame = c0.getFrame()
+frame.announceFrame()
+
+c0.startCapture()
+
+framecount = 0
+droppedframes = []
+
+while 1:
+>>>>>>> master
     try:
         #gigE camera
         print("Packet size:", c0.GevSCPSPacketSize)
         c0.StreamBytesPerSecond = 100000000
         print("BPS:", c0.StreamBytesPerSecond)
     except:
+<<<<<<< HEAD
         #not a gigE camera
         pass
 
@@ -87,3 +117,25 @@ with Vimba() as vimba:
 
     c0.closeCamera()
 
+=======
+        droppedframes.append(framecount)
+        success = False
+    c0.runFeatureCommand("AcquisitionStart")
+    c0.runFeatureCommand("AcquisitionStop")
+    frame.waitFrameCapture(1000)
+    frame_data = frame.getBufferByteData()
+    if success:
+        img = np.ndarray(buffer=frame_data,
+                         dtype=np.uint8,
+                         shape=(frame.height, frame.width, frame.pixel_bytes))
+
+    framecount += 1
+
+
+c0.endCapture()
+c0.revokeAllFrames()
+
+c0.closeCamera()
+
+vimba.shutdown()
+>>>>>>> master
