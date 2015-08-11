@@ -1,2 +1,7 @@
 *.pyc
+<<<<<<< HEAD
 *.png
+/img/*
+=======
+*.png
+>>>>>>> master

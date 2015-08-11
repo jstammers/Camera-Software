@@ -835,7 +835,7 @@ class CamImagePanel(ImagePanel):
     (panning)."""
 
 
-    contrast = [ ['low',    2.5],
+    contrast = [ ['low',    25],
                  ['normal', 1.5],
                  ['high',   0.5],
                  ]
@@ -869,7 +869,7 @@ class CamImagePanel(ImagePanel):
         toolbar.AddSeparator()
         toolbar.AddControl(wx.StaticText(toolbar, -1, "Colormap: "))
         #choices = pylab.cm.cmapnames,
-        choices = ['jet', 'gray', 'bone', 'hsv', 'binary']
+        choices = ['jet', 'gray', 'bone', 'hsv', 'binary','raw']
         colormap_choice = wx.ComboBox(toolbar,
                                       toolbar.ID_COLORMAP,
                                       value = "jet",
@@ -906,8 +906,9 @@ class CamImagePanel(ImagePanel):
 
     def set_colormap_choice(self, n):
         self._colormap_combobox.Selection = n
-        cm = pylab.cm.__getattribute__(self._colormap_combobox.GetString(n))
-        self.imgview.set_colormap(cm)
+        if self._colormap_combobox.GetString(n) != 'raw':
+            cm = pylab.cm.__getattribute__(self._colormap_combobox.GetString(n))
+            self.imgview.set_colormap(cm)
         self.Refresh()
         self.Update()
 
