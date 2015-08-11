@@ -271,7 +271,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                     imTime = time.time()-time0
                     self.nr += 1
                     self.queue.put((self.nr, img.astype(np.uint16),imTime))
-                    
+                    print self.nr
                 except:
                     print "Acq Thread: UNKNOWN ERROR"
                     break

@@ -52,7 +52,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		print 'AVTcam: Guppy open'
 		self.camera0.ExposureMode = 'TriggerWidth' ######### ATTENTION uncomment these lines for final version.
 		print 'AVTcam: ExposureMode set on ', self.camera0.ExposureMode
-		# self.camera0.TriggerSelector = 'ExposureActive'
+		self.camera0.TriggerSelector = 'ExposureActive'
 		print 'AVTcam: TriggerSelector set on ', self.camera0.TriggerSelector
 		self.camera0.AcquisitionMode = 'SingleFrame'
 		print 'AVTcam: AcquisitionMode set on', self.camera0.AcquisitionMode
@@ -124,9 +124,9 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		frame0.waitFrameCapture(1000000000)
+		frame0.waitFrameCapture(10000000)
 		frame0.queueFrameCapture()
-		frame0.waitFrameCapture(1000000000)
+		#frame0.waitFrameCapture(10000000)
 
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
