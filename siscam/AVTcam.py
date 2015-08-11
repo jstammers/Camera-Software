@@ -56,6 +56,8 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		print 'AVTcam: TriggerSelector set on ', self.camera0.TriggerSelector
 		self.camera0.AcquisitionMode = 'SingleFrame'
 		print 'AVTcam: AcquisitionMode set on', self.camera0.AcquisitionMode
+		self.camera0.TriggerActivation = 'LevelHigh'
+		print 'AVTcam: Trigger Activation set to', self.camera0.TriggerActivation
 		return self
 		
 	def close(self):
@@ -126,7 +128,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		self.camera0.runFeatureCommand('AcquisitionStart')
 		frame0.waitFrameCapture(10000000)
 		frame0.queueFrameCapture()
-		#frame0.waitFrameCapture(10000000)
+		frame0.waitFrameCapture(10000000)
 
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
