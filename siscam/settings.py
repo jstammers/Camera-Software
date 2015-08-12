@@ -11,6 +11,8 @@ absorbfile = os.path.join(imagefilepath,'absorb.png')
 forefile = os.path.join(imagefilepath,'foreground.png')
 backfile = os.path.join(imagefilepath,'background.png')
 
+#full path to variable file
+varfile = os.path.join(imagefilepath, 'Variables.txt')
 #imagefile = r"W:/ocf/fit.sis" #direct access to acquired image on camera computer
 
 #path where to save images

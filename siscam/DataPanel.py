@@ -513,12 +513,12 @@ class DataTableApp(wx.App):
         self.table.AppendRows(6)
         
         self.table.SetValueNamed(0, 'N Rb', 100)
-        self.table.SetValueNamed(0, 'N K',   10)
+        #self.table.SetValueNamed(0, 'N K',   10)
         self.table.SetValueNamed(0, 'user',   1)
         self.table.SetValueNamed(0, 'user2',  1)
 
         self.table.SetValueNamed(1, 'N Rb', 150)
-        self.table.SetValueNamed(1, 'N K',   20)
+        #self.table.SetValueNamed(1, 'N K',   20)
         self.table.SetValueNamed(1, 'user',   2)
         self.table.SetValueNamed(1, 'user2',  2)
 
@@ -527,24 +527,24 @@ class DataTableApp(wx.App):
         self.table.SetValueNamed(2, 'user2',  1)
         
         self.table.SetValueNamed(3, 'N Rb', 200)
-        self.table.SetValueNamed(3, 'N K',   30)
+        #self.table.SetValueNamed(3, 'N K',   30)
         self.table.SetValueNamed(3, 'user2',  2)
 
         self.table.SetValueNamed(4, 'N Rb', 250)
-        self.table.SetValueNamed(4, 'N K',   40)
+        #self.table.SetValueNamed(4, 'N K',   40)
         self.table.SetValueNamed(4, 'user',   5)
         self.table.SetValueNamed(4, 'user2',  1)
 
-        for row, value in enumerate([10, 20, 30, 30, 50]):
-            self.table.SetValueNamed(row, 'sx K', value)
-            self.table.SetValueNamed(row, 'sxerr K', value**0.5)
+        #for row, value in enumerate([10, 20, 30, 30, 50]):
+            #self.table.SetValueNamed(row, 'sx K', value)
+            #self.table.SetValueNamed(row, 'sxerr K', value**0.5)
 
         #self.grid.SetColumnSelection([0, 2, 13, 24, 28, 29, 31, 32])
         self.grid.SetColumnSelection([self.table.colname_to_raw('FileID'),
-                                      self.table.colname_to_raw('N K'),
+                                      #self.table.colname_to_raw('N K'),
                                       self.table.colname_to_raw('N Rb'),
-                                      self.table.colname_to_raw('sx K'),
-                                      self.table.colname_to_raw('sxerr K'),
+                                      #self.table.colname_to_raw('sx K'),
+                                      #self.table.colname_to_raw('sxerr K'),
                                       self.table.colname_to_raw('dynamic'),
                                       self.table.colname_to_raw('user'),
                                       self.table.colname_to_raw('user2'),

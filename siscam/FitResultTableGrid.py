@@ -18,7 +18,7 @@ import functools
 import re
 import types
 from custom_events import ReloadImageEvent
-
+from settings import varfile
 class DynamicExpressionDialog(wx.Dialog):
     """
     Create dialog for entering dynamic expressions.
@@ -95,27 +95,27 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
             #name       type          dynamic show
             'FileID',   'long',             0, 1, '',  #0
             'Filename', 'string',           0, 0, '',  #1
-            'N K',      'double_empty:4,1', 0, 1, 'K', #2
-            'Nerr K',   'double_empty:4,2', 0, 0, 'K',
-            'Nth K',    'double_empty:4,1', 0, 0, 'K', #3
-            'Nbec K',   'double_empty:4,1', 0, 0, 'K', #4
-            'OD K',     'double_empty:4,1', 0, 0, 'K', #5
-            'sx K',     'double_empty:4,1', 0, 1, 'K', #6
-            'sxerr K',  'double_empty:4,2', 0, 0, 'K', #7
-            'sy K',     'double_empty:4,1', 0, 1, 'K', #8
-            'syerr K',  'double_empty:4,2', 0, 0, 'K', #9
-            'rx K',     'double_empty:4,1', 0, 0, 'K', #10
-            'rxerr K',  'double_empty:4,2', 0, 0, 'K', #11
-            'ry K',     'double_empty:4,1', 0, 0, 'K', #12
-            'ryerr K',  'double_empty:4,2', 0, 0, 'K', #13
-            'mx K',     'double_empty:4,1', 0, 0, 'K', #14
-            'myerr K',  'double_empty:4,2', 0, 0, 'K', #15
-            'my K',     'double_empty:4,1', 0, 0, 'K', #16
-            'myerr K',  'double_empty:4,2', 0, 0, 'K', #17
-            'T K',      'double_empty:4,3', 0, 1, 'K', #18
-            'Terr K',   'double_empty:4,3', 0, 0, 'K', #19
-            'sigma K',  'double_empty:4,3', 0, 0, 'K',
-            'params K', 'string',           0, 0, 'K', #20
+            #'N K',      'double_empty:4,1', 0, 1, 'K', #2
+            #'Nerr K',   'double_empty:4,2', 0, 0, 'K',
+            #'Nth K',    'double_empty:4,1', 0, 0, 'K', #3
+            #'Nbec K',   'double_empty:4,1', 0, 0, 'K', #4
+            #'OD K',     'double_empty:4,1', 0, 0, 'K', #5
+            #'sx K',     'double_empty:4,1', 0, 1, 'K', #6
+            #'sxerr K',  'double_empty:4,2', 0, 0, 'K', #7
+            #'sy K',     'double_empty:4,1', 0, 1, 'K', #8
+            #'syerr K',  'double_empty:4,2', 0, 0, 'K', #9
+            #'rx K',     'double_empty:4,1', 0, 0, 'K', #10
+            #'rxerr K',  'double_empty:4,2', 0, 0, 'K', #11
+            #'ry K',     'double_empty:4,1', 0, 0, 'K', #12
+            #'ryerr K',  'double_empty:4,2', 0, 0, 'K', #13
+            #'mx K',     'double_empty:4,1', 0, 0, 'K', #14
+            #'myerr K',  'double_empty:4,2', 0, 0, 'K', #15
+            #'my K',     'double_empty:4,1', 0, 0, 'K', #16
+            #'myerr K',  'double_empty:4,2', 0, 0, 'K', #17
+            #'T K',      'double_empty:4,3', 0, 1, 'K', #18
+            #'Terr K',   'double_empty:4,3', 0, 0, 'K', #19
+            #'sigma K',  'double_empty:4,3', 0, 0, 'K',
+            #'params K', 'string',           0, 0, 'K', #20
             'N Rb',     'double_empty:4,1', 0, 1, 'Rb',#21
             'Nerr Rb',  'double_empty:4,2', 0, 0, 'Rb',#21
             'Nth Rb',   'double_empty:4,1', 0, 0, 'Rb',#22
@@ -146,10 +146,23 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
             'user2',    'double_empty:5,3', 0, 0, '',  #45
             'user3',    'double_empty:5,3', 0, 0, '',  #46
             'Omit',     'bool_custom',      0, 1, '',  #47
-            'Remark',   'string',           0, 1, '',  #48
+            #'Remark',   'string',           0, 1, '',  #48
             ], dtype = numpy.object)
-        _columns.shape = (-1, 5)
+        #_columns.shape = (-1, 5)
 
+        var_array=numpy.loadtxt(varfile,skiprows = 2,dtype={'names':('variables','values'),'formats':('S10','f4')})
+        print "Read file"
+        i=1
+        for line in var_array:
+                if line == var_array[0]:
+                        _columns = numpy.append(_columns,['var1','double_empty:5,3', 0, 1, ''])
+
+                else:
+                        _columns=numpy.append(_columns,['var'+str(i),'double_empty:5,3', 0, 0, ''])
+
+                i+=1
+        _columns = numpy.append(_columns,['Remark','string', 0, 1, ''])
+        _columns.shape = (-1, 5)
         self.colLabels = _columns[:,0] #:column labels
         self.dataTypes = _columns[:,1] #:data types
 
@@ -214,7 +227,8 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
         self.observers = set()
 
         self.end_batch()
-
+      
+          
 
     #{ required methods for the wxPyGridTableBase interface
     def GetNumberRows(self):
