@@ -271,7 +271,8 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                     imTime = time.time()-time0
                     self.nr += 1
                     self.queue.put((self.nr, img.astype(np.uint16),imTime))
-                    print self.nr
+                except Queue.Full:
+                    print "Cannot put another image into the queue"
                 except:
                     print "Acq Thread: UNKNOWN ERROR"
                     break
@@ -574,7 +575,7 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
                 nr2, img2, time2 = self.queue.get(timeout=None)
 
                 nr3, img3, time3 = self.queue.get(timeout=None)
-       
+
             except Queue.Empty:
                 print "Still waiting to acquire images"
                 #This doesn't actually reset it. If empty, we should wait for the next image
@@ -693,7 +694,7 @@ class ImgAcquireApp(wx.App):
         self.ID_AboutMenu = wx.NewId()
 
         #Queues for image acquisition
-        self.imagequeue_AVT = Queue.Queue(4)  ####AVT ; ATTENTION Argument of .queue() not clear
+        self.imagequeue_AVT = Queue.Queue(3)  ####AVT ; ATTENTION Argument of .queue() not clear
         self.imagequeue_theta = Queue.Queue(3)
         self.imagequeue_bluefox = Queue.Queue(2)
         self.imagequeue_sony = Queue.Queue(2)

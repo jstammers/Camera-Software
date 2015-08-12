@@ -1,4 +1,4 @@
-import numpy as np
+﻿import numpy as np
 import readsis
 import readpng
 from png_writer import PngWriter
@@ -117,7 +117,7 @@ def load_image_png(filename):
     else:
         img = np.ma.array(img, dtype = np.float32)
         img *= (1.0/255)
-        return img, img
+        return img
         
 
     
