@@ -91,7 +91,22 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
 
         #NOTE: if columns added, perhaps it's necessary to change fitpar
         #below
-        _columns = numpy.array([
+        
+        var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S15','f4')})
+
+ 
+        varlist = []
+        for line in var_array:
+                varlist.append(line[0])
+                varlist.append('double_empty:5,3')
+                varlist.append(2)
+                if line ==var_array[0]:
+                        varlist.append(1)
+                else:
+                        varlist.append(0)
+                varlist.append('')
+        
+        rowlist=[
             #name       type          dynamic show
             'FileID',   'long',             0, 1, '',  #0
             'Filename', 'string',           0, 0, '',  #1
@@ -147,28 +162,21 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
             'user3',    'double_empty:5,3', 0, 0, '',  #46
             'Omit',     'bool_custom',      0, 1, '',  #47
             #'Remark',   'string',           0, 1, '',  #48
-            ], dtype = numpy.object)
+            ]
+        _columns = numpy.array(rowlist+varlist+['Remark','string',0,1,''], dtype = numpy.object)
         #_columns.shape = (-1, 5)
 
-        var_array=numpy.loadtxt(varfile,skiprows = 2,dtype={'names':('variables','values'),'formats':('S10','f4')})
-        print "Read file"
-        i=1
-        for line in var_array:
-                if line == var_array[0]:
-                        _columns = numpy.append(_columns,['var1','double_empty:5,3', 0, 1, ''])
-
-                else:
-                        _columns=numpy.append(_columns,['var'+str(i),'double_empty:5,3', 0, 0, ''])
-
-                i+=1
-        _columns = numpy.append(_columns,['Remark','string', 0, 1, ''])
+               
+        #_columns = numpy.append(_columns,['Remark','string', 0, 1, ''])
         _columns.shape = (-1, 5)
+
         self.colLabels = _columns[:,0] #:column labels
         self.dataTypes = _columns[:,1] #:data types
 
         #:indices of columns whith dynamic content
-        self.dynamic_cols = list(_columns[:,2].nonzero()[0])
-        
+        self.dynamic_cols = list(numpy.where(_columns[:,2]==1)[0])
+        self.variable_cols= list(numpy.where(_columns[:,2]>1)[0])
+        print self.variable_cols
         #:expressions for dynamic columns"
         self.dynamic_expressions = ['']*len(self.dynamic_cols)
         
@@ -418,6 +426,7 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
                         pass
 
         self.update_dynamic_cols()
+        self.update_variable_cols()
 
         self.GetView().MakeCellVisible(row, 0)
         self.GetView().Refresh()
@@ -713,6 +722,16 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
                     self.SetValueRaw(row, col, None)
                 else:
                     self.SetValueRaw(row, col, result)
+    def update_variable_cols(self,row=None,column=None):
+        if row is None:
+            row=self.active_row
+        var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S10','f4')})
+
+        i=0
+        print self.variable_cols
+        for col in self.variable_cols:
+            self.SetValueRaw(row,col,var_array[i][1])
+            i+=1
 
     #@changes_data #(reset = True) #TODO: decorator with parameter?
     def save_data_csv(self, filename):
