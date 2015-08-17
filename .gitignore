@@ -7,3 +7,5 @@ siscam_backup/*
 siscam/*.pyc
 siscam/*.txt
 siscam/*.png
+pymba-up/*
+pymba- siscam interface/*
