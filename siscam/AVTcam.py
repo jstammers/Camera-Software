@@ -83,12 +83,13 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def set_timing(self, integration = 40, repetition = 60, trigger = False,gated=True):
 		exposure_time_us = int(round(integration*1000)) ### TODO: Make sure that integer
 		repetition_time_us = int(round(repetition)) ### TODO: Make sure that integer
-		if not gated:
-			self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
 		if trigger:
 			self.set_TriggerMode(gated)
 		else:
 			self.set_AutoMode()
+		if not gated:
+			self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
+
 
 
 	
