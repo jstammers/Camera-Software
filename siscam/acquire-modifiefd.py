@@ -258,19 +258,24 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
 
     def run(self):
         self.running = True
-        with closing(self.cam.open()):
+        with closing(self.cam.open(mode = self.app.imaging_mode_AVT)):
             ## TODO set_timing stuff
-            if not self.app.timing_AVT.external:
-                self.cam.set_timing(integration=self.app.timing_AVT.exposure,
-                                    repetition=self.app.timing_AVT.repetition,trigger=False)
+            if self.app.imaging_mode_AVT == 'live':
+                self.cam.set_AutoMode(exposure = self.app.timing_AVT.exposure)
+                wait = 0
+
+            else:
+                self.cam.set_TriggerMode(gated=True)
+                wait =100000
             time0 =time.time()
             while self.running:
                 try:
-                    #if self.imaging_modeAVT == 'live':
-                    img = self.cam.SingleImage()
+                    #It seems that the wait time needs to be longer than 100ms after a frame is queued, this has a drastic effect on the possible frame rate. A continuous acquisition could help, but implementing this with multiple threads is inelegant.
+                    img = self.cam.SingleImage(wait)
                     imTime = time.time()-time0
                     self.nr += 1
                     self.queue.put((self.nr, img.astype(np.uint16),imTime))
+
                 except Queue.Full:
                     print "Cannot put another image into the queue"
                 except:
@@ -279,58 +284,38 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
             self.queue.put((-1, None,0))
         print '------------ AcquireThreadAVT finished --------- '
         self.running = False
-######## ---------------------- End new section ------------------
-######AVT ----------- New AVT-section -------- added 23022015
-class AcquireThreadAVTTriggered(AcquireThread): #To be used with app=ImgAcqApp (self), cam=Guppy, queue...
-## Cam is opened within OnArmButton. 
-    def __init__(self, app, cam, queue, evt):
-        AcquireThread.__init__(self, app, cam, queue)
-        self.evt = evt
-
+class AcquireThreadAVTLive(AcquireThread):
+    #To be used for the live stream, where the images are continuously acquired. Otherwise, repeatedly stopping and starting the acquisition slows down the framerate.
     def run(self):
         self.running = True
-        
-            ## TODO set_timing stuff
-            
-        while self.running:
-            try:
-                frame0 = self.cam.prepareFrame()
-                print 'Acq Thread: WAITING FOR TRIGGER'
-                self.evt.wait(4)
-                frame0.waitFrameCapture() ## FOLGT DIREKT AUF EVENT
-                img = np.ndarray(buffer=frame0.getBufferByteData(),
-                        dtype=np.uint16,
-                        shape=(frame0.height,
-                                frame0.width))
-                self.nr += 1
-                print 'Acq Thread: pre q'
-                # print 'Acq Thread: Das ist nur ein Teststring. Hier sollte das Bild kommen.'
-                self.queue.put((self.nr, img.astype(np.uint16))) ##### BEST VERSION 19012015. python crashes here with standard interpreter. IDLE crashes after couple of images. With casting='safe', OR .astype(npuint8): exception raised.
-                print 'Acq Thread: post q'
-                # print 'DEBUG MODE! bitdepth after acq = ',img.dtype.itemsize
-                time.sleep(1)
-                self.queue.put((-1, None))
-                print 'Acq Thread: Terminating ...'
-                self.running = False
-                print 'Acq Thread Terminating: hep1'
-                self.cam.camera0.endCapture()
-                print 'Acq Thread Terminating: hep2'
-                self.cam.camera0.revokeAllFrames()
-                print 'Acq Thread Terminating: hep3'
-                self.cam.close()
-                print 'Acq Thread: Ended Capture, Revoked Frames, Closed Guppy. All A-Ok!' 
-                print '------------ AcquireThreadAVT finished REGULAR --------- '
+        with closing(self.cam.open()):
+            self.cam.set_AutoMode(exposure = self.app.timing_AVT.exposure)
+            self.cam.AcquisitionMode = 'Continuous'
+            frame0 = self.cam.camera0.getFrame()
+            frame0.announceFrame()
+            self.cam.camera0.startCapture()
+            frame0.queueFrameCapture()
+            self.cam.camera0.runFeatureCommand("AcquisitionStart")
+            time0 =time.time()
+            while self.running:
+                frame = self.cam.camera0.getFrame()
+                frame.announceFrame()
+                frame.queueFrameCapture()
+                frame.waitFrameCapture(110)
+                imgData = np.ndarray(buffer=frame0.getBufferByteData(),
+							dtype=np.uint8,
+							shape=(frame0.height,
+									frame0.width))
+                imTime = time.time()
+                self.cam.camera0.flushCaptureQueue()
+                self.nr +=1
+                self.queue.put((self.nr,imgData.astype(np.uint16),imTime))
 
-            except:
-                print "Acq Thread: UNKNOWN ERROR. Terminating thread ..."
-                
-                self.running = False
-                # self.cam.camera0.endCapture()
-                # self.cam.camera0.revokeAllFrames()
-                self.cam.close()
-                print 'Acq Thread: Closed Guppy via emergency exit.' 
-                print '------------ AcquireThreadAVT finished EXCEPTION--------- '
-######## ---------------------- End new section ------------------
+                self.cam.camera0.flushCaptureQueue()
+                self.cam.camera0.revokeAllFrames()
+            self.cam.camera0.runFeatureCommand("AcquisitionStop")
+            self.cam.camera0.endCapture()
+            ######## ---------------------- End new section ------------------
 class AcquireThreadBluefox(AcquireThread):
 
     def run(self):
@@ -459,7 +444,6 @@ class ConsumerThreadAVTSingleImage(ConsumerThread):
         print 'consumer thread started. live'
         while self.running:
             try:
-                
                 nr, img, imtime = self.queue.get()
                 print 'got image'
             except Queue.Empty:
@@ -478,6 +462,8 @@ class ConsumerThreadAVTSingleImage(ConsumerThread):
                 # print 'Consumer: queue size', self.queue.qsize()
         print "ImageConsumerThread exiting!"
         self.message('E')
+    def stop(self):
+        self.running = False
 
 ######## ---------------------- End new section ------------------
 
@@ -563,7 +549,8 @@ class ConsumerThreadThetaTripleImage(ConsumerThread):
         print "ImageConsumerThread exiting!"
 ######AVT ----------- New AVT-section -------- added 19022015
 class ConsumerThreadAVTTripleImage(ConsumerThread):
-
+    def stop(self):
+        self.running = False
     def run(self):
         self.running = True
         print 'Consumer Thread started (Absorption)'
@@ -599,7 +586,7 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
                 # print 'Consumer: queue size', self.queue.qsize()
         print "ImageConsumerThread exiting!"
         self.message('E')
-
+   
 ######## ---------------------- End new section ------------------        
 class ConsumerThreadSony(ConsumerThread):
     
@@ -695,6 +682,7 @@ class ImgAcquireApp(wx.App):
 
         #Queues for image acquisition
         self.imagequeue_AVT = Queue.Queue(3)  ####AVT ; ATTENTION Argument of .queue() not clear
+        self.imagequeue_AVTSingleImage=Queue.Queue(1)
         self.imagequeue_theta = Queue.Queue(3)
         self.imagequeue_bluefox = Queue.Queue(2)
         self.imagequeue_sony = Queue.Queue(2)
@@ -1676,10 +1664,10 @@ class ImgAcquireApp(wx.App):
         self.imgproducer_AVT = AcquireThreadAVT(self,
 													cam=Guppy,
 													queue=self.imagequeue_AVT)
-        
         if self.imaging_mode_AVT == 'live':
             self.imgconsumer_AVT = ConsumerThreadAVTSingleImage(self, self.imagequeue_AVT)
         if self.imaging_mode_AVT == 'absorption':
+
             self.imgconsumer_AVT = ConsumerThreadAVTTripleImage(self, self.imagequeue_AVT)
         self.imgconsumer_AVT.start()
         self.imgproducer_AVT.start()

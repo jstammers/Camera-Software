@@ -47,17 +47,22 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		# else:
 			# print 'no camera found' 
 
-	def open(self): # see comments on vim.open() for cam.open() ; Prepare camera already here for triggered Acquisition			
+	def open(self, mode = 'absorption'): # see comments on vim.open() for cam.open() ; Prepare camera already here for triggered Acquisition			
 		self.camera0.openCamera()
 		print 'AVTcam: Guppy open'
-		self.camera0.ExposureMode = 'TriggerWidth' ######### ATTENTION uncomment these lines for final version.
-		print 'AVTcam: ExposureMode set on ', self.camera0.ExposureMode
-		self.camera0.TriggerSelector = 'ExposureActive'
-		print 'AVTcam: TriggerSelector set on ', self.camera0.TriggerSelector
-		self.camera0.AcquisitionMode = 'SingleFrame'
-		print 'AVTcam: AcquisitionMode set on', self.camera0.AcquisitionMode
-		self.camera0.TriggerActivation = 'LevelHigh'
-		print 'AVTcam: Trigger Activation set to', self.camera0.TriggerActivation
+		if mode == 'absorption':
+			self.camera0.ExposureMode = 'TriggerWidth'
+			self.camera0.TriggerSelector = 'ExposureActive'
+			self.camera0.AcquisitionMode = 'SingleFrame'
+			self.camera0.TriggerActivation = 'LevelHigh'
+			print 'AVTcam: Camera set on Absorption mode'
+		elif mode == 'live':
+			self.camera0.ExposureMode = 'Timed'
+			self.camera0.TriggerMode = 'On'
+			self.camera0.AcquisitionMode = 'SingleFrame'
+			print 'AVTcam: Camera set on Live mode'
+		else:
+			print 'AVTcam: Invalid mode specified'
 		return self
 		
 	def close(self):
@@ -71,14 +76,22 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 			self.camera0.ExposureMode = 'Timed'
 			print 'AVTCam: Switched to timed trigger mode'
 		else:
-			self.camera0.TriggerMode = 'On'
 			self.camera0.ExposureMode = 'TriggerWidth'
-			print 'AVTCam: Switched to gated trigger mode'
+			if self.camera0.TriggerMode == 'Off':
+				self.camera0.TriggerMode = 'On'
 
-	def set_AutoMode(self):
+			self.camera0.TriggerActivation = 'LevelHigh'
+			self.camera0.TriggerSelector = 'ExposureActive'
+
+
+
+	def set_AutoMode(self,exposure=40):
 		self.camera0.ExposureMode = 'Timed'
-		self.camera0.TriggerMode = 'Off'
-		print 'AVTCam: Switched to auto mode'	
+		self.camera0.ExposureTime = int(round(exposure*1000))
+		if self.camera0.TriggerMode == 'On':
+			self.camera0.TriggerMode = 'Off'
+		print 'AVTCam: Switched to auto mode'
+
 
 	def set_timing(self, integration = 40, repetition = 60, trigger = False,gated=True):
 		exposure_time_us = int(round(integration*1000)) ### TODO: Make sure that integer
@@ -91,7 +104,8 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 			self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
 
 
-
+	def getFrame(self):
+		return self.camera0.getFrame()
 	
 	def SingleImagePlot(self):  # make and plot image.
 		self.camera0.AcquisitionMode = 'SingleFrame'
@@ -119,17 +133,18 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		plt.show() ### instead of printing later. Works this way.
 		print 'type plt.show, if not plotted' ### instead of the plt.show() line above. Crashes however
 	
-	def SingleImage(self):  # image blurred, when plotted with matplotlib, probably some
-                         # numpy-array-print problem.
+	def SingleImage(self,wait=10000000): 
+        #For some reason, the trigger mode needs both waits, but the live stream will not acquire if it waits before the queue. The simplest solution is to hard code a wait time based on the acquisition mode
 		self.camera0.AcquisitionMode = 'SingleFrame'
 		frame0 = self.camera0.getFrame()
 		frame0.announceFrame()
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		frame0.waitFrameCapture(10000000)
+		frame0.waitFrameCapture(110)
 		frame0.queueFrameCapture()
-		frame0.waitFrameCapture(10000000)
+        #This next wait needs to be commented for the live acquisition and very long for absorption
+		frame0.waitFrameCapture(wait)
 
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
 							dtype=np.uint8,
