@@ -284,37 +284,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
             self.queue.put((-1, None,0))
         print '------------ AcquireThreadAVT finished --------- '
         self.running = False
-class AcquireThreadAVTLive(AcquireThread):
-    #To be used for the live stream, where the images are continuously acquired. Otherwise, repeatedly stopping and starting the acquisition slows down the framerate.
-    def run(self):
-        self.running = True
-        with closing(self.cam.open()):
-            self.cam.set_AutoMode(exposure = self.app.timing_AVT.exposure)
-            self.cam.AcquisitionMode = 'Continuous'
-            frame0 = self.cam.camera0.getFrame()
-            frame0.announceFrame()
-            self.cam.camera0.startCapture()
-            frame0.queueFrameCapture()
-            self.cam.camera0.runFeatureCommand("AcquisitionStart")
-            time0 =time.time()
-            while self.running:
-                frame = self.cam.camera0.getFrame()
-                frame.announceFrame()
-                frame.queueFrameCapture()
-                frame.waitFrameCapture(110)
-                imgData = np.ndarray(buffer=frame0.getBufferByteData(),
-							dtype=np.uint8,
-							shape=(frame0.height,
-									frame0.width))
-                imTime = time.time()
-                self.cam.camera0.flushCaptureQueue()
-                self.nr +=1
-                self.queue.put((self.nr,imgData.astype(np.uint16),imTime))
 
-                self.cam.camera0.flushCaptureQueue()
-                self.cam.camera0.revokeAllFrames()
-            self.cam.camera0.runFeatureCommand("AcquisitionStop")
-            self.cam.camera0.endCapture()
             ######## ---------------------- End new section ------------------
 class AcquireThreadBluefox(AcquireThread):
 
@@ -682,7 +652,6 @@ class ImgAcquireApp(wx.App):
 
         #Queues for image acquisition
         self.imagequeue_AVT = Queue.Queue(3)  ####AVT ; ATTENTION Argument of .queue() not clear
-        self.imagequeue_AVTSingleImage=Queue.Queue(1)
         self.imagequeue_theta = Queue.Queue(3)
         self.imagequeue_bluefox = Queue.Queue(2)
         self.imagequeue_sony = Queue.Queue(2)
@@ -813,19 +782,18 @@ class ImgAcquireApp(wx.App):
 ### TIMING MENU ###
 ######AVT ----------- New AVT-section -------- added 09012015
         menu_timing_AVT = wx.Menu()
-        menu_timing_AVT.AppendRadioItem(self.ID_TimingAVTInternal, 'Internal')
-        menu_timing_AVT.AppendRadioItem(self.ID_TimingAVTExternal, 'External') ### ATTENTION adapt to AVT features
+        #menu_timing_AVT.AppendRadioItem(self.ID_TimingAVTInternal, 'Internal')
+        #menu_timing_AVT.AppendRadioItem(self.ID_TimingAVTExternal, 'External') ### ATTENTION adapt to AVT features
 
-        if self.timing_AVT.external:
-            menu_timing_AVT.Check(self.ID_TimingAVTExternal, True)
-        else:
-            menu_timing_AVT.Check(self.ID_TimingAVTInternal, True)
+        #if self.timing_AVT.external:
+        #    menu_timing_AVT.Check(self.ID_TimingAVTExternal, True)
+        #else:
+        #    menu_timing_AVT.Check(self.ID_TimingAVTInternal, True)
         
         menu_timing_AVT.Append(self.ID_TimingAVTSettings, 'Settings...')
         self.frame.Bind(wx.EVT_MENU_RANGE,
                         self.OnSetTiming,
-                        id=self.ID_TimingAVTInternal,
-                        id2=self.ID_TimingAVTSettings) ### ATTENTION For the moment the functions stay linked to the Theta Functions. Only want to create GUI-objects, not functions
+                        id=self.ID_TimingAVTSettings) ### ATTENTION For the moment the functions stay linked to the Theta Functions. Only want to create GUI-objects, not functions
 ######## ---------------------- End new section ------------------
 						
         #timing Theta menu
@@ -1020,45 +988,6 @@ class ImgAcquireApp(wx.App):
                                       shortHelp='save image')
             self.Bind(wx.EVT_TOOL, self.OnSaveImageAVT, id=self.ID_SaveImageAVT)#### ATTENTION still bound to theta functions
 
-###### ----------- End new section --------        
-
-#### ---------- TEST SECTION
-        self.ID_TestButton = wx.NewId()
-        self.toolbar.AddCheckLabelTool(self.ID_TestButton,
-                                       label="TESTY TEST",
-                                       bitmap=self.bitmap_go,
-                                       shortHelp="Testy testy test")
-        self.Bind(wx.EVT_TOOL, self.OnTestButton, id=self.ID_TestButton)
-        
-        self.ID_TimingButton = wx.NewId()
-        self.toolbar.AddCheckLabelTool(self.ID_TimingButton,
-                                       label="Apply Timings",
-                                       bitmap=self.bitmap_go,
-                                       shortHelp="Timings will be written to camera")
-        self.Bind(wx.EVT_TOOL, self.OnTimingButton, id=self.ID_TimingButton)
-        
-        self.ID_ArmButton = wx.NewId()
-        self.toolbar.AddCheckLabelTool(self.ID_ArmButton,
-                                       label="Arm Guppy",
-                                       bitmap=self.bitmap_go,
-                                       shortHelp="Calls arm_triggers")
-        self.Bind(wx.EVT_TOOL, self.OnArmButton, id=self.ID_ArmButton)
-        
-        
-        self.ID_OpenButton = wx.NewId()
-        self.toolbar.AddCheckLabelTool(self.ID_OpenButton,
-                                       label="Open Guppy",
-                                       bitmap=self.bitmap_go,
-                                       shortHelp="Opens Guppy")
-        self.Bind(wx.EVT_TOOL, self.OnOpenButton, id=self.ID_OpenButton)
-        
-        self.ID_CloseButton = wx.NewId()
-        self.toolbar.AddCheckLabelTool(self.ID_CloseButton,
-                                       label="Close Guppy",
-                                       bitmap=self.bitmap_go,
-                                       shortHelp="Closes Guppy if still open")
-        self.Bind(wx.EVT_TOOL, self.OnCloseButton, id=self.ID_CloseButton)
-##### ---------- END TEST SECTION
         
         #fullscreen button
         self.ID_fullscreen = wx.NewId()
@@ -1370,66 +1299,8 @@ class ImgAcquireApp(wx.App):
     @property
     def image_panels(self):
         return self.image_panels_theta + self.image_panels_bluefox + self.image_panels_sony
-    def OnTestButton(self, event):##### ATTENTION TODO remove this function
-        print 'Acquire: AVT imaging mode', self.imaging_mode_AVT
-        print 'Acquire: AVT exposure', self.timing_AVT.exposure
-        print 'Acquire: AVT timing external', self.timing_AVT.external
-        with closing(Guppy.open()):
-            Guppy.diagnostics()
-        print 'testbutton over'
-        
-    def OnTimingButton(self, event): ##### ATTENTION TODO move to its right place. Values remain on Guppy after closing and reopening Acquire. ATTENTION: crashes if integration set to value below 71
-        print 'Acquire: timings are written to Guppy.'
-        with closing(Guppy.open()):
-            Guppy.set_timing(external = self.timing_AVT.external, integration = self.timing_AVT.exposure, repetition = self.timing_AVT.repetition)
-        print 'Acquire: Timing Button done.'
-    
-    def OnArmButton(self,event):
-        print 'Acquire: Let s arm the guppy.'
-        print 'Acquire: Open Guppy.'
-        Guppy.open()
-        print 'Acquire: run arm_triggers'
-        Guppy.arm_triggers()
-        print 'Acquire: Arming done. TAKE CARE OF CLOSING GUPPY!!'
-        
-        print 'Acquire: Launch Threads'
-        self.acquiring_AVT = True
-        self.imgproducer_AVT = AcquireThreadAVTTriggerd(self,
-													cam=Guppy,
-													queue=self.imagequeue_AVT,
-                                                    evt = AVTTriggerGivenEvent)
-        
-        # if self.imaging_mode_AVT == 'live':
-        self.imgconsumer_AVT = ConsumerThreadAVTSingleImage(self, self.imagequeue_AVT)
-        # if self.imaging_mode_AVT == 'absorption':
-            # self.imgconsumer_AVT = ConsumerThreadAVTTripleImage(self, self.imagequeue_AVT)
-        self.imgconsumer_AVT.start()
-        self.imgproducer_AVT.start()
-        print 'Acquire: Threads running, OnArmButton over.'
-    def OnFireButton(self,event):
-        
-        print 'Acquire Fire Button: T -0.5' 
-        time.sleep(0.5)
-        try:
-            Guppy.give_trigger()
-            AVTTriggerGivenEvent.set()
-        except:
-            print 'Acquire Fire Button: TRIGGER FAILED'
-            pass
-        time.sleep(1)
-        print 'Acquire Fire Button: All shutting down. T +1' 
-        self.imgproducer_AVT.stop()
-        self.imgconsumer_AVT.stop()
-    def OnOpenButton(self,event):
-        Guppy.open()
-        print 'Acquire: Guppy opened.'
-    def OnCloseButton(self,event):
-        
-        self.imgproducer_AVT.stop()
-        self.imgconsumer_AVT.stop()
-        Guppy.close()
-        print 'Acquire: Guppy closed.' 
-        
+   
+ 
     def set_shared_markers_theta(self):
         for image in self.image_panels_theta:
             map(image.add_marker, self.markers_shared_theta)
@@ -1770,11 +1641,8 @@ class ImgAcquireApp(wx.App):
         self.acquiring_sony = False
         
     def OnSetTiming(self, event):
-        if event.Id == self.ID_TimingAVTExternal:####AVT
-            self.timing_AVT.external = True
-            
-        if event.Id == self.ID_TimingAVTInternal:####AVT
-            self.timing_AVT.external = False
+        #The AVT timing settings have been harcoded, since they are set depending on the acquisition mode
+        self.timing_AVT.external = False
             
         if event.Id == self.ID_TimingThetaExternal:
             self.timing_theta.external = True
@@ -1795,12 +1663,11 @@ class ImgAcquireApp(wx.App):
             self.timing_sony.external = False
             
         if event.Id == self.ID_TimingAVTSettings:
-            dialog = self.create_timing_dialog(exposure=self.timing_AVT.exposure,
-                                               repetition=self.timing_AVT.repetition,trigger = self.timing_AVT.trigger)
+            dialog = self.create_timing_dialog(exposure=self.timing_AVT.exposure)
             res = dialog.ShowModal()
             if res == wx.ID_OK:
-                exp, rep, trig = dialog.GetResults()
-                self.timing_AVT.exposure, self.timing_AVT.repetition, self.timing_AVT.trigger = exp, rep, trig
+                exp= dialog.GetResults()
+                self.timing_AVT.exposure= exp
                
             dialog.Destroy()
 
@@ -1960,12 +1827,11 @@ class ImgAcquireApp(wx.App):
 
         wx.AboutBox(info)
 
-    def create_timing_dialog(self, exposure, repetition=None,trigger=False):
+    def create_timing_dialog(self, exposure):
         dialog = TimingDialog(self.frame, - 1,
                               "Set Timing",
                               exposure=exposure,
-                              repetition=repetition,trigger=trigger
-                              )
+                              repetition=None)
         dialog.CenterOnScreen()
         return dialog
 
@@ -2009,7 +1875,7 @@ class TimingDialog(wx.Dialog):
                  style=wx.DEFAULT_DIALOG_STYLE,
                  exposure=100,
                  repetition=600,
-                 repetition_min=600, trigger = False):
+                 repetition_min=600):
         
         self.repetition_shown = (repetition is not None)
         
@@ -2047,14 +1913,7 @@ class TimingDialog(wx.Dialog):
             sizer.Add(box, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
             self.repetition_time_entry = entry
 
-        box = wx.BoxSizer(wx.HORIZONTAL)
-        label = wx.StaticText(self,-1,"Trigger Mode")
-        box.Add(label,0,wx.ALIGN_CENTRE | wx.ALL,5)
-        entry = wx.CheckBox(self,-1,"")
-        entry.SetValue(trigger)
-        box.Add(entry,1,wx.ALIGN_CENTRE | wx.ALL,5)
-        sizer.Add(box,0,wx.GROW | wx.ALIGN_CENTRE_VERTICAL | wx.ALL,5)
-        self.trigger_mode_entry = entry
+       
 
         line = wx.StaticLine(self, - 1, size=(20, - 1), style=wx.LI_HORIZONTAL)
         sizer.Add(line, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL | wx.RIGHT | wx.TOP, 5)

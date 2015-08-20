@@ -107,32 +107,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def getFrame(self):
 		return self.camera0.getFrame()
 	
-	def SingleImagePlot(self):  # make and plot image.
-		self.camera0.AcquisitionMode = 'SingleFrame'
-		print 'changed Acq mode to singleframe'
-		frame0 = self.camera0.getFrame()
-		frame0.announceFrame()
-		self.camera0.startCapture()
-		frame0.queueFrameCapture() 
-		self.camera0.runFeatureCommand('AcquisitionStart')
-		time.sleep(1.1/10.0)
-		self.camera0.runFeatureCommand('AcquisitionStop')
-		frame0.waitFrameCapture()
-		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
-							dtype=np.uint8,
-							shape=(frame0.height,
-									frame0.width))
-									# 1))
-		print len(imgData)
-		# imgData = frame0.getBufferByteData()
-		self.camera0.endCapture()
-		self.camera0.revokeAllFrames()
-		#self.close()
-		print 'cam closed, vimba still open!'
-		plt.imshow(imgData)
-		plt.show() ### instead of printing later. Works this way.
-		print 'type plt.show, if not plotted' ### instead of the plt.show() line above. Crashes however
-	
+
 	def SingleImage(self,wait=10000000): 
         #For some reason, the trigger mode needs both waits, but the live stream will not acquire if it waits before the queue. The simplest solution is to hard code a wait time based on the acquisition mode
 		self.camera0.AcquisitionMode = 'SingleFrame'
@@ -164,39 +139,3 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		newImage = np.copy(imgData)
 		return newImage
         
-	def MultipleImages(self,number):
-		self.camera0.AcquistionMode = 'MultiFrame'
-		frameList = []
-		imageList = []
-		newList = []
-		for i in range(number):
-			frame = self.camera0.getFrame()
-			frame.announceFrame()
-			frameList.append(frame)
-		self.camera0.startCapture()
-		frame.queueFrameCapture()
-		self.camera0.runFeatureCommand('AcquisitionStart')
-		frame.waitFrameCapture(10000)
-		for frame in frameList:
-			print "queuing"
-			frame.queueFrameCapture()
-			frame.waitFrameCapture(10000)
-			print "Waiting for capture"
-			imgData = np.ndarray(buffer = frame.getBufferByteData(),
-                                 dtype = np.uint8,shape=(frame.height,frame.width))
-			imageList.append(imgData)
-			self.camera0.flushCaptureQueue()
-			self.camera0.revokeAllFrames()
-		self.camera0.runFeatureCommand('AcquisitionStop')
-		self.camera0.endCapture()
-		
-		print 'AVTCam: Captured ' + str(number) + ' images'
-		for image in imageList:
-			newImage = np.ndarray(shape = (frameList[0].height,frameList[0].width))
-			newImage = np.copy(image)
-			newList.append(newImage)
-		return newList
-
-
-
-
