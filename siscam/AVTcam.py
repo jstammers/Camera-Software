@@ -50,7 +50,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def open(self, mode = 'absorption',pixel=np.uint8): # see comments on vim.open() for cam.open() ; Prepare camera already here for triggered Acquisition			
 		self.camera0.openCamera()
 		print 'AVTcam: Guppy open'
-		if mode == 'absorption':
+		if mode == 'absorption' or 'fluorescence':
 			self.camera0.ExposureMode = 'TriggerWidth'
 			self.camera0.TriggerSelector = 'ExposureActive'
 			self.camera0.AcquisitionMode = 'SingleFrame'
@@ -123,12 +123,13 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 	def SingleImage(self,wait=10000000): 
         #For some reason, the trigger mode needs both waits, but the live stream will not acquire if it waits before the queue. The simplest solution is to hard code a wait time based on the acquisition mode
 		self.camera0.AcquisitionMode = 'SingleFrame'
+
 		frame0 = self.camera0.getFrame()
 		frame0.announceFrame()
 		self.camera0.startCapture()
 		frame0.queueFrameCapture() 
 		self.camera0.runFeatureCommand('AcquisitionStart')
-		frame0.waitFrameCapture(110)
+		frame0.waitFrameCapture(550)
 		frame0.queueFrameCapture()
         #This next wait needs to be commented for the live acquisition and very long for absorption
 		frame0.waitFrameCapture(wait)

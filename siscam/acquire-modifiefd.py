@@ -256,7 +256,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
             time0 =time.time()
             while self.running:
                 try:
-                    #It seems that the wait time needs to be longer than 100ms after a frame is queued, this has a drastic effect on the possible frame rate. A continuous acquisition could help, but implementing this with multiple threads is inelegant.
+
                     img = self.cam.SingleImage(wait)
                     imTime = time.time()-time0
                     self.nr += 1
@@ -654,6 +654,7 @@ class ImgAcquireApp(wx.App):
         self.ID_ImagingModeAVT_Live = wx.NewId()  #####AVT
         self.ID_ImagingModeAVT_Absorption = wx.NewId()  #####AVT
         self.ID_ImagingModeAVT_Fluorescence = wx.NewId()
+        self.ID_ImagingModeAVT = wx.NewId()
         self.ID_ImagingAVT_RemoveBackground = wx.NewId()  #####AVT
         self.ID_ImagingAVT_UseROI = wx.NewId()  #####AVT
 		
@@ -768,17 +769,21 @@ class ImgAcquireApp(wx.App):
             menu_imaging_mode_AVT.Check(self.ID_ImagingModeAVT_Absorption, True)
         elif self.imaging_mode_AVT == 'fluorescence':
             menu_imaging_mode_AVT.Check(self.ID_ImagingModeAVT_Fluorescence,True)
-
         if self.pixelformat_AVT == np.uint8:
             submenu_ImagingModeAVT_PixelFormat.Check(self.ID_PixelFormat_Mono8,True)
         elif self.pixelformat_AVT == np.uint16:
             submenu_ImagingModeAVT_PixelFormat.Check(self.ID_PixelFormat_Mono16,True)
 
-        self.frame.Bind(wx.EVT_MENU_RANGE,
+        self.frame.Bind(wx.EVT_MENU,
                         self.OnMenuImagingModeAVT,
-                        id=self.ID_ImagingModeAVT_Live,
-                        id2=self.ID_ImagingModeAVT_Absorption)
-                        # id2=self.ID_ImagingTheta_UseROI) ### ATTENTION For the moment the functions stay linked to the Theta Functions. Only want to create GUI-objects, not functions
+                        id=self.ID_ImagingModeAVT_Live)
+        self.frame.Bind(wx.EVT_MENU,
+                        self.OnMenuImagingModeAVT,
+                        id=self.ID_ImagingModeAVT_Absorption)
+        self.frame.Bind(wx.EVT_MENU,
+                        self.OnMenuImagingModeAVT,
+                        id=self.ID_ImagingModeAVT_Fluorescence)
+                     
         self.frame.Bind(wx.EVT_MENU_RANGE,self.OnPixelFormatAVT,id=self.ID_PixelFormat_Mono8,id2=self.ID_PixelFormat_Mono16)
 
 ######## ---------------------- End new section ------------------
@@ -1856,19 +1861,21 @@ class ImgAcquireApp(wx.App):
     def OnMenuImagingModeAVT(self, event):
         if event.Id == self.ID_ImagingModeAVT_Live:
             self.imaging_mode_AVT = 'live'
-            print 'set to',self.imaging_mode_AVT
+
         elif event.Id == self.ID_ImagingModeAVT_Absorption:
             self.imaging_mode_AVT = 'absorption'
-            print 'set to',self.imaging_mode_AVT
+
         elif event.Id == self.ID_ImagingModeAVT_Fluorescence:
             self.imaging_mode_AVT = 'fluorescence'
-            print 'set to',self.imaging_mode_AVT
+        print 'set to',self.imaging_mode_AVT
 
     def OnPixelFormatAVT(self,event):
         if event.Id == self.ID_PixelFormat_Mono8:
             self.pixelformat_AVT = np.uint8
+            print 'set to Mono8'
         elif event.Id == self.ID_PixelFormat_Mono16:
             self.pixelformat_AVT = np.uint16
+            print 'set to Mono16'
 
 #### ---------- End new section ----------------			
     def OnMenuImagingModeSony(self, event):
