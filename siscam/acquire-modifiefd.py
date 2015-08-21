@@ -129,6 +129,7 @@ if useSony:
         
 (AVTSingleImageAcquiredEvent, EVT_IMAGE_ACQUIRE_SINGLE_AVT) = wx.lib.newevent.NewEvent() ####AVT
 (AVTTripleImageAcquiredEvent, EVT_IMAGE_ACQUIRE_TRIPLE_AVT) = wx.lib.newevent.NewEvent() ####AVT
+(AVTDoubleImageAcquiredEvent,EVT_IMAGE_ACQUIRE_DOUBLE_AVT) = wx.lib.newevent.NewEvent()
 (ThetaSingleImageAcquiredEvent, EVT_IMAGE_ACQUIRE_SINGLE_THETA) = wx.lib.newevent.NewEvent()
 (ThetaTripleImageAcquiredEvent, EVT_IMAGE_ACQUIRE_TRIPLE_THETA) = wx.lib.newevent.NewEvent()
 (BluefoxSingleImageAcquiredEvent, EVT_IMAGE_ACQUIRE_SINGLE_BLUEFOX) = wx.lib.newevent.NewEvent()
@@ -141,17 +142,14 @@ AVTTriggerGivenEvent = threading.Event() ####AVT
 (StatusMessageEvent, EVT_STATUS_MESSAGE) = wx.lib.newevent.NewEvent()
 
 class CamTiming(object):
-    def __init__(self, exposure, repetition=None, trigger=False, live=True):
+    def __init__(self, exposure, repetition=None, live=True):
         self._exposure = exposure
         self._repetition = repetition
         self._live = live
-        self._trigger = trigger
 
     def get_exposure(self):
-        if self._live:
             return self._exposure
-        else:
-            return 0
+
 
     def set_exposure(self, value):
         self._exposure = value
@@ -166,17 +164,6 @@ class CamTiming(object):
     def set_repetition(self, value):
         self._repetition = value
 
-
-
-    def get_trigger(self):
-        if self._live:
-            return self._trigger
-        else:
-            return 0
-
-    def set_trigger(self,value):
-        self._trigger = value
-    trigger = property(get_trigger,set_trigger)
 
     repetition = property(get_repetition, set_repetition)
 
@@ -258,12 +245,11 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
 
     def run(self):
         self.running = True
-        with closing(self.cam.open(mode = self.app.imaging_mode_AVT)):
+        with closing(self.cam.open(mode = self.app.imaging_mode_AVT,pixel = self.app.pixelformat_AVT)):
             ## TODO set_timing stuff
             if self.app.imaging_mode_AVT == 'live':
-                self.cam.set_AutoMode(exposure = self.app.timing_AVT.exposure)
+                self.cam.set_AutoMode(exposure = self.app.timing_AVT.get_exposure())
                 wait = 0
-
             else:
                 self.cam.set_TriggerMode(gated=True)
                 wait =100000
@@ -274,7 +260,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                     img = self.cam.SingleImage(wait)
                     imTime = time.time()-time0
                     self.nr += 1
-                    self.queue.put((self.nr, img.astype(np.uint16),imTime))
+                    self.queue.put((self.nr, img.astype(self.app.pixelformat_AVT),imTime))
 
                 except Queue.Full:
                     print "Cannot put another image into the queue"
@@ -556,7 +542,41 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
                 # print 'Consumer: queue size', self.queue.qsize()
         print "ImageConsumerThread exiting!"
         self.message('E')
-   
+class ConsumerThreadAVTDoubleImage(ConsumerThread):
+    def stop(self):
+        self.running = False
+    def run(self):
+        self.running = True
+        print 'Consumer Thread started (Fluorescence)'
+        while self.running:
+            try:
+                
+                nr1, img1, time1 = self.queue.get(timeout=None)
+
+                nr2, img2, time2 = self.queue.get(timeout=None)
+
+            except Queue.Empty:
+                print "Still waiting to acquire images"
+                #This doesn't actually reset it. If empty, we should wait for the next image
+                pass
+
+            else:
+                print "consumer: got image", nr1, nr2
+                print "image times: ", time1, time2
+				#calculate absorption image
+                img = img1-img2
+
+                data = {'image1': img1,
+                        'image2': img2,
+                        'image_numbers': (nr1, nr2),
+                        'fluorescence_image': img}
+                wx.PostEvent(self.app, AVTDoubleImageAcquiredEvent(data=data))
+
+                self.save_abs_img(settings.testfile, img)
+                # PngWriter(settings.testfile, img, bitdepth=8)
+                # print 'Consumer: queue size', self.queue.qsize()
+        print "ImageConsumerThread exiting!"
+        self.message('E')   
 ######## ---------------------- End new section ------------------        
 class ConsumerThreadSony(ConsumerThread):
     
@@ -633,9 +653,14 @@ class ImgAcquireApp(wx.App):
 		
         self.ID_ImagingModeAVT_Live = wx.NewId()  #####AVT
         self.ID_ImagingModeAVT_Absorption = wx.NewId()  #####AVT
+        self.ID_ImagingModeAVT_Fluorescence = wx.NewId()
         self.ID_ImagingAVT_RemoveBackground = wx.NewId()  #####AVT
         self.ID_ImagingAVT_UseROI = wx.NewId()  #####AVT
 		
+        self.ID_ImagingModeAVT_PixelFormat = wx.NewId()
+        self.ID_PixelFormat_Mono8 = wx.NewId()
+        self.ID_PixelFormat_Mono16 = wx.NewId()
+
         self.ID_ImagingModeTheta_Live = wx.NewId()
         self.ID_ImagingModeTheta_Absorption = wx.NewId()
         self.ID_ImagingTheta_RemoveBackground = wx.NewId()
@@ -688,12 +713,14 @@ class ImgAcquireApp(wx.App):
         self.imaging_mode_theta = 'live' #'live', 'absorption'
         self.imaging_mode_sony  = 'live'
         self.imaging_mode_AVT =  'live' #######AVT
+
+        self.pixelformat_AVT = np.uint8
 		
         #self.external_timing_theta = True
         #self.external_timing_bluefox = True
         #self.external_timing_sony = False
 
-        self.timing_AVT = CamTiming(exposure=40, repetition=605, live=False, trigger = False) ####AVT units: both times in ms, bot exposure later displated converted to us 
+        self.timing_AVT = CamTiming(exposure=40, repetition=605, live=False) ####AVT units: both times in ms, bot exposure later displated converted to us 
         self.timing_theta = CamTiming(exposure=0.1, repetition=600, live=True)
         self.timing_bluefox = CamTiming(exposure=20, repetition=None, live=True)
         self.timing_sony = CamTiming(exposure=1, repetition=None, live=True)
@@ -717,9 +744,18 @@ class ImgAcquireApp(wx.App):
         self.frame.Bind(wx.EVT_MENU, self.OnMenuShowAll, id = self.ID_ShowAll)
 ######AVT ----------- New AVT-section -------- added 09012015
 	#imaging menu AVT
+
         menu_imaging_mode_AVT = wx.Menu()
         menu_imaging_mode_AVT.AppendRadioItem(self.ID_ImagingModeAVT_Live, 'Live')
         menu_imaging_mode_AVT.AppendRadioItem(self.ID_ImagingModeAVT_Absorption, 'Absorption')
+        menu_imaging_mode_AVT.AppendRadioItem(self.ID_ImagingModeAVT_Fluorescence, 'Fluorescence')
+        menu_imaging_mode_AVT.AppendSeparator()
+
+        submenu_ImagingModeAVT_PixelFormat = wx.Menu()
+        submenu_ImagingModeAVT_PixelFormat.AppendRadioItem(self.ID_PixelFormat_Mono8, 'Mono8')
+        submenu_ImagingModeAVT_PixelFormat.AppendRadioItem(self.ID_PixelFormat_Mono16,'Mono16')
+       
+        menu_imaging_mode_AVT.AppendMenu(self.ID_ImagingModeAVT_PixelFormat, 'Image Format',submenu_ImagingModeAVT_PixelFormat)
         # menu_imaging_mode_AVT.AppendCheckItem(self.ID_ImagingAVT_RemoveBackground, 'Remove Background')
         # menu_imaging_mode_AVT.AppendCheckItem(self.ID_ImagingAVT_UseROI, 'Use Region of Interest')  ##### this one we might not need later ???
         
@@ -730,12 +766,21 @@ class ImgAcquireApp(wx.App):
             menu_imaging_mode_AVT.Check(self.ID_ImagingModeAVT_Live, True)
         elif self.imaging_mode_AVT == 'absorption':
             menu_imaging_mode_AVT.Check(self.ID_ImagingModeAVT_Absorption, True)
+        elif self.imaging_mode_AVT == 'fluorescence':
+            menu_imaging_mode_AVT.Check(self.ID_ImagingModeAVT_Fluorescence,True)
+
+        if self.pixelformat_AVT == np.uint8:
+            submenu_ImagingModeAVT_PixelFormat.Check(self.ID_PixelFormat_Mono8,True)
+        elif self.pixelformat_AVT == np.uint16:
+            submenu_ImagingModeAVT_PixelFormat.Check(self.ID_PixelFormat_Mono16,True)
 
         self.frame.Bind(wx.EVT_MENU_RANGE,
                         self.OnMenuImagingModeAVT,
                         id=self.ID_ImagingModeAVT_Live,
                         id2=self.ID_ImagingModeAVT_Absorption)
                         # id2=self.ID_ImagingTheta_UseROI) ### ATTENTION For the moment the functions stay linked to the Theta Functions. Only want to create GUI-objects, not functions
+        self.frame.Bind(wx.EVT_MENU_RANGE,self.OnPixelFormatAVT,id=self.ID_PixelFormat_Mono8,id2=self.ID_PixelFormat_Mono16)
+
 ######## ---------------------- End new section ------------------
         #imaging menu theta
         menu_imaging_mode_theta = wx.Menu()
@@ -1277,6 +1322,8 @@ class ImgAcquireApp(wx.App):
         self.Bind(EVT_IMAGE_ACQUIRE_TRIPLE_THETA, self.OnTripleImageAcquiredTheta)
         self.Bind(EVT_IMAGE_ACQUIRE_TRIPLE_SONY, self.OnTripleImageAcquiredSony)
         self.Bind(EVT_IMAGE_ACQUIRE_TRIPLE_AVT, self.OnTripleImageAcquiredAVT)
+
+        self.Bind(EVT_IMAGE_ACQUIRE_DOUBLE_AVT,self.OnDoubleImageAcquiredAVT)
         #status messages
         self.Bind(EVT_STATUS_MESSAGE, self.OnStatusMessage)
 
@@ -1344,14 +1391,18 @@ class ImgAcquireApp(wx.App):
         # Need to add viewers for each image used in aborption. For now, this just saves the image displayed in the viewer
         print "save image"
         img = self.imageAVT.imgview.get_camimage()
-        if self.imaging_mode_AVT == 'absorption':
+        if self.ID_ImagingModeAVT_PixelFormat == 'Mono8':
+            bd = 8
+        else:
+            bd = 16
+        if self.imaging_mode_AVT == 'live':
+                PngWriter(settings.imagefile, img,  bitdepth=bd)
+        else:
                 img_fore = self.imageAVT_foreground.imgview.get_camimage()
                 img_back = self.imageAVT_background.imgview.get_camimage()
-                PngWriter(settings.absorbfile, img, bitdepth = 8)
-                PngWriter(settings.forefile, img_fore, bitdepth = 8)
-                PngWriter(settings.backfile, img_back, bitdepth = 8)
-        else:
-                PngWriter(settings.imagefile, img,  bitdepth = 8)
+                PngWriter(settings.absorbfile, img, bitdepth=bd)
+                PngWriter(settings.forefile, img_fore, bitdepth=bd)
+                PngWriter(settings.backfile, img_back, bitdepth=bd)
     def OnIdle(self, event):
         self.busy = 0
 
@@ -1456,7 +1507,16 @@ class ImgAcquireApp(wx.App):
             self.imageAVT_foreground.show_image(img1)
             self.imageAVT_background.show_image(img2) 
             self.imageAVT_dark.show_image(img3)       
+
+    def OnDoubleImageAcquiredAVT(self,event):
+        img1 = event.data['image1']
+        img2 = event.data['image2']
+        imgF = event.data['fluorescence_image']
         
+        if not self.Pending():
+            self.imageAVT.show_image(imgF)
+            self.imageAVT_foreground.show_image(img1)
+            self.imageAVT_background.show_image(img2)        
 ##### ----------- End New Section ---------------- Added on 19022015
         
     def OnTripleImageAcquiredSony(self, event):
@@ -1538,8 +1598,9 @@ class ImgAcquireApp(wx.App):
         if self.imaging_mode_AVT == 'live':
             self.imgconsumer_AVT = ConsumerThreadAVTSingleImage(self, self.imagequeue_AVT)
         if self.imaging_mode_AVT == 'absorption':
-
             self.imgconsumer_AVT = ConsumerThreadAVTTripleImage(self, self.imagequeue_AVT)
+        if self.imaging_mode_AVT == 'fluorescence':
+            self.imgconsumer_AVT = ConsumerThreadAVTDoubleImage(self,self.imagequeue_AVT)
         self.imgconsumer_AVT.start()
         self.imgproducer_AVT.start()
 	
@@ -1799,6 +1860,16 @@ class ImgAcquireApp(wx.App):
         elif event.Id == self.ID_ImagingModeAVT_Absorption:
             self.imaging_mode_AVT = 'absorption'
             print 'set to',self.imaging_mode_AVT
+        elif event.Id == self.ID_ImagingModeAVT_Fluorescence:
+            self.imaging_mode_AVT = 'fluorescence'
+            print 'set to',self.imaging_mode_AVT
+
+    def OnPixelFormatAVT(self,event):
+        if event.Id == self.ID_PixelFormat_Mono8:
+            self.pixelformat_AVT = np.uint8
+        elif event.Id == self.ID_PixelFormat_Mono16:
+            self.pixelformat_AVT = np.uint16
+
 #### ---------- End new section ----------------			
     def OnMenuImagingModeSony(self, event):
         if event.Id == self.ID_ImagingModeSony_Live:
@@ -1934,9 +2005,9 @@ class TimingDialog(wx.Dialog):
     def GetResults(self):
         if self.repetition_shown:
             return (self.exposure_time_entry.Value / 1000.0,
-                    self.repetition_time_entry.Value, self.trigger_mode_entry.Value)
+                    self.repetition_time_entry.Value)
         else:
-            return (self.exposure_time_entry.Value / 1000.0, self.trigger_mode_entry.Value)
+            return (self.exposure_time_entry.Value / 1000.0)
 
 def find_background(img, r = 10.0):
 

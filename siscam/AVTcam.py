@@ -47,7 +47,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		# else:
 			# print 'no camera found' 
 
-	def open(self, mode = 'absorption'): # see comments on vim.open() for cam.open() ; Prepare camera already here for triggered Acquisition			
+	def open(self, mode = 'absorption',pixel=np.uint8): # see comments on vim.open() for cam.open() ; Prepare camera already here for triggered Acquisition			
 		self.camera0.openCamera()
 		print 'AVTcam: Guppy open'
 		if mode == 'absorption':
@@ -55,14 +55,23 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 			self.camera0.TriggerSelector = 'ExposureActive'
 			self.camera0.AcquisitionMode = 'SingleFrame'
 			self.camera0.TriggerActivation = 'LevelHigh'
+			if pixel == np.uint8:
+			    self.camera0.PixelFormat = 'Mono8'
+			elif pixel == np.uint16:
+			    self.camera0.PixelFormat = 'Mono16'
 			print 'AVTcam: Camera set on Absorption mode'
 		elif mode == 'live':
 			self.camera0.ExposureMode = 'Timed'
 			self.camera0.TriggerMode = 'On'
 			self.camera0.AcquisitionMode = 'SingleFrame'
+			if pixel == np.uint8:
+			    self.camera0.PixelFormat = 'Mono8'
+			elif pixel == np.uint16:
+			    self.camera0.PixelFormat = 'Mono16'
 			print 'AVTcam: Camera set on Live mode'
 		else:
 			print 'AVTcam: Invalid mode specified'
+		print'AVTcam: Pixel Mode set to', self.camera0.PixelFormat
 		return self
 		
 	def close(self):
@@ -104,8 +113,11 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 			self.camera0.ExposureTime = exposure_time_us ##### TODO: Double check definitions
 
 
-	def getFrame(self):
-		return self.camera0.getFrame()
+	def getImageDepth(self):
+		if self.camera0.PixelFormat == 'Mono8':
+			return np.uint8
+		elif self.camera0.PixelFormat == 'Mono16':
+			return np.uint16
 	
 
 	def SingleImage(self,wait=10000000): 
@@ -122,7 +134,7 @@ class AVTcam(object): # only works inside VimbAcq.open() / .close() ,
 		frame0.waitFrameCapture(wait)
 
 		imgData = np.ndarray(buffer=frame0.getBufferByteData(),
-							dtype=np.uint8,
+							dtype=self.getImageDepth(),
 							shape=(frame0.height,
 									frame0.width))	#####BEST VERSION 19012015
 									# 1))
