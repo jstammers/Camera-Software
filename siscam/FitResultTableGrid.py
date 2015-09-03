@@ -9,6 +9,7 @@ import wx.grid
 import wx.aui
 
 import numpy
+import sys
 
 from observer import Subject, changes_state
 import gridtypes
@@ -76,7 +77,26 @@ def changes_data(f):
     return wrapper
 
 
+def query_yes_no(question, default = 'yes'):
+    valid = {'yes':True,'no':False,'y':True,'n':False,'ye':True}
+    if default is None:
+        prompt = '[y/n]'
+    elif default == 'yes':
+        prompt = '[Y/n]'
+    elif default == 'no':
+        prompt = '[y/N]'
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
 
+    while True:
+        sys.stdout.write(question+prompt)
+        choice = raw_input().lower()
+        if default is not None and choice == '':
+            return valid[default]
+        elif choice in valid:
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' ")
 class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
     """
     Stores and handles all data for fit results.
@@ -91,20 +111,20 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
 
         #NOTE: if columns added, perhaps it's necessary to change fitpar
         #below
-        
-        var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S15','f4')})
-
- 
+        var_bool = query_yes_no("Load extra variables from the Variables.txt file?")
+       
         varlist = []
-        for line in var_array:
-                varlist.append(line[0])
-                varlist.append('double_empty:5,3')
-                varlist.append(2)
-                if line ==var_array[0]:
-                        varlist.append(1)
-                else:
-                        varlist.append(0)
-                varlist.append('')
+        if var_bool:
+            var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S15','f4')})
+            for line in var_array:
+                    varlist.append(line[0])
+                    varlist.append('double_empty:5,3')
+                    varlist.append(2)
+                    if line ==var_array[0]:
+                            varlist.append(1)
+                    else:
+                            varlist.append(0)
+                    varlist.append('')
         
         rowlist=[
             #name       type          dynamic show
