@@ -252,7 +252,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                 wait = 0
             else:
                 self.cam.set_TriggerMode(gated=True)
-                wait =100000
+                wait = 100000
             time0 =time.time()
             while self.running:
                 try:
@@ -354,7 +354,11 @@ class ConsumerThread(threading.Thread):
         wx.PostEvent(self.app, StatusMessageEvent(data=msg))
 
     def save_abs_img(self, filename, img):
-        rawimg = (1000 * (img + 1)).astype(np.uint16)
+        if useAVT:
+            pixVal = self.app.pixelformat_AVT
+            rawimg = img.astype(pixVal)
+        else:
+            rawimg = (1000 * (img + 1)).astype(np.uint16)
 
         # readsis.write_raw_image(filename, rawimg)
         # print 'DEBUG MODE! bitdepth before saving abs = ',rawimg.dtype.itemsize
@@ -564,8 +568,9 @@ class ConsumerThreadAVTDoubleImage(ConsumerThread):
                 print "consumer: got image", nr1, nr2
                 print "image times: ", time1, time2
 				#calculate absorption image
-                img = img1-img2
-
+                img = img1.astype(np.int16)-img2.astype(np.int16)
+                img[img<0]=0
+                img.astype(np.uint8)
                 data = {'image1': img1,
                         'image2': img2,
                         'image_numbers': (nr1, nr2),
@@ -1396,10 +1401,10 @@ class ImgAcquireApp(wx.App):
         # Need to add viewers for each image used in aborption. For now, this just saves the image displayed in the viewer
         print "save image"
         img = self.imageAVT.imgview.get_camimage()
-        if self.ID_ImagingModeAVT_PixelFormat == 'Mono8':
+        if self.pixelformat_AVT == np.uint8:
             bd = 8
-        else:
-            bd = 16
+        elif self.pixelformat_AVT == np.uint16:
+            bd=16
         if self.imaging_mode_AVT == 'live':
                 PngWriter(settings.imagefile, img,  bitdepth=bd)
         else:

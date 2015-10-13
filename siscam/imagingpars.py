@@ -26,11 +26,11 @@ class ImagingPars(object):
 
 class ImagingParsHorizontal(ImagingPars):
     description = "horizontal"
-    pixelsize = 6.45e-6/2 * 1e6 #pixelsize in µm
+    pixelsize = 3.45e-6*2 * 1e6 #pixelsize in µm
     
 class ImagingParsVertical(ImagingPars):
     description = "vertical"
-    pixelsize = 6.45e-6/2.5 * 1e6 #pixelsize in µm
+    pixelsize = 3.45e-6*2 * 1e6 #pixelsize in µm
 
 class ImagingParsBlueFox(ImagingPars):
     description = 'BlueFox'

@@ -9,6 +9,9 @@ import Image
 from PngImagePlugin import PngInfo
 
 def read(filename):
+    '''
+    Currently, this writes the images as either 16-bit or 8-bit numpy arrays that do not depend on the image being read. This should be updated if we ever use 16-bit images.
+    '''
     img_pil = Image.open(filename)
     img_pil.load()
     print img_pil.info
@@ -23,6 +26,14 @@ def read(filename):
         width, height = img_pil.size
         img = numpy.fromstring(s, dtype = numpy.uint8)
         img.shape = (height, width)
+    elif img_pil.mode == 'L':
+        s = img_pil.tostring()
+        width,height = img_pil.size
+        img = numpy.fromstring(s,dtype = numpy.uint8)
+        img.shape = (height,width)
+    else:
+        print "readpng: unspecified image type"
+        return None      
     return img, img_pil.info
 
 def write_raw_image(filename, img):

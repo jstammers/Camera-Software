@@ -714,6 +714,7 @@ class ImagePanel(wx.Panel):
 
         if mouse.LeftDown():
             #start pan
+
             self._mpos = mouse.Position
             self.statusbar.SetStatusText('Pan',1)
             
@@ -835,9 +836,9 @@ class CamImagePanel(ImagePanel):
     (panning)."""
 
 
-    contrast = [ ['low',    25],
-                 ['normal', 1.5],
-                 ['high',   0.5],
+    contrast = [ ['low',    256],
+                 ['normal', 128],
+                 ['high',   64],
                  ]
 
     contrast_default = 1 #default entry of table before
@@ -1016,9 +1017,9 @@ class CamImageMarkersPanel(CamImagePanel):
         self.imgview.remove_marker(marker)
 
 class CamAbsImagePanel(CamImageMarkersPanel):
-    contrast = [ ['low',    2.5],
-             ['normal', 1.5],
-             ['high',   0.5],
+    contrast = [ ['low',    64],
+             ['normal', 128],
+             ['high',   256],
              ]
 
 class CamRawSisImagePanel(CamImageMarkersPanel):
