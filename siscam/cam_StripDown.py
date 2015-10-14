@@ -1286,7 +1286,7 @@ class ImgAppAui(wx.App):
     def get_data_dir(self, subdir = ''):
         """change current directory to data dir"""
         directory = os.path.join(settings.imagesavepath,
-                                 time.strftime("%Y/%Y-%m-%d/"),
+                                 time.strftime("%Y/%m/%d/"),
                                  subdir)
         if not os.access(directory, os.F_OK):
             try:#try to create dir
