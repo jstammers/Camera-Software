@@ -673,7 +673,8 @@ class ImgPanel(wx.Panel):
         ODmax = self.fit.imaging_pars.ODmax #TODO: this might fail if
                                             #fit class is changed.
         if ODmax > 0:
-            img = numpy.log((1 - numpy.exp(- ODmax)) / (numpy.exp(- img) - numpy.exp(- ODmax)))
+            img = img
+            #img = numpy.log((1 - numpy.exp(- ODmax)) / (numpy.exp(- img) - numpy.exp(- ODmax)))
             #TODO: remove invalid entries
             #TODO: this should not happen here!
         
@@ -842,6 +843,7 @@ class ImgAppAui(wx.App):
     ID_Rb_ContrastHigh = wx.NewId()
     ID_Rb_ContrastNormal = wx.NewId()
     ID_Rb_ContrastLow = wx.NewId()
+    ID_Rb_ContrastSlider = wx.NewId()
     
     ID_MarkerA = wx.NewId()
     ID_MarkerB = wx.NewId()
@@ -883,7 +885,7 @@ class ImgAppAui(wx.App):
 
     #roiK = [ROI(540, 740, 380, 520), ROI(800, 900, 580, 720), ROI(0, 640, 0, 480)] #list of ROIs for all imaging settings
     #roiRb = [ROI(540, 740, 380, 520), ROI(800, 900, 580, 720), ROI(0, 640, 0, 480)]
-    roiRb = [ROI(100, 200, 100, 200), ROI(100, 200, 100, 200), ROI(0, 640, 0, 480)]
+    roiRb = [ROI(0, 1600, 0, 1200), ROI(100, 200, 100, 200), ROI(0, 640, 0, 480)]
 
 
     imaging_parlist = [{'Rb': imagingpars.ImagingParsVertical()},
@@ -894,7 +896,7 @@ class ImgAppAui(wx.App):
         imaging_parlist[i]['Rb'].mass = 87.0 * 1.66e-27
     
     imaging_pars = imaging_parlist[0]
-
+    97
     def select_imaging(self, n):
         """
         select new imaging parameters. sync controls with new settings. 
@@ -1243,15 +1245,17 @@ class ImgAppAui(wx.App):
         id = event.GetId()
 
         Rb_contrast_dict = {
-            self.ID_Rb_ContrastHigh:   0.5,
-            self.ID_Rb_ContrastNormal: 1.5,
-            self.ID_Rb_ContrastLow:    2.5,
+            self.ID_Rb_ContrastHigh:   64,
+            self.ID_Rb_ContrastNormal: 128,
+            self.ID_Rb_ContrastLow:    256,
             }
 
         cmax = Rb_contrast_dict.get(id)
         if cmax:
             self.Rb.himg.set_clim(vmax=cmax)
             self.Rb.redraw()
+    def OnMenuContrastSlider(self,event):
+        id = event.GetId()
 
     def OnMenuMarker(self, event):
         markerindex = [self.ID_MarkerA, self.ID_MarkerB].index(event.Id)
@@ -1282,7 +1286,7 @@ class ImgAppAui(wx.App):
     def get_data_dir(self, subdir = ''):
         """change current directory to data dir"""
         directory = os.path.join(settings.imagesavepath,
-                                 time.strftime("%Y/%Y-%m-%d/"),
+                                 time.strftime("%Y/%m/%d/"),
                                  subdir)
         if not os.access(directory, os.F_OK):
             try:#try to create dir
@@ -1384,6 +1388,7 @@ class ImgAppAui(wx.App):
         display_Rb_menu.AppendRadioItem(self.ID_Rb_ContrastHigh, 'high', 'high contrast')
         display_Rb_menu.AppendRadioItem(self.ID_Rb_ContrastNormal, 'normal', 'low contrast')
         display_Rb_menu.AppendRadioItem(self.ID_Rb_ContrastLow, 'low', 'high contrast')
+        display_Rb_menu.AppendRadioItem(self.ID_Rb_ContrastSlider,'manual', 'manual contrast')
         display_menu.AppendMenu(wx.NewId(),
                                 "Rb Color Contrast",
                                 display_Rb_menu)
@@ -1393,7 +1398,10 @@ class ImgAppAui(wx.App):
 
         self.frame.Bind(wx.EVT_MENU_RANGE, self.OnMenuContrast,
                         id=self.ID_Rb_ContrastLow)
-
+        self.frame.Bind(wx.EVT_MENU_RANGE, self.OnMenuContrast,
+                        id=self.ID_Rb_ContrastNormal)
+        self.frame.Bind(wx.EVT_MENU_RANGE, self.OnMenuContrast,
+                        id=self.ID_Rb_ContrastHigh)
         display_menu.AppendSeparator()
         display_menu.Append(self.ID_MarkerA,
                             'Horizontal marker visible',
@@ -1560,6 +1568,7 @@ class ImgAppAui(wx.App):
         imgRb = ma.array(imgRb, mask= ~ numpy.isfinite(imgRb))
         
         self.Rb = ImgPanel(self.frame, 'Rb', imgRb, self.roiRb[0], fitting.Gauss2d(self.imaging_pars['Rb']))
+
         #TODO: better: reduce constructor, call later show_image
         self.mgr.AddPane(self.Rb, wx.aui.
                          AuiPaneInfo().Name("Rb").Caption("Rubidium").

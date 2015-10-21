@@ -16,7 +16,7 @@ varfile = os.path.join(imagefilepath, 'Variables.txt')
 #imagefile = r"W:/ocf/fit.sis" #direct access to acquired image on camera computer
 
 #path where to save images
-imagesavepath = os.getcwd() # with subdirs automagically created
+imagesavepath = r"C:/Users/Navigator/Data/" # with subdirs automagically created
 #imagesavepath = r"y:/data/2008/" #direct access to cam computer
 
 #path to dir where icon bitmap are stored
