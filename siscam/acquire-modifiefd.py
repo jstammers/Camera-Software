@@ -252,7 +252,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                 wait = 0
             else:
                 self.cam.set_TriggerMode(gated=True)
-                wait = 100000
+                wait = 10000000
             time0 =time.time()
             while self.running:
                 try:

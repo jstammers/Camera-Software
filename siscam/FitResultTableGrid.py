@@ -111,20 +111,20 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
 
         #NOTE: if columns added, perhaps it's necessary to change fitpar
         #below
-        var_bool = query_yes_no("Load extra variables from the Variables.txt file?")
+
        
         varlist = []
-        if var_bool:
-            var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S15','f4')})
-            for line in var_array:
-                    varlist.append(line[0])
-                    varlist.append('double_empty:5,3')
-                    varlist.append(2)
-                    if line ==var_array[0]:
-                            varlist.append(1)
-                    else:
-                            varlist.append(0)
-                    varlist.append('')
+
+        var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S15','f4')})
+        for line in var_array:
+            varlist.append(line[0])
+            varlist.append('double_empty:5,3')
+            varlist.append(2)
+            if line ==var_array[0]:
+                varlist.append(1)
+            else:
+                varlist.append(0)
+            varlist.append('')
         
         rowlist=[
             #name       type          dynamic show
