@@ -448,7 +448,8 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
         self.update_dynamic_cols()
         self.update_variable_cols()
 
-        self.GetView().MakeCellVisible(row, 0)
+        #uncomment this to change row selection to the newly added row
+        #self.GetView().MakeCellVisible(row, 0)
         self.GetView().Refresh()
 
     def UpdateFilename(self, filename):
