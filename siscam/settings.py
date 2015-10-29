@@ -1,7 +1,7 @@
 ﻿import os, os.path
-
+basedir = os.path.dirname(__file__)
 #path to acquired image
-imagefilepath = os.path.join(os.getcwd(), 'img')
+imagefilepath = os.path.join(basedir, 'img')
 
 #full path to image file
 #imagefile = os.path.join(imagefilepath, 'test.sis')
@@ -16,11 +16,11 @@ varfile = os.path.join(imagefilepath, 'Variables.txt')
 #imagefile = r"W:/ocf/fit.sis" #direct access to acquired image on camera computer
 
 #path where to save images
-imagesavepath = r"C:/Users/Navigator/Data/" # with subdirs automagically created
+imagesavepath = r"C:/Data/" # with subdirs automagically created
 #imagesavepath = r"y:/data/2008/" #direct access to cam computer
 
 #path to dir where icon bitmap are stored
-bitmappath = os.path.join(os.getcwd(), 'bitmaps')
+bitmappath = os.path.join(basedir, 'bitmaps')
 
 ##settings for cam computer
 #imagefile = r"c:/fit/ocf/fit.sis" #on cam computer
@@ -62,7 +62,7 @@ configfiles_sony = ['settings/cam sony 0 device settings.txt',
 #configfile = r"c:\WinSIS6\py\config.ini" #real system
 #usePseudoCam = False
 
-basedir = os.getcwd() #might fail
+
 
 templatedir = os.path.join(basedir, 'templates')
 

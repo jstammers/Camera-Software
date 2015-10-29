@@ -5,8 +5,13 @@
 from __future__ import with_statement
 import os.path, sys, time
 import numpy
-import Image
-from PngImagePlugin import PngInfo
+try:
+    import Image
+    from PngImagePlugin import PngInfo
+except:
+    from PIL import Image
+    from PIL.PngImagePlugin import PngInfo
+
 
 def read(filename):
     '''

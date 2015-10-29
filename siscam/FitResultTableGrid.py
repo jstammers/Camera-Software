@@ -508,36 +508,36 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
 
         #color marks
         if self.colsel[col] in self.marks['X']:
-            attr.SetBackgroundColour(wx.Color(255, 230, 230))
+            attr.SetBackgroundColour(wx.Colour(255, 230, 230))
         elif self.colsel[col] in self.marks['Y1']:
-            attr.SetBackgroundColour(wx.Color(255, 255, 205))
+            attr.SetBackgroundColour(wx.Colour(255, 255, 205))
         elif self.colsel[col] in self.marks['Y2']:
-            attr.SetBackgroundColour(wx.Color(255, 255, 155))
+            attr.SetBackgroundColour(wx.Colour(255, 255, 155))
         elif self.colsel[col] in self.marks['G']:
-            attr.SetBackgroundColour(wx.Color(155, 255, 155))
+            attr.SetBackgroundColour(wx.Colour(155, 255, 155))
 
         #color dynamic columns
         if self.colsel[col] in self.dynamic_cols:
-            attr.SetBackgroundColour(wx.Color(200, 200, 200))
+            attr.SetBackgroundColour(wx.Colour(200, 200, 200))
 
         #color last rows
         maxRows = self.GetNumberRows()
         if self.active:
             if maxRows - row == 1: #last row
-                attr.SetBackgroundColour(wx.Color(255, 230, 230))
+                attr.SetBackgroundColour(wx.Colour(255, 230, 230))
             elif maxRows - row == 2: #second to last row
-                attr.SetBackgroundColour(wx.Color(255, 255, 205))
+                attr.SetBackgroundColour(wx.Colour(255, 255, 205))
             elif maxRows - row == 3:
                 if self.record:
-                    attr.SetBackgroundColour(wx.Color(200, 255, 200))
+                    attr.SetBackgroundColour(wx.Colour(200, 255, 200))
                 else:
-                    attr.SetBackgroundColour(wx.Color(255, 100, 100))
+                    attr.SetBackgroundColour(wx.Colour(255, 100, 100))
         else:
             if maxRows - row <= 2:
-                attr.SetBackgroundColour(wx.Color(127, 127, 127))
+                attr.SetBackgroundColour(wx.Colour(127, 127, 127))
 
         if self.rowmask[row]:
-            attr.SetTextColour(wx.Color(0,0,255))
+            attr.SetTextColour(wx.Colour(0,0,255))
             
         return attr
 

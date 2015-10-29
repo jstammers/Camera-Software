@@ -71,8 +71,11 @@ def loadimg3(path):
 
     img = - (log(img1 - img3) - log(img2 - img3))
     return img[:1040], img[1040:], 
-
-import Image, ImageFile
+try:
+    import Image, ImageFile
+except:
+    from PIL import Image
+    from PIL import ImageFile
 class SISImageFile(ImageFile.ImageFile):
 
     format = "SIS"

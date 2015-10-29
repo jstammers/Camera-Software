@@ -8,7 +8,7 @@ import random
 
 class Ding:
     def __init__(self):
-        self.soundpath = os.path.join(os.getcwd(), 'sounds') #TODO: might fail
+        self.soundpath = os.path.join(os.path.dirname(__file__), 'sounds') #TODO: might fail
         self.soundfiles = os.listdir(self.soundpath)
 
     def play(self):
