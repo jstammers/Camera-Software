@@ -245,6 +245,7 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
 
     def run(self):
         self.running = True
+        print self.app.imaging_mode_AVT
         with closing(self.cam.open(mode = self.app.imaging_mode_AVT,pixel = self.app.pixelformat_AVT)):
             ## TODO set_timing stuff
             if self.app.imaging_mode_AVT == 'live':
@@ -261,14 +262,15 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
                     imTime = time.time()-time0
                     self.nr += 1
                     self.queue.put((self.nr, img.astype(self.app.pixelformat_AVT),imTime))
-
-                except Queue.Full:
-                    print "Cannot put another image into the queue"
                 except:
-                    print "Acq Thread: UNKNOWN ERROR"
-                    break
-            self.queue.put((-1, None,0))
+                    self.cam.StopImageAcquisition(self.app.imaging_mode_AVT)
+                    self.running = False
+                    raise Exception("Image not acquired. Closing Camera")
+            #self.queue.put((-1, None,0))
         print '------------ AcquireThreadAVT finished --------- '
+        self.running = False
+    def stop(self):
+        self.cam.StopImageAcquisition(self.app.imaging_mode_AVT)
         self.running = False
 
             ######## ---------------------- End new section ------------------
@@ -418,11 +420,12 @@ class ConsumerThreadAVTSingleImage(ConsumerThread):
                     
                     #if nr%100 == 0:
                     # print 'DEBUG MODE! bitdepth before saving = ',img.dtype.itemsize
-                    self.save_abs_img(settings.testfile, img) ###### NOTE: png image is much darker than display --> multiply by 1000 before saving to PNG??? not sure.... for now it works like this.
-                # print 'Consumer: queue size', self.queue.qsize()
-        print "ImageConsumerThread exiting!"
+                    self.save_abs_img(settings.testfile, img)
+                    self.queue.task_done()
         self.message('E')
     def stop(self):
+        if not self.queue.empty():
+            self.queue.join()
         self.running = False
 
 ######## ---------------------- End new section ------------------
@@ -510,6 +513,8 @@ class ConsumerThreadThetaTripleImage(ConsumerThread):
 ######AVT ----------- New AVT-section -------- added 19022015
 class ConsumerThreadAVTTripleImage(ConsumerThread):
     def stop(self):
+        with Queue.mutex:
+            Queue.clear()
         self.running = False
     def run(self):
         self.running = True
@@ -548,27 +553,24 @@ class ConsumerThreadAVTTripleImage(ConsumerThread):
         self.message('E')
 class ConsumerThreadAVTDoubleImage(ConsumerThread):
     def stop(self):
-        self.running = False
+        if not self.queue.empty():
+            print "still waiting for images"
+            self.running = False
+        else:
+            self.running = False
     def run(self):
         self.running = True
         print 'Consumer Thread started (Fluorescence)'
         while self.running:
-            try:
+            if not self.queue.empty():
                 
                 nr1, img1, time1 = self.queue.get(timeout=None)
 
                 nr2, img2, time2 = self.queue.get(timeout=None)
-
-            except Queue.Empty:
-                print "Still waiting to acquire images"
-                #This doesn't actually reset it. If empty, we should wait for the next image
-                pass
-
-            else:
-                print "consumer: got image", nr1, nr2
-                print "image times: ", time1, time2
-				#calculate absorption image
+                
+                #calculate absorption image
                 img = img1.astype(np.int16)-img2.astype(np.int16)
+
                 img[img<0]=0
                 img.astype(np.uint8)
                 data = {'image1': img1,
@@ -576,10 +578,12 @@ class ConsumerThreadAVTDoubleImage(ConsumerThread):
                         'image_numbers': (nr1, nr2),
                         'fluorescence_image': img}
                 wx.PostEvent(self.app, AVTDoubleImageAcquiredEvent(data=data))
-
+                #Indicate that the queued tasks have been completed
+                self.queue.task_done()
+                self.queue.task_done()
                 self.save_abs_img(settings.testfile, img)
-                # PngWriter(settings.testfile, img, bitdepth=8)
-                # print 'Consumer: queue size', self.queue.qsize()
+
+
         print "ImageConsumerThread exiting!"
         self.message('E')   
 ######## ---------------------- End new section ------------------        
@@ -1619,8 +1623,8 @@ class ImgAcquireApp(wx.App):
         self.imgproducer_AVT.stop()
         self.imgconsumer_AVT.stop()
 
-        self.imgproducer_AVT.join(2)
-        self.imgconsumer_AVT.join(2)
+        self.imgproducer_AVT.join()
+        self.imgconsumer_AVT.join()
 
         if self.imgproducer_AVT.isAlive():
             print "could not stop AVT producer thread."
