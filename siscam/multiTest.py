@@ -10,13 +10,17 @@ VimbAcq = AVTcam.VimbAcq()
 VimbAcq.open()  ####AVT
 Guppy = AVTcam.AVTcam(VimbAcq.ID(),VimbAcq) ###AVT
 Guppy.open()
-Guppy.set_TriggerMode(True)
-images = Guppy.MultipleImages(3)
+print Guppy.camera0.ExposureMode + ' before change'
+Guppy.set_AutoMode(exposure = 10)
+print Guppy.camera0.ExposureMode
+print Guppy.camera0.ExposureTime
+# Guppy.set_TriggerMode(True)
+# images = Guppy.MultipleImages(3)
 
-print images
-Guppy.close()
-VimbAcq.close()
-i = 0
-for image in images:
-	PngWriter(os.path.join(os.getcwd(),'image_' +str(i)+'.png'),image, bitdepth = 8)
-	i+=1
+# print images
+# Guppy.close()
+# VimbAcq.close()
+# i = 0
+# for image in images:
+# 	PngWriter(os.path.join(os.getcwd(),'image_' +str(i)+'.png'),image, bitdepth = 8)
+# 	i+=1

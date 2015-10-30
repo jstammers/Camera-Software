@@ -9,6 +9,7 @@ import wx.grid
 import wx.aui
 
 import numpy
+import sys
 
 from observer import Subject, changes_state
 import gridtypes
@@ -18,7 +19,7 @@ import functools
 import re
 import types
 from custom_events import ReloadImageEvent
-
+from settings import varfile
 class DynamicExpressionDialog(wx.Dialog):
     """
     Create dialog for entering dynamic expressions.
@@ -76,7 +77,26 @@ def changes_data(f):
     return wrapper
 
 
+def query_yes_no(question, default = 'yes'):
+    valid = {'yes':True,'no':False,'y':True,'n':False,'ye':True}
+    if default is None:
+        prompt = '[y/n]'
+    elif default == 'yes':
+        prompt = '[Y/n]'
+    elif default == 'no':
+        prompt = '[y/N]'
+    else:
+        raise ValueError("invalid default answer: '%s'" % default)
 
+    while True:
+        sys.stdout.write(question+prompt)
+        choice = raw_input().lower()
+        if default is not None and choice == '':
+            return valid[default]
+        elif choice in valid:
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' ")
 class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
     """
     Stores and handles all data for fit results.
@@ -91,31 +111,46 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
 
         #NOTE: if columns added, perhaps it's necessary to change fitpar
         #below
-        _columns = numpy.array([
+
+       
+        varlist = []
+
+        var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S15','f4')})
+        for line in var_array:
+            varlist.append(line[0])
+            varlist.append('double_empty:5,3')
+            varlist.append(2)
+            if line ==var_array[0]:
+                varlist.append(1)
+            else:
+                varlist.append(0)
+            varlist.append('')
+        
+        rowlist=[
             #name       type          dynamic show
             'FileID',   'long',             0, 1, '',  #0
             'Filename', 'string',           0, 0, '',  #1
-            'N K',      'double_empty:4,1', 0, 1, 'K', #2
-            'Nerr K',   'double_empty:4,2', 0, 0, 'K',
-            'Nth K',    'double_empty:4,1', 0, 0, 'K', #3
-            'Nbec K',   'double_empty:4,1', 0, 0, 'K', #4
-            'OD K',     'double_empty:4,1', 0, 0, 'K', #5
-            'sx K',     'double_empty:4,1', 0, 1, 'K', #6
-            'sxerr K',  'double_empty:4,2', 0, 0, 'K', #7
-            'sy K',     'double_empty:4,1', 0, 1, 'K', #8
-            'syerr K',  'double_empty:4,2', 0, 0, 'K', #9
-            'rx K',     'double_empty:4,1', 0, 0, 'K', #10
-            'rxerr K',  'double_empty:4,2', 0, 0, 'K', #11
-            'ry K',     'double_empty:4,1', 0, 0, 'K', #12
-            'ryerr K',  'double_empty:4,2', 0, 0, 'K', #13
-            'mx K',     'double_empty:4,1', 0, 0, 'K', #14
-            'myerr K',  'double_empty:4,2', 0, 0, 'K', #15
-            'my K',     'double_empty:4,1', 0, 0, 'K', #16
-            'myerr K',  'double_empty:4,2', 0, 0, 'K', #17
-            'T K',      'double_empty:4,3', 0, 1, 'K', #18
-            'Terr K',   'double_empty:4,3', 0, 0, 'K', #19
-            'sigma K',  'double_empty:4,3', 0, 0, 'K',
-            'params K', 'string',           0, 0, 'K', #20
+            #'N K',      'double_empty:4,1', 0, 1, 'K', #2
+            #'Nerr K',   'double_empty:4,2', 0, 0, 'K',
+            #'Nth K',    'double_empty:4,1', 0, 0, 'K', #3
+            #'Nbec K',   'double_empty:4,1', 0, 0, 'K', #4
+            #'OD K',     'double_empty:4,1', 0, 0, 'K', #5
+            #'sx K',     'double_empty:4,1', 0, 1, 'K', #6
+            #'sxerr K',  'double_empty:4,2', 0, 0, 'K', #7
+            #'sy K',     'double_empty:4,1', 0, 1, 'K', #8
+            #'syerr K',  'double_empty:4,2', 0, 0, 'K', #9
+            #'rx K',     'double_empty:4,1', 0, 0, 'K', #10
+            #'rxerr K',  'double_empty:4,2', 0, 0, 'K', #11
+            #'ry K',     'double_empty:4,1', 0, 0, 'K', #12
+            #'ryerr K',  'double_empty:4,2', 0, 0, 'K', #13
+            #'mx K',     'double_empty:4,1', 0, 0, 'K', #14
+            #'myerr K',  'double_empty:4,2', 0, 0, 'K', #15
+            #'my K',     'double_empty:4,1', 0, 0, 'K', #16
+            #'myerr K',  'double_empty:4,2', 0, 0, 'K', #17
+            #'T K',      'double_empty:4,3', 0, 1, 'K', #18
+            #'Terr K',   'double_empty:4,3', 0, 0, 'K', #19
+            #'sigma K',  'double_empty:4,3', 0, 0, 'K',
+            #'params K', 'string',           0, 0, 'K', #20
             'N Rb',     'double_empty:4,1', 0, 1, 'Rb',#21
             'Nerr Rb',  'double_empty:4,2', 0, 0, 'Rb',#21
             'Nth Rb',   'double_empty:4,1', 0, 0, 'Rb',#22
@@ -146,16 +181,22 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
             'user2',    'double_empty:5,3', 0, 0, '',  #45
             'user3',    'double_empty:5,3', 0, 0, '',  #46
             'Omit',     'bool_custom',      0, 1, '',  #47
-            'Remark',   'string',           0, 1, '',  #48
-            ], dtype = numpy.object)
+            #'Remark',   'string',           0, 1, '',  #48
+            ]
+        _columns = numpy.array(rowlist+varlist+['Remark','string',0,1,''], dtype = numpy.object)
+        #_columns.shape = (-1, 5)
+
+               
+        #_columns = numpy.append(_columns,['Remark','string', 0, 1, ''])
         _columns.shape = (-1, 5)
 
         self.colLabels = _columns[:,0] #:column labels
         self.dataTypes = _columns[:,1] #:data types
 
         #:indices of columns whith dynamic content
-        self.dynamic_cols = list(_columns[:,2].nonzero()[0])
-        
+        self.dynamic_cols = list(numpy.where(_columns[:,2]==1)[0])
+        self.variable_cols= list(numpy.where(_columns[:,2]>1)[0])
+        print self.variable_cols
         #:expressions for dynamic columns"
         self.dynamic_expressions = ['']*len(self.dynamic_cols)
         
@@ -214,7 +255,8 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
         self.observers = set()
 
         self.end_batch()
-
+      
+          
 
     #{ required methods for the wxPyGridTableBase interface
     def GetNumberRows(self):
@@ -404,8 +446,10 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
                         pass
 
         self.update_dynamic_cols()
+        self.update_variable_cols()
 
-        self.GetView().MakeCellVisible(row, 0)
+        #uncomment this to change row selection to the newly added row
+        #self.GetView().MakeCellVisible(row, 0)
         self.GetView().Refresh()
 
     def UpdateFilename(self, filename):
@@ -464,36 +508,36 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
 
         #color marks
         if self.colsel[col] in self.marks['X']:
-            attr.SetBackgroundColour(wx.Color(255, 230, 230))
+            attr.SetBackgroundColour(wx.Colour(255, 230, 230))
         elif self.colsel[col] in self.marks['Y1']:
-            attr.SetBackgroundColour(wx.Color(255, 255, 205))
+            attr.SetBackgroundColour(wx.Colour(255, 255, 205))
         elif self.colsel[col] in self.marks['Y2']:
-            attr.SetBackgroundColour(wx.Color(255, 255, 155))
+            attr.SetBackgroundColour(wx.Colour(255, 255, 155))
         elif self.colsel[col] in self.marks['G']:
-            attr.SetBackgroundColour(wx.Color(155, 255, 155))
+            attr.SetBackgroundColour(wx.Colour(155, 255, 155))
 
         #color dynamic columns
         if self.colsel[col] in self.dynamic_cols:
-            attr.SetBackgroundColour(wx.Color(200, 200, 200))
+            attr.SetBackgroundColour(wx.Colour(200, 200, 200))
 
         #color last rows
         maxRows = self.GetNumberRows()
         if self.active:
             if maxRows - row == 1: #last row
-                attr.SetBackgroundColour(wx.Color(255, 230, 230))
+                attr.SetBackgroundColour(wx.Colour(255, 230, 230))
             elif maxRows - row == 2: #second to last row
-                attr.SetBackgroundColour(wx.Color(255, 255, 205))
+                attr.SetBackgroundColour(wx.Colour(255, 255, 205))
             elif maxRows - row == 3:
                 if self.record:
-                    attr.SetBackgroundColour(wx.Color(200, 255, 200))
+                    attr.SetBackgroundColour(wx.Colour(200, 255, 200))
                 else:
-                    attr.SetBackgroundColour(wx.Color(255, 100, 100))
+                    attr.SetBackgroundColour(wx.Colour(255, 100, 100))
         else:
             if maxRows - row <= 2:
-                attr.SetBackgroundColour(wx.Color(127, 127, 127))
+                attr.SetBackgroundColour(wx.Colour(127, 127, 127))
 
         if self.rowmask[row]:
-            attr.SetTextColour(wx.Color(0,0,255))
+            attr.SetTextColour(wx.Colour(0,0,255))
             
         return attr
 
@@ -699,6 +743,16 @@ class FitResultDataTable(wx.grid.PyGridTableBase, Subject):
                     self.SetValueRaw(row, col, None)
                 else:
                     self.SetValueRaw(row, col, result)
+    def update_variable_cols(self,row=None,column=None):
+        if row is None:
+            row=self.active_row
+        var_array=numpy.loadtxt(varfile,skiprows = 1,dtype={'names':('variables','values'),'formats':('S10','f4')})
+
+        i=0
+        print self.variable_cols
+        for col in self.variable_cols:
+            self.SetValueRaw(row,col,var_array[i][1])
+            i+=1
 
     #@changes_data #(reset = True) #TODO: decorator with parameter?
     def save_data_csv(self, filename):
