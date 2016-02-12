@@ -249,8 +249,8 @@ class AcquireThreadAVT(AcquireThread): #To be used with app=ImgAcqApp (self), ca
         with closing(self.cam.open(mode = self.app.imaging_mode_AVT,pixel = self.app.pixelformat_AVT)):
             ## TODO set_timing stuff
             if self.app.imaging_mode_AVT == 'live':
-                self.cam.set_AutoMode(exposure = self.app.timing_AVT.get_exposure())
-                wait = 0
+                self.cam.set_AutoMode(exposure = self.app.timing_AVT.get_exposure(), repetition=self.app.timing_AVT.get_repetition())
+                wait = self.app.timing_AVT.get_repetition()
             else:
                 self.cam.set_TriggerMode(gated=True)
                 wait = 10000000
@@ -1738,11 +1738,12 @@ class ImgAcquireApp(wx.App):
             self.timing_sony.external = False
             
         if event.Id == self.ID_TimingAVTSettings:
-            dialog = self.create_timing_dialog(exposure=self.timing_AVT.exposure)
+            dialog = self.create_timing_dialog(exposure=self.timing_AVT.exposure, repetition=self.timing_AVT.repetition)
             res = dialog.ShowModal()
             if res == wx.ID_OK:
-                exp= dialog.GetResults()
-                self.timing_AVT.exposure= exp
+                exp,rep = dialog.GetResults()
+                self.timing_AVT.exposure = exp
+                self.timing_AVT.repetition = rep
                
             dialog.Destroy()
 
@@ -1914,11 +1915,11 @@ class ImgAcquireApp(wx.App):
 
         wx.AboutBox(info)
 
-    def create_timing_dialog(self, exposure):
+    def create_timing_dialog(self, exposure,repetition=600):
         dialog = TimingDialog(self.frame, - 1,
                               "Set Timing",
                               exposure=exposure,
-                              repetition=None)
+                              repetition=600)
         dialog.CenterOnScreen()
         return dialog
 
@@ -1963,7 +1964,6 @@ class TimingDialog(wx.Dialog):
                  exposure=100,
                  repetition=600,
                  repetition_min=600):
-        
         self.repetition_shown = (repetition is not None)
         
         pre = wx.PreDialog()

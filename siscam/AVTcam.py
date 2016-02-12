@@ -86,7 +86,7 @@ class AVTcam(object):
 
 
 
-    def set_AutoMode(self,exposure=40):
+    def set_AutoMode(self,exposure=40,repetition=600):
         self.camera0.ExposureMode = 'Timed'
         self.camera0.ExposureTime = int(round(exposure*1000))
         if self.camera0.TriggerMode == 'On':
