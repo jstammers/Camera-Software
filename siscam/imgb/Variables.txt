@@ -1,0 +1,9 @@
+23/10/2015 11:47:39
+IterationNum 322
+IterationCount 630
+exp 3
+MOT 0.55
+MPhi 0.24
+TempTime 4
+MOT_freq 145
+Var 8 3

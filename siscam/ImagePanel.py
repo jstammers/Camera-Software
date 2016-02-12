@@ -836,9 +836,9 @@ class CamImagePanel(ImagePanel):
     (panning)."""
 
 
-    contrast = [ ['low',    256],
-                 ['normal', 128],
-                 ['high',   64],
+    contrast = [ ['low',   300],
+                 ['normal', 520],
+                 ['high',   1024],
                  ]
 
     contrast_default = 1 #default entry of table before

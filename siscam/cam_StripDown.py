@@ -379,7 +379,7 @@ class ImgPanel(wx.Panel):
         #store input data
         self.id = panel_id
         self.rawimg = img
-        self.img = img #for the moment
+        self.img = img #nfor the moment
         self.fit = fitroutine
         self.roi = region_of_interest
         
@@ -978,7 +978,7 @@ class ImgAppAui(wx.App):
 
     def results_save_filename_ask(self, results):
         """return filename or None"""
-        filename_proposal = time.strftime("%Y%m%d") + '-' + self.results.name 
+        filename_proposal =self.results.name 
         savedialog = wx.FileDialog(
             self.frame,
             message="Save results as ...",
@@ -1297,9 +1297,9 @@ class ImgAppAui(wx.App):
         return directory
 
     def OnSaveImageEvent(self, event):
-        imagesavedir = self.get_data_dir(subdir = 'images')
-        imagesavefilename = "%s-%s-%04d.sis" % (time.strftime("%Y%m%d"),
-                                             self.results.name,
+        imagesavedir = self.get_data_dir(subdir = 'Images')
+        # Saves Image with a name based on results table and fileID
+        imagesavefilename = "%s_%04d.png" % (self.results.name,
                                              self.results.active_row)
         imagesavefilenamefull = os.path.normpath(os.path.join(imagesavedir, imagesavefilename))
 

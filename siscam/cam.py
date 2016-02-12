@@ -1008,7 +1008,7 @@ class ImgAppAui(wx.App):
 
     def results_save_filename_ask(self, results):
         """return filename or None"""
-        filename_proposal = time.strftime("%Y%m%d") + '-' + self.results.name 
+        filename_proposal = self.results.name 
         savedialog = wx.FileDialog(
             self.frame,
             message="Save results as ...",
