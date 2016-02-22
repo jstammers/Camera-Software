@@ -1741,7 +1741,7 @@ class ImgAcquireApp(wx.App):
             dialog = self.create_timing_dialog(exposure=self.timing_AVT.exposure, repetition=self.timing_AVT.repetition)
             res = dialog.ShowModal()
             if res == wx.ID_OK:
-                exp,rep = dialog.GetResults()
+                exp, rep = dialog.GetResults()
                 self.timing_AVT.exposure = exp
                 self.timing_AVT.repetition = rep
                
@@ -1915,11 +1915,11 @@ class ImgAcquireApp(wx.App):
 
         wx.AboutBox(info)
 
-    def create_timing_dialog(self, exposure,repetition=600):
+    def create_timing_dialog(self, exposure, repetition):
         dialog = TimingDialog(self.frame, - 1,
                               "Set Timing",
                               exposure=exposure,
-                              repetition=600)
+                              repetition=repetition)
         dialog.CenterOnScreen()
         return dialog
 
@@ -1994,7 +1994,7 @@ class TimingDialog(wx.Dialog):
             label = wx.StaticText(self, - 1, "Repetition time (ms)")
             box.Add(label, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
             entry = wx.SpinCtrl(self, - 1, "", (50, - 1))
-            entry.SetRange(repetition_min, 5000)
+            entry.SetRange(repetition_min, 50000)
             entry.SetValue(repetition)
             box.Add(entry, 1, wx.ALIGN_CENTRE | wx.ALL, 5)
             sizer.Add(box, 0, wx.GROW | wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
